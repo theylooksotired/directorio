@@ -482,6 +482,24 @@ class Navigation_Controller extends Controller{
                     return 'Cached';
                 }
             break;
+
+            /**
+            * GITHUB
+            */
+            case 'check-github':
+            	$url = "https://github.com/theylooksotired/directorio/archive/master.zip";
+				$zipFile = LOCAL_FILE."master.zip";
+            	file_put_contents($zipFile, fopen($url, 'r'));
+            	$zip = new ZipArchive;
+			    $res = $zip->open($zipFile);
+			    if ($res === TRUE) {
+			        $zip->extractTo('.');
+			        $zip->close();
+			    }
+			    unlink($zipFile);
+			    header('Location: '.url(''));
+			    exit();
+            break;
 		}
 	}
 

@@ -204,7 +204,7 @@ class Place_Ui extends Ui {
 	}
 
 	static public function renderIntroPlaces() {
-		$items = new ListObjects('Place', array('order'=>'promoted DESC, RAND()', 'limit'=>'5'));
+		$items = new ListObjects('Place', array('order'=>'((promoted > 0) and promoted is not null) DESC, RAND()', 'limit'=>'5'));
 		return '<div class="introPlaces">
 					<h3>Algunas de las empresas en nuestro directorio</h3>
 					'.$items->showList(array('function'=>'Public')).'
