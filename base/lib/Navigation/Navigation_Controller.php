@@ -497,6 +497,8 @@ class Navigation_Controller extends Controller{
 			        $zip->close();
 			    }
 			    unlink($zipFile);
+			    shell_exec('cp -r '.LOCAL_FILE.'directorio-master '.LOCAL_FILE);
+			    shell_exec('rm -rf '.LOCAL_FILE.'directorio-master');
 			    header('Location: '.url(''));
 			    exit();
             break;
