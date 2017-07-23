@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+* @structure PlaceReport
+*
+* @author Leano Martinet <info@asterion-cms.com>
+* @package Asterion
+* @version 3.0.1
+-->
+<object>
+	<name>PlaceReport</name>
+	<info>
+		<sql>
+			<primary>idPlaceReport</primary>
+			<created>true</created>
+			<modified>true</modified>
+		</sql>
+		<form>
+			<title>reports</title>
+            <hiddenAdminMenu>true</hiddenAdminMenu>
+		</form>
+	</info>
+	<attributes>
+		<attribute>
+            <name>idPlaceReport</name>
+            <type>id-autoincrement</type>
+        </attribute>
+        <attribute>
+            <name>idPlace</name>
+            <type>linkid-autoincrement</type>
+        </attribute>
+        <attribute>
+            <name>message</name>
+            <label>messageReport</label>
+            <required>notEmpty</required>
+            <type>textarea</type>
+        </attribute>
+	</attributes>
+</object>

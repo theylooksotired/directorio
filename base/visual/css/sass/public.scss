@@ -1,0 +1,965 @@
+@import "_reset.scss";
+
+@import "_variables.scss";
+@import "_common.scss";
+@import "_mixins.scss";
+@import "_jqueryui.scss";
+
+@import "_public_icons.scss";
+@import "_public_header.scss";
+@import "_public_menu.scss";
+@import "_public_footer.scss";
+@import "_public_sidebar.scss";
+@import "_public_forms.scss";
+
+html,
+body {
+	font-size: $fontSizeNormal;
+	line-height: 1.1;
+	font-family: $fontFamily;
+	color: $colorText;
+}
+
+.contentWrapper {
+	padding: 70px 0;
+	max-width: $sizeDesktop;
+	margin: auto;
+	@include clearer();
+	&.contentWrapperIntro {
+		padding: 20px 0;
+	}
+	.contentLeft {
+		width: calc(100% - 400px);
+		float: right;
+	}
+	.contentRight {
+		width: 380px;
+		float: left;
+	}
+	.breadcrumbs {
+		padding: 0 0 3px;
+		margin: 0 0 5px;
+		border-bottom: 1px solid darken($white, 5%);
+		font-size: $fontSizeTiny;
+		color: darken($white, 20%);
+		a {
+			color: darken($white, 30%);
+			font-weight: normal;
+			&:hover {
+				color: $colorMainAlt;
+			}
+		}
+	}
+	h1 {
+		font-size: $fontSizeHuge;
+		font-weight: bold;
+		padding: 0 0 20px;
+		margin: 0;
+		color: $colorAccent;
+		span,
+		em {
+			display: block;
+			font-size: $fontSizeTiny;
+			color: desaturate($colorAccent, 20%);
+			text-transform: uppercase;
+		}
+		em {
+			font-style: normal;
+			color: desaturate($colorAccent, 40%);
+			font-weight: bold;
+		}
+	}
+	.cityLinks {
+		font-size: $fontSizeSmall;
+		color: darken($white, 30%);
+		padding: 0 0 10px;
+		a {
+			color: darken($white, 60%);
+			font-weight: normal;
+			&:hover {
+				color: $colorAccent;
+			}
+		}
+	}
+	.listContent {
+		padding-top: 30px;
+	}
+	.listResults {
+		font-size: $fontSizeSmall;
+		font-style: italic;
+		color: lighten($black, 40%);
+		text-align: right;
+	}
+}
+.cityList {
+	@include clearer();
+	a {
+		float: left;
+		width: 50%;
+		font-size: $fontSizeBig * 2 / 3;
+		display: block;
+		padding: 10px;
+		font-weight: normal;
+		color: lighten($colorText, 10%);
+		@include textEllipsis();
+		@include borderBox();
+		&:hover {
+			color: $colorText;
+		}
+	}
+}
+.pagerAll {
+	padding: 20px 0px;
+	font-size: $fontSizeSmall;
+	text-align: center;
+	.pager,
+	.pagerActive {
+		display: inline-block;
+		margin: 0 3px;
+		a {
+			display: inline-block;
+			font-weight: normal;
+			padding: 7px 12px;
+			background: darken($white, 30%);
+			color: $white;
+			@include borderRadius(3px);
+			&:hover {
+				background: $colorMessage;
+			}
+		}
+	}
+	.pagerActive a {
+		background: darken($white, 40%);
+	}
+}
+.adsenseTest {
+	background: lighten(desaturate($colorText, 60%), 70%);
+	border: 1px solid lighten(desaturate($colorText, 60%), 65%);
+	text-align: center;
+	padding: 30px;
+	text-transform: uppercase;
+	color: lighten(desaturate($colorText, 60%), 50%);
+}
+.adsense {
+	text-align: center;
+	margin: 0 auto 20px 0;
+}
+.adsenselinksWrapper {
+	@include clearer();
+}
+.adsenselinks {
+	float: left;
+	margin-right: 10px;
+}
+.message {
+	color: $colorAccept;
+	background: rgba($colorAccept, 0.1);
+	border: 1px solid rgba($colorAccept, 0.15);
+	font-weight: bold;
+	padding: 15px;
+	text-align: center;
+	font-size: $fontSizeSmall;
+	max-width: $sizeTablet * 2 / 3;
+	line-height: 1.5;
+	margin: 40px auto;
+	@include borderRadius(5px);
+	p {
+		&:last-child {
+			padding: 0;
+		}
+	}
+	a {
+		color: darken($colorAccept, 10%);
+		&:hover {
+			text-decoration: underline;
+			opacity: 0.7;
+		}
+	}
+	&.messageError {
+		color: $colorError;
+		background: rgba($colorError, 0.1);
+		border: 1px solid rgba($colorError, 0.15);
+		a {
+			color: darken($colorError, 10%);
+		}
+	}
+	&.messageInfo {
+		color: $colorInfo;
+		background: rgba($colorInfo, 0.1);
+		border: 1px solid rgba($colorInfo, 0.15);
+		a {
+			color: darken($colorInfo, 10%);
+		}
+	}
+	&.formFieldsPromotedMessage {
+		margin: 10px 0;
+		max-width: 100%;
+		p {
+			padding: 0 0 10px;
+		}
+		.icon-paypal {
+			font-size: 30px;
+			line-height: 1;
+			text-align: center;
+			display: block;
+			color: $colorPaypal;
+		}
+	}
+}
+.buttonHome {
+	text-align: center;
+	margin: 200px auto 20px auto;
+	a {
+		display: inline-block;
+		background: rgba($colorText, 0.1);
+		border: 1px solid rgba($colorText, 0.15);
+		color: $colorText;
+		padding: 10px 20px;
+		text-align: center;
+		font-weight: bold;
+		font-size: $fontSizeSmall;
+		i,
+		span {
+			display: inline-block;
+			vertical-align: middle;
+		}
+		i {
+			font-size: $fontSizeBig;
+			padding: 0 5px 0 0;
+		}
+		@include borderRadius(3px);
+		&:hover {
+			background: lighten($colorText, 10%);
+			color: $white;
+		}
+	}
+}
+.buttonPaypalWrapper {
+	text-align: center;
+	margin: 0 0 30px 0;
+}
+.buttonPaypal {
+	display: inline-block;
+	background: $colorPaypal;
+	border: 1px solid darken($colorPaypal, 3%);
+	color: $white;
+	padding: 10px 60px 5px 60px;
+	text-align: center;
+	margin: auto;
+	cursor: pointer;
+	span {
+		font-size: $fontSizeTiny;
+		font-weight: normal;
+		font-style: italic;
+		display: block;
+		padding: 0 0 5px 0;
+	}
+	i {
+		font-size: 40px;
+		line-height: 1;
+	}
+	@include borderRadius(3px);
+	&:hover {
+		background: darken($colorPaypal, 20%);
+	}
+}
+
+.itemPublic {
+	padding: 0;
+	margin: 0 0 15px; 
+	background: darken($white, 3%);
+	border: 1px solid darken($white, 6%);
+	font-size: $fontSizeSmall;
+	@include clearer();
+	&:last-child {
+		margin: 0;
+	}
+	&.itemPublicPromoted {
+		background: lighten(saturate($colorMainAlt, 50%), 43%);
+		border: 1px solid lighten($colorMainAlt, 30%);
+		.tagsPlace {
+			background: lighten($colorMainAlt, 30%);
+		}
+		.itemPublicInfo {
+			a {
+				padding: 0;
+			}
+		}
+		.itemPublicWrapper {
+			display: table;
+			width: 100%;
+			.itemPublicWrapperLeft {
+				width: 20%;
+				display: table-cell;
+				vertical-align: top;
+				padding: 15px;
+				background: $white;
+				img {
+					width: 100%;
+				}
+			}
+			.itemPublicWrapperRight {
+				width: 80%;
+				display: table-cell;
+				vertical-align: top;
+				padding: 15px;
+			}
+			p,
+			.city {
+				margin: 0;
+				padding: 0 0 10px 30px;
+			}
+		}
+	}
+	.itemPublicInfo {
+		a {
+			padding: 15px 15px 0 15px;
+			display: block;
+			font-weight: normal;
+			h2 {
+				font-size: $fontSizeNormal;
+				color: darken($colorMainAlt, 10%);
+				font-weight: bold;
+				padding: 0 0 5px;
+			}
+			p {
+				padding: 0 0 10px 30px;
+				position: relative;
+				&:last-child {
+					padding: 0;
+				}
+				&.telephone {
+					color: lighten($colorText, 5%);
+				}
+				&.shortDescription {
+					padding: 0 0 10px;
+					color: lighten($colorText, 5%);
+					font-style: italic;
+				}
+			}
+			&:hover {
+				h2 {
+					color: $colorAccent;
+				}
+			}
+		}
+	}
+	.city {
+		color: lighten($colorText, 5%);
+		padding: 0 15px 15px 30px;
+		margin: 0 0 0 15px;
+		position: relative;
+		a {
+			padding: 0;
+			color: lighten($colorText, 10%);
+			display: inline-block;
+			font-weight: bold;
+			&:hover {
+				color: darken($colorText, 10%);
+			}
+		}
+	}
+	i {
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: rgba(lighten($colorText, 15%), 0.5);
+		padding: 0 10px 0 0;
+	}
+}
+.itemComplete {
+	.itemCompleteInfo {
+		padding: 15px;
+		background: darken($white, 4%);
+		border: 1px solid darken($white, 10%);
+		p {
+			padding: 0 0 20px 40px;
+			position: relative;
+			&:last-child {
+				padding: 0 0 0 40px;
+			}
+			i {
+				position: absolute;
+				top: 3px;
+				left: 0;
+				font-size: $fontSizeBig;
+				color: rgba(lighten($colorText, 15%), 0.3);
+			}
+			&.shortDescription,
+			&.description {
+				padding: 0 0 40px;
+				white-space: pre-line;
+				color: lighten($colorText, 10%);
+			}
+		}
+		em {
+			color: darken($white, 60%);
+			padding: 0 0 5px;
+			font-size: 0.8em;
+			font-style: normal;
+			display: block;
+		}
+	}
+	.contact {
+		padding-bottom: 30px;
+		a {
+			display: block;
+			background: darken($white, 5%);
+			padding: 15px;
+			text-align: center;
+			font-weight: normal;
+			font-size: 0.8em;
+			&:hover {
+				background: darken($white, 60%);
+				color: $white;
+			}
+		}
+	}
+}
+.tagsPlace {
+	background: darken($white, 10%);
+	padding: 0;
+	margin: 0;
+	text-align: right;
+	a {
+		display: inline-block;
+		margin: 0;
+		color: darken($white, 70%);
+		font-weight: normal;
+		font-size: $fontSizeTiny;
+		padding: 4px 5px;
+		margin: 3px;
+		@include borderRadius(3px);
+		&:hover {
+			background: $colorAccentAlt;
+			color: $white;
+		}
+	}
+}
+.related {
+	padding-top: 70px;
+	h3 {
+		font-size: 1.4em;
+		font-weight: normal;
+		padding-bottom: 30px;
+	}
+}
+.introPage {
+	.introPageLeft {
+		width: 55%;
+		float: left;
+		h1 {
+			font-size: $fontSizeBig;
+		}
+	}
+	.introPageRight {
+		width: 40%;
+		float: right;
+	}
+}
+
+.promotion {
+	max-width: $sizeTablet;
+	margin: auto;
+	padding: 20px;
+	background: darken($white, 3%);
+	@include clearer();
+	.promotionRight {
+		width: 300px;
+		float: right;
+	}
+	.promotionLeft {
+		width: calc(100% - 350px);
+		float: left;
+		font-size: $fontSizeNormal;
+	}
+	.promotionAd {
+		padding: 20px 20px 20px 30px;
+		background: lighten($colorText, 15%);
+		border-left: 30px solid lighten($colorText, 12%);
+		color: $white;
+		font-size: $fontSizeBig;
+		text-align: left;
+		p {
+			padding: 0 0 0 30px;
+		}
+		.promotionAdNumber {
+			font-size: $fontSizeHuge * 2.5;
+			color: lighten($colorMainAlt, 15%);
+			font-weight: 900;
+			letter-spacing: -0.1em;
+			line-height: 0.9;
+			text-indent: -30px;
+			display: block;
+			em {
+				font-size: $fontSizeBig;
+				color: lighten($colorMainAlt, 15%);
+				font-weight: normal;
+				font-style: normal;
+				letter-spacing: 0;
+				display: inline-block;
+				padding: 0 0 0 10px;
+				text-indent: 0;
+			}
+		}
+		.promotionAdPrice {
+			color: lighten($colorMainAlt, 25%);
+			font-size: $fontSizeTiny;
+			font-style: italic;
+			padding: 0 0 10px;
+			display: block;
+		}
+	}
+}
+
+.actions {
+	padding: 20px 0;
+	@include clearer();
+	.action {
+		width: 30%;
+		float: left;
+		padding: 0 10px 0 0;
+		@include borderBox();
+		&:last-child {
+			padding: 0;
+		}
+		a {
+			display: block;
+			padding: 15px 10px;
+			text-align: center;
+			color: $white;
+			text-transform: uppercase;
+			font-size: $fontSizeSmall;
+			vertical-align: middle;
+			background: lighten($black, 50%);
+			border: 1px solid lighten($black, 45%);
+			@include borderRadius(3px);
+			&:hover {
+				background: lighten($black, 40%);
+			}
+			i {
+				display: inline-block;
+				font-size: $fontSizeBig;
+				vertical-align: middle;
+				padding: 0 10px 0 0;
+			}
+		}
+		&.action-update {
+			width: 40%;
+			a {
+				background: $colorAccept;
+				border: 1px solid darken($colorAccept, 10%);
+				&:hover {
+					background: darken($colorAccept, 10%);
+				}
+			}
+		}
+	}
+}
+
+.contentWrapper-promotion {
+	max-width: 100%;
+	background: $colorMainAlt;
+	h1 {
+		max-width: $sizeDesktop;
+		margin: auto;
+		text-align: center;
+		font-family: $fontFamily;
+		font-weight: bold;
+		text-transform: uppercase;
+		letter-spacing: -2px;
+		padding: 20px 0 30px 0;
+		font-size: $fontSizeHuge * 4 / 5;
+		color: $white;
+		text-shadow: 1px 1px 3px darken($colorMainAlt, 15%);
+	}
+}
+
+.contentWrapper-simple {
+	max-width: 100%;
+	background: darken($white, 2%);
+	h1 {
+		text-align: center;
+		font-size: $fontSizeBig;
+		font-weight: bold;
+		margin: 0 0 30px;
+		padding: 0 0 15px;
+		position: relative;
+		color: $colorAccent;
+		&:after {
+			content: '';
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100px;
+			height: 3px;
+			background: $colorAccent;
+			margin: auto;
+		}
+	}
+	.pageComplete {
+		max-width: $sizeTablet;
+		margin: auto;
+	}
+}
+.promotionPay {
+	padding: 20px;
+	margin: 0 auto 40px auto;
+	max-width: $sizeTablet;
+	background: $white;
+	.formPublic {
+		border: 0;
+		max-width: $sizeTablet;
+		margin: auto;
+		background: transparent;
+		@include clearer();
+		.formField {
+			width: 35%;
+			float: left;
+			margin: 0 2% 0 0;
+			label,
+			input {
+				display: block;
+				float: none;
+				width: 100%;
+				margin: 0;
+			}
+			label {
+				padding: 0 0 5px;
+			}
+		}
+		.formSubmitWrapper {
+			width: 25%;
+			float: right;
+			input {
+				width: 100%;
+				margin: 8px 0 0 0;
+			}
+		}
+	}
+}
+
+.pagePromoted {
+	.pagePromotedBackground {
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-color: $colorText;
+	}
+	.pagePromotedBackgroundMask {
+		padding: 60px 0 0 0;
+	}
+	.header {
+		background: rgba($black, 0.6);
+		border-bottom: 1px solid rgba($black, 0.6);
+		.logo a {
+			strong {
+				background-image: url(../../img/logoWhite.png);
+			}
+			span {
+				border-top: 3px double rgba($white, 0.3);
+				color: rgba($white, 0.9);
+			}
+		}
+	}
+	.searchTop {
+		.formFieldSubmit {
+			button {
+				background: rgba($white, 0.2);
+				border: 0;
+				&:hover {
+					background: rgba($white, 0.3);
+				}
+			}
+		}
+	}
+	.subscribeTop {
+		display: none;
+	}
+	.footer {
+		background: lighten($black, 20%);
+		margin: 0;
+		.footerDown {
+			a {
+				color: darken($white, 20%);
+				&:hover {
+					color: $white;
+				}
+			}
+			.btnContact {
+				a {
+					color: lighten($black, 20%);
+				}
+			}
+		}
+	}
+	.itemComplete {
+		padding: 50px 0 100px 0;
+		.itemCompleteInfo {
+			background: transparent;
+			margin: 0;
+			padding: 0;
+			border: 0;
+		}
+		.itemCompleteIns {
+			background: rgba(darken($white, 3%), 0.96);
+			border: 0;
+			max-width: $sizeTablet;
+			margin: auto;
+			@include simpleShadow();
+		}
+		h1 {
+			font-size: $fontSizeHuge * 4 / 5;
+			font-weight: bold;
+			padding: 10px 15px;
+			background: $white;
+			margin: 0;
+			letter-spacing: -1px;
+		}
+	}
+	.itemCompleteWrapper {
+		padding: 15px;
+		@include clearer();
+		.itemCompleteWrapperLeft {
+			width: 20%;
+			float: left;
+			img {
+				width: 100%;
+				padding: 10px;
+				background: $white;
+				@include borderBox();
+			}
+		}
+		.itemCompleteWrapperRight {
+			width: 78%;
+			float: right;
+		}
+		p.description {
+			padding: 0;
+		}
+	}
+	.itemCompleteInfoWrapper.itemCompleteInfo {
+		padding: 15px 15px 40px 15px;
+		@include clearer();
+		.itemCompleteInfoLeft,
+		.itemCompleteInfoRight {
+			width: 50%;
+			float: left;
+		}
+	}
+}
+
+.promotionInfo {
+	background: $white;
+	padding: 40px 0 0 0;
+	table {
+		max-width: $sizeDesktop;
+		margin: auto;
+		table-layout: fixed;
+		td {
+			border: 0;
+			padding: 20px 40px;
+			margin: 0;
+			background: lighten($colorText, 75%);
+			border-bottom: 5px solid $white;
+			text-align: center;
+			img {
+				padding: 40px 10px;
+				@include borderBox();
+			}
+			&:nth-child(2) {
+				background: lighten($colorMainAlt, 30%);
+				border-left: 5px solid $white;
+			}
+		}
+		tr {
+			&:nth-child(1) {
+				td {
+					background: lighten($colorText, 20%);
+					vertical-align: middle;
+					padding: 10px;
+					&:nth-child(2) {
+						background: darken($colorMainAlt, 5%);
+						h2 {
+							font-size: $fontSizeHuge;
+							text-shadow: 1px 1px 4px rgba($black, 0.5);
+							text-transform: normal;
+							span {
+								font-size: $fontSizeBig;
+								letter-spacing: -1px;
+							}
+							em {
+								font-size: $fontSizeNormal;
+								display: inline-block;
+								font-weight: normal;
+							}
+						}
+					}
+					h2 {
+						text-transform: uppercase;
+						color: $white;
+						padding: 15px 0;
+						margin: 0;
+					}
+				}
+			}
+		}
+	}
+}
+
+.promotionPayBottom {
+	max-width: $sizeDesktop;
+	margin: auto;
+	.promotionPayBottomIns {
+		padding-left: calc(50% + 3px);
+		form {
+			border: 0;
+			background: lighten($colorMainAlt, 30%);
+		}
+		.promotionPayBottomTitle {
+			font-weight: bold;
+			text-transform: uppercase;
+			letter-spacing: -1px;
+			padding: 10px 0;
+			font-size: $fontSizeBig;
+			color: $white;
+			background: $colorAccent;
+			text-align: center;
+		}
+	}
+	@include borderBox();
+}
+
+.shareOptions {
+	padding: 20px 0 0 0 ;
+	text-align: right;
+	font-size: $fontSizeSmall;
+	.shareOptionsTitle {
+		display: inline-block;
+		vertical-align: middle;
+		color: lighten($black, 40%);
+		font-size: $fontSizeTiny;
+	}
+	.shareOptionsIns {
+		display: inline-block;
+		vertical-align: middle;
+		a {
+			display: inline-block;
+			vertical-align: middle;
+			padding: 10px 15px;
+			margin: 0 0 0 10px;
+			background: darken($white, 10%);
+			color: $white;
+			@include borderRadius(3px);
+			&.optionFacebook {
+				background: $colorFacebook;
+			}
+			&.optionTwitter {
+				background: $colorTwitter;
+			}
+			&.optionLinkedin {
+				background: $colorLinkedin;
+			}
+			i {
+				display: inline-block;
+				padding: 0 5px 0 0;
+			}
+			&:hover {
+				background: darken($white, 15%);
+			}
+		}
+	}
+}
+.reportPlace {
+	max-width: $sizeTablet * 4 / 5;
+	margin: auto;
+	padding: 15px;
+	background: darken($white, 3%);
+	border: 1px solid darken($white, 10%);
+	border-bottom: 0;
+	.itemPublic {
+		border: 0;
+		background: transparent;
+		padding: 0;
+	}
+}
+.map {
+    width: 100%;
+    height: 300px;
+    .mapIns {
+        height: 300px;
+    }
+}
+
+.adminWrapper {
+	max-width: $sizeDesktop;
+	margin: auto;
+	@include clearer();
+	.adminItem {
+		float: left;
+		padding: 0 15px 15px 15px;
+		@include borderBox();
+		&.adminItem2 {
+			width: 50%;
+		} 
+	}
+	h2 {
+		color: $colorMain;
+		padding: 0 0 20px;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+}
+
+.itemInfo {
+	padding: 20px;
+	background: darken($white, 2%);
+	border: 1px solid darken($white, 6%);
+	p {
+		padding: 0 0 10px;
+		margin: 0;
+		font-size: $fontSizeNormal;
+		color: $colorText;
+	}
+	em {
+		display: block;
+		color: darken($white, 30%);
+		font-size: $fontSizeTiny;
+	}
+}
+
+.btnPublish {
+	text-align: center;
+	font-size: $fontSizeTiny;
+	a {
+		display: block;
+		max-width: 200px;
+		padding: 15px 20px;
+		color: $white;
+		background: $colorMain;
+		font-size: $fontSizeNormal;
+		font-weight: bold;
+		margin: 100px auto 5px auto;
+		text-transform: uppercase;
+		@include borderRadius(3px);
+		&:hover {
+			background: darken($colorMain, 10%);
+		}
+	}
+}
+
+.introPlaces {
+	padding: 30px 0 0 0;
+	margin: 30px 0 0 0;
+	border-top: 5px solid darken($white, 5%);
+	h3 {
+		font-weight: bold;
+		text-align: center;
+		text-transform: uppercase;
+		margin: 0 0 20px;
+		color: lighten($black, 40%);
+	}
+}
+
+@import "_public_responsive.scss";

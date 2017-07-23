@@ -1,0 +1,29 @@
+//Autocomplete
+.ui-autocomplete {
+	padding: 0px;
+	margin: 0px;
+	border:1px solid $colorText;
+	background: $white;
+	color: $colorText;
+	width:200px;
+	font-size: $fontSizeTiny;
+	a {
+		display: block;
+		color:$colorText;
+		padding: 5px;
+		font-weight: normal;
+		&.ui-state-hover,
+		&.ui-state-focus{
+			background: lighten($colorAccent, 60%);
+			text-decoration: none;
+		}
+	}
+	li {
+		padding: 0px;
+		margin: 0px;
+		list-style: none;
+	}
+}
+.ui-helper-hidden-accessible {
+	display: none;
+}

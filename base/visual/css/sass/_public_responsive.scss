@@ -1,0 +1,219 @@
+@media screen and (max-width: $sizeDesktop) {
+
+	.header {
+		padding: 5px 10px;
+	}
+	.subscribeTop {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		a {
+			margin: 0 5px 0 0;
+		}
+	}
+	.contentWrapper {
+		padding: 70px 10px 50px 10px;
+		h1 {
+			font-size: $fontSizeHuge * 2 / 3;
+		}
+		.contentLeft {
+			width: 70%;
+		}
+		.contentRight {
+			width: 28%;
+		}
+		&.contentWrapperIntro {
+			padding: 10px;
+		}
+	}
+	.footer {
+		padding: 20px 10px;
+		.footerIns {
+			padding: 0;
+		}
+		.footerDown {
+			width: auto;
+		}
+	}
+	.contentSide {
+		a {
+			font-size: $fontSizeTiny;
+			padding: 1px 4px;
+			margin: 1px;
+		}
+	}
+	.actions .action {
+		width: calc(100% / 3) !important;
+		a {
+			span {
+				display: none;
+			}
+		}
+	}
+	.related {
+	    padding-top: 20px;
+	    h3 {
+	    	font-weight: bold;
+	    	text-align: center;
+	    	margin: 0;
+	    	padding: 0 0 20px;
+	    }
+	}
+}
+
+@media screen and (max-width: $sizeTablet) {
+	
+	.header {
+		.headerLeft,
+		.headerRight {
+			@include noFloat();
+		}
+		.logo a {
+			margin: auto;
+		}
+	}
+	.subscribeTop {
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		border: 0;
+		margin: 0;
+		padding: 0;
+		a {
+			padding: 12px 30px;
+			margin: 0;
+			@include borderRadius(0);
+			@include borderRadiusTopLeft(10px);
+		}
+	}
+	.searchTop {
+		margin: auto;
+		display: block;
+		max-width: 320px;
+		.formFieldSubmit button {
+			span {
+				display: none;
+			}
+		}
+	}
+	.searchMain {
+		.searchMainIns {
+			width: calc(100% - 40px);
+		}
+		.formFieldSubmit {
+			button {
+				text-align: center;
+				i {
+					padding: 0;
+				}
+				span {
+					display: none;
+				}
+			}
+		}
+	}
+	.introPage {
+		.introPageLeft,
+		.introPageRight {
+			@include noFloat();
+			margin: 0 0 20px;
+			&:last-child {
+				margin: 0;
+			}
+		}
+	}
+	.footer {
+		.footerIns {
+			padding: 20px 10px;
+			.footerList {
+				@include noFloat();
+				padding: 0 0 30px;
+				&:last-child {
+					padding: 0;
+				}
+			}
+		}
+		.footerDown {
+			text-align: center;
+			border-top: 5px solid rgba(255, 255, 255, 0.2);
+		    margin-top: 30px;
+		    padding-top: 30px;
+		    width: 100%;
+		    .btnContact {
+		    	margin: 0 auto 30px auto;
+		    }
+		}
+	}
+	.contentWrapper {
+		padding: 100px 10px 10px 10px;
+		&.contentWrapperIntro {
+			padding: 10px;
+		}
+		h1 {
+			font-size: $fontSizeHuge * 2 / 3;
+
+		}
+		.contentLeft,
+		.contentRight {
+			@include noFloat();
+		}
+	}
+	.pagePromoted {
+		.itemComplete {
+			padding: 80px 10px;
+			h1 {
+				font-size: $fontSizeHuge * 2 / 3;
+			}
+		}
+		.itemCompleteWrapper {
+			.itemCompleteWrapperLeft,
+			.itemCompleteWrapperRight {
+				@include noFloat();
+				img {
+					display: block;
+					max-width: 250px;
+					margin: 0 auto 20px auto;
+				}
+			}
+		}
+		.itemCompleteInfoWrapper.itemCompleteInfo {
+			.itemCompleteInfoLeft,
+			.itemCompleteInfoRight {
+				@include noFloat();
+			}
+		}
+	}
+	.shareOptions .shareOptionsIns {
+		a i {
+			padding: 0;
+		}
+		span {
+			display: none;		
+		}
+	}
+	.itemComplete {
+		.actions {
+			.action {
+				@include noFloat();
+				padding: 0 0 10px;
+				max-width: 320px;
+				width: auto !important;
+				margin: auto;
+			}
+		}
+	}
+	.formPublic {
+		.formFields2,
+		.formFields3 {
+			.formField {
+				@include noFloat();
+				padding: 0 0 10px 0;
+			}
+		}
+	}
+	.cityList {
+		a {
+			@include noFloat();
+		}
+	}
+}

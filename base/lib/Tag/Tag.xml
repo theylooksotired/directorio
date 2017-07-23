@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<object>
+	<name>Tag</name>
+	<info>
+		<sql>
+            <primary>idTag</primary>
+        </sql>
+        <form>
+            <title>tags</title>
+            <pager>20</pager>
+			<orderBy>nameUrl</orderBy>
+			<searchQuery>SELECT * FROM dir_Tag WHERE name LIKE "%#SEARCH%"</searchQuery>
+            <searchQueryCount>SELECT COUNT(*) AS numElements FROM dir_Tag WHERE name LIKE "%#SEARCH%"</searchQueryCount>
+			<label>#name</label>
+            <publicUrl>tag/ #idTag - #nameUrl</publicUrl>
+			<templateItemAdmin>
+                <p class="accent"><strong>#name</strong></p>
+            </templateItemAdmin>
+        </form>
+	</info>
+	<attributes>
+		<attribute>
+			<name>idTag</name>
+			<type>id-autoincrement</type>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<label>name</label>
+			<type>text-long</type>
+		</attribute>
+		<attribute>
+			<name>nameUrl</name>
+			<type>hidden-url</type>
+			<refAttribute>name</refAttribute>
+		</attribute>
+		<attribute>
+			<name>cities</name>
+			<label>cities</label>
+			<type>text</type>
+		</attribute>
+	</attributes>
+	<indexes>
+		<index>
+			<name>nameUrl</name>
+			<type></type>
+			<fields>nameUrl</fields>
+		</index>
+	</indexes>
+</object>
