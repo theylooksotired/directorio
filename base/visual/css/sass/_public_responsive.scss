@@ -64,13 +64,28 @@
 @media screen and (max-width: $sizeTablet) {
 	
 	.header {
-		.headerLeft,
+		.headerLeft {
+			width: 35px;
+		}
 		.headerRight {
-			@include noFloat();
+			width: calc(100% - 40px);
 		}
 		.logo a {
 			margin: auto;
+			background: url(../../img/logoSingle.png) no-repeat center center;
+			text-indent: -5000px;
+			overflow: hidden;
+			display: block;
+			width: 35px;
+			height: 35px;
+			strong,
+			span {
+				display: none;
+			}
 		}
+	}
+	.searchMainWrapper {
+		display: none;
 	}
 	.subscribeTop {
 		position: fixed;
@@ -87,12 +102,16 @@
 		}
 	}
 	.searchTop {
-		margin: auto;
-		display: block;
-		max-width: 320px;
-		.formFieldSubmit button {
-			span {
-				display: none;
+		max-width: 300px;
+		.formField {
+			width: calc(100% - 60px);
+		}
+		.formFieldSubmit {
+			width: 50px;
+			button {
+				span {
+					display: none;
+				}
 			}
 		}
 	}
@@ -145,9 +164,9 @@
 		}
 	}
 	.contentWrapper {
-		padding: 100px 10px 10px 10px;
+		padding: 60px 10px 10px 10px;
 		&.contentWrapperIntro {
-			padding: 10px;
+			padding: 60px 10px 10px 10px;
 		}
 		h1 {
 			font-size: $fontSizeHuge * 2 / 3;
