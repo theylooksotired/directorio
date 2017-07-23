@@ -84,6 +84,7 @@ class Place_Ui extends Ui {
 		$this->object->loadTags();
 		return '<div class="itemComplete" itemscope itemtype="http://schema.org/LocalBusiness">
 					<h1 itemprop="name">'.$this->object->getBasicInfo().'</h1>
+					'.Adsense::top().'
 					<div class="itemCompleteInfo">
 						'.$shortDescription.'
 						'.$description.'

@@ -13,13 +13,13 @@ class Navigation_Ui extends Ui {
 			default:
 				return $this->header().'
 						<div class="contentWrapper">
-							'.Adsense::top().'
 							<div class="contentLeft">
 								'.$this->breadCrumbs().'
 								'.$title.'
 								'.$message.'
 								'.$messageError.'
 								'.$messageInfo.'
+								'.Adsense::top().'
 								'.$content.'
 							</div>
 							<div class="contentRight">
@@ -40,7 +40,6 @@ class Navigation_Ui extends Ui {
 			case 'place':
 				return $this->header().'
 						<div class="contentWrapper">
-							'.Adsense::top().'
 							<div class="contentLeft">
 								'.$this->breadCrumbs().'
 								'.$message.'
