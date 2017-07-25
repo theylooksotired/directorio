@@ -167,7 +167,7 @@ class Navigation_Ui extends Ui {
 		return '<form action="'.url('buscar').'" method="post" enctype="multipart/form-data" class="formSearchSimple" accept-charset="UTF-8">
 					<fieldset>
 						<div class="text formField">
-							<input type="search" name="search" size="50"/>
+							<input type="search" name="search" size="50" placeholder="Buscar..."/>
 						</div>
 						<div class="formFieldSubmit">
 							<button type="submit" class="formSubmit">
