@@ -249,7 +249,7 @@ class Place_Ui extends Ui {
 	* @cache
 	*/
 	static public function renderTags() {
-		$query = 'SELECT t.name, t.nameUrl, COUNT(t.idTag) as numElements
+		$query = 'SELECT t.idTag, t.name, t.nameUrl, COUNT(t.idTag) as numElements
 					FROM dir_Tag t, dir_PlaceTag pt 
 					WHERE t.idTag=pt.idTag
 					GROUP BY t.nameUrl
@@ -258,7 +258,7 @@ class Place_Ui extends Ui {
 		$items = Db::returnAll($query);
 		$html = '';
 		foreach ($items as $item) {
-			$html .= '<a href="'.url('tag/'.$item['nameUrl']).'">'.$item['name'].'</a> ';
+			$html .= '<a href="'.url('tag/'.$item['idTag'].'-'.$item['nameUrl']).'">'.$item['name'].'</a> ';
 		}
 		return $html;
 	}
