@@ -138,7 +138,7 @@ class Navigation_Ui extends Ui {
 							<div class="footerList footerCountries">
 								<div class="footerTitle">Otros directorios</div>
 								<div class="footerListItems">
-									'.HtmlSection::show('countries').'
+									'.HtmlSection::showFile('countries').'
 								</div>
 							</div>
 							<div class="clearer"></div>
@@ -148,7 +148,7 @@ class Navigation_Ui extends Ui {
 								<a href="'.url('inscribir').'">Inscribe a tu empresa</a>
 							</div>
 							<div class="footerDownIns">
-								'.str_replace('#EMAIL', Params::param('email'), str_replace('#COUNTRY', Params::param('country'), HtmlSection::show('footer'))).'
+								'.str_replace('#EMAIL', Params::param('email'), str_replace('#COUNTRY', Params::param('country'), HtmlSection::showFile('footer'))).'
 							</div>
 						</div>
 					</div>

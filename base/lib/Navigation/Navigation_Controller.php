@@ -49,7 +49,7 @@ class Navigation_Controller extends Controller{
                                             <div class="introPageLeft">
                                                 <div class="introPageLeftTop">
                                                     <h1>'.Params::param('titlePage').'</h1>
-                                                    '.str_replace('#COUNTRY', Params::param('country'), Page::show('intro')).'
+                                                    '.str_replace('#COUNTRY', Params::param('country'), HtmlSection::showFile('intro')).'
                                                 </div>
                                                 <div class="introPageLeftTop">
                                                     '.$place->showUi('IntroPlaces').'
@@ -172,12 +172,11 @@ class Navigation_Controller extends Controller{
                 }
             break;
             case 'terminos-condiciones':
-                $page = Page::code('terminos-condiciones');
                 $this->layoutPage = 'simple';
-                $this->titlePage = $page->getBasicInfo();
-                $this->metaDescription = $page->get('metaDescription');
-                $this->metaKeywords = $page->get('metaKeywords');
-                $this->content = $page->showUi('Complete');
+                $this->titlePage = 'Términos y condiciones';
+                $this->metaDescription = 'Términos y condiciones del sitio '.Params::param('titlePage');
+                $this->metaKeywords = 'terminos, condiciones, legal, directorio, empresas';
+                $this->content = HtmlSection::showFile('terms');
                 return $this->ui->render();
             break;
 
@@ -486,7 +485,7 @@ class Navigation_Controller extends Controller{
             /**
             * GITHUB
             */
-            case 'check-github':
+            case 'check-github-now':
                 $url = "https://github.com/theylooksotired/directorio/archive/master.zip";
                 $zipFile = LOCAL_FILE."master.zip";
                 file_put_contents($zipFile, fopen($url, 'r'));

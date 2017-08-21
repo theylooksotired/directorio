@@ -21,10 +21,8 @@ class PlaceReport_Controller extends Controller {
 										<script src="https://www.google.com/recaptcha/api.js"></script>';
 						$place = Place::read($this->id);
 						if ($place->id()!='') {
-							$page = Page::code('reportar');
-							$this->titlePage = $page->getBasicInfo();
-							$this->metaDescription = $page->get('metaDescription');
-							$this->metaKeywords = $page->get('metaKeywords');
+							$this->titlePage = 'Reportar una empresa';
+							$this->metaDescription = 'Reportar una empresa del '.Params::param('titlePage');
 							$reportForm = new PlaceReport_Form();
 							if (count($this->values)>0) {
 								$reportForm = new PlaceReport_Form($this->values);
@@ -61,7 +59,7 @@ class PlaceReport_Controller extends Controller {
 								}
 							}
 							$this->content = '<div class="report">
-												'.$page->showUi('Complete').'
+												'.HtmlSection::showFile('report').'
 												<div class="reportPlace">
 													'.$place->showUi('Simple').'
 												</div>

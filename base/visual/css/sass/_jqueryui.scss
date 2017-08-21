@@ -12,9 +12,10 @@
 		color:$colorText;
 		padding: 5px;
 		font-weight: normal;
+		cursor: pointer;
 		&.ui-state-hover,
 		&.ui-state-focus{
-			background: lighten($colorAccent, 60%);
+			background: rgba($colorMain, 0.1);
 			text-decoration: none;
 		}
 	}

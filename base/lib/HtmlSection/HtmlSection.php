@@ -25,5 +25,10 @@ class HtmlSection extends Db_Object {
         return $html->showUi('Section');
     }
 
+    static public function showFile($code) {
+        $file = BASE_FILE.'data/HtmlSection/'.$code.'.html';
+        return (file_exists($file)) ? '<div class="pageComplete">'.file_get_contents($file).'</div>' : '';
+    }
+
 }
 ?>
