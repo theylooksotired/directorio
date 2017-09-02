@@ -101,7 +101,7 @@ class Navigation_Ui extends Ui {
 		$layoutPage = (isset($this->object->layoutPage)) ? $this->object->layoutPage : '';
 		if ($this->object->action!='inscribir' && $layoutPage!='simple') {
 			$subscribeTop = '<div class="subscribeTop">
-								<a href="'.url('inscribir').'"><i class="icon icon-edit"></i> Inscribe a tu empresa</a>
+								<a href="'.url('inscribir').'"><i class="icon icon-edit"></i> Inscribir a mi empresa</a>
 							</div>';
 		}
 		return '<header class="header">
@@ -145,7 +145,7 @@ class Navigation_Ui extends Ui {
 						</div>
 						<div class="footerDown">
 							<div class="btnContact">
-								<a href="'.url('inscribir').'">Inscribe a tu empresa</a>
+								<a href="'.url('inscribir').'">Inscribir a mi empresa</a>
 							</div>
 							<div class="footerDownIns">
 								'.str_replace('#EMAIL', Params::param('email'), str_replace('#COUNTRY', Params::param('country'), HtmlSection::showFile('footer'))).'

@@ -1,34 +1,66 @@
+[type="search"] {
+	-moz-appearance:    textfield;
+	-webkit-appearance: textfield;
+	appearance: textfield;
+}
 .searchTop {
 	@include clearer();
-	text-align: right;
 	display: inline-block;
 	vertical-align: middle;
+	width: 270px;
+	float: right;
 	.formField {
 		width: 170px;
-		margin: 0 5px 0 0;
-		display: inline-block;
+		float: left;
+		display: block;
 		vertical-align: middle;
 		input {
 			display: inline-block;
 			font-size: $fontSizeNormal;
-			border: 1px solid darken($white, 20%);
-			padding: 3px;
-			line-height: 1.2;
+			border: 1px solid lighten(desaturate($colorText, 50%), 30%);
+			border-right: 0;
+			padding: 5px;
+			line-height: 34px;
+			height: 34px;
 			width: 100%;
 			font-family: $fontFamily;
-			@include borderRadius(3px);
+			box-sizing: border-box;
+			background: lighten(desaturate($colorText, 50%), 75%);
+			color: lighten(desaturate($colorText, 50%), 30%);
+			@include borderRadiusLeft(3px);
+			&::-webkit-input-placeholder {
+				font-style: italic;
+				color: lighten(desaturate($colorText, 50%), 40%);
+			}
+			&:-moz-placeholder {
+				font-style: italic;
+				color: lighten(desaturate($colorText, 50%), 40%);
+			}
+			&::-moz-placeholder {
+				font-style: italic;
+				color: lighten(desaturate($colorText, 50%), 40%);
+			}
+			&:-ms-input-placeholder {
+				font-style: italic;
+				color: lighten(desaturate($colorText, 50%), 40%);
+			}
+			&::-ms-input-placeholder {
+				font-style: italic;
+				color: lighten(desaturate($colorText, 50%), 40%);
+			}
 		}
 	}
 	.formFieldSubmit {
 		width: 100px;
-		display: inline-block;
+		display: block;
+		float: right;
 		vertical-align: middle;
 		button {
 			font-size: 1em;
 			background: lighten(desaturate($colorText, 50%), 30%);
 			border: 1px solid lighten(desaturate($colorText, 50%), 30%);
 			color: $white;
-			display: inline-block;
+			display: block;
 			border: 0px;
 			cursor: pointer;
 			width: 100%;
@@ -37,11 +69,15 @@
 			font-family: $fontFamily;
 			font-weight: bold;
 			font-size: $fontSizeTiny;
+			text-shadow: 0 0 5px rgba($black, 0.4);
+			line-height: 25px;
+			height: 34px;
+			box-sizing: border-box;
 			span {
 				display: inline-block;
 				padding: 0 0 0 10px;
 			}
-			@include borderRadius(3px);
+			@include borderRadiusRight(3px);
 			&:hover {
 				background: lighten(desaturate($colorText, 50%), 10%);
 			}
@@ -52,18 +88,20 @@
 .subscribeTop {
 	display: inline-block;
 	vertical-align: middle;
-	padding: 0 10px 0 0;
-	margin: 0 5px 0 0;
-	border-right: 1px solid darken($white, 10%);
+	padding: 0 20px 0 0;
 	a {
 		display: inline-block;
 		background: $colorMain;
+		border: 1px solid darken($colorMain, 15%);
 		color: $white;
 		padding: 7px 20px;
 		margin: 0 0 0 10px;
 		font-weight: bold;
 		text-transform: uppercase;
 		letter-spacing: -1px;
+		box-shadow: 1px 1px 5px rgba($black, 0.2);
+		box-sizing: content-box;
+		text-shadow: 0 0 5px rgba($black, 0.4);
 		@include borderRadius(3px);
 		&:hover {
 			background: darken($colorMain, 10%);
@@ -71,6 +109,34 @@
 		i {
 			display: inline-block;
 			padding: 0 10px 0 0;
+		}
+	}
+}
+
+.buttonBig {
+	a {
+		display: block;
+		background: $colorMain;
+		border: 2px solid darken($colorMain, 15%);
+		color: $white;
+		padding: 10px 20px;
+		max-width: 200px;
+		margin: 10px auto;
+		font-weight: bold;
+		text-transform: uppercase;
+		font-size: $fontSizeBig;
+		text-align: center;
+		box-shadow: 1px 1px 5px rgba($black, 0.5);
+		box-sizing: content-box;
+		text-shadow: 0 0 5px rgba($black, 0.5);
+		@include borderRadius(5px);
+		em {
+			display: block;
+			font-size: $fontSizeNormal;
+			font-style: normal;
+		}
+		&:hover {
+			background: darken($colorMain, 10%);
 		}
 	}
 }

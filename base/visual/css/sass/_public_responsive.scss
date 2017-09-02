@@ -69,6 +69,7 @@
 		}
 		.headerRight {
 			width: calc(100% - 40px);
+			padding: 0;
 		}
 		.logo a {
 			margin: auto;
@@ -102,9 +103,9 @@
 		}
 	}
 	.searchTop {
-		max-width: 300px;
+		width: 200px;
 		.formField {
-			width: calc(100% - 60px);
+			width: 150px;
 		}
 		.formFieldSubmit {
 			width: 50px;
@@ -175,6 +176,19 @@
 		.contentLeft,
 		.contentRight {
 			@include noFloat();
+		}
+	}
+	.introPage {
+		.introPageLeft {
+			h1 {
+				text-align: center;
+				background: lighten($black, 50%);
+				color: $white;
+				padding: 10px;
+				margin: 0 -10px 20px -10px;
+				font-size: $fontSizeNormal;
+				text-transform: uppercase;
+			}
 		}
 	}
 	.pagePromoted {
