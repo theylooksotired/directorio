@@ -1,0 +1,11 @@
+directorio*
+test_*
+stff
+gulpfile*
+package*
+unzip*
+.DS_Store
+base/config/
+base/cache/
+base/data/
+node_modules
