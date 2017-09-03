@@ -27,9 +27,13 @@ class HtmlMail extends Db_Object {
 
     static public function sendFromFile($email, $code, $values=array()) {
         $subjects = array('notification'=>'Usted tiene una nueva notificación',
+                            'welcomePlaceEditKhipu'=>'Gracias por registrar su empresa',
+                            'welcomePlaceEditPayPal'=>'Gracias por registrar su empresa',
+                            'welcomePlaceEditTransference'=>'Gracias por registrar su empresa',
+                            'welcomePlaceEditFree'=>'Gracias por registrar su empresa',
+
                             'passwordForgot'=>'Contraseña olvidada',
                             'report'=>'Una empresa ha sido reportada',
-                            'welcomePlaceEdit'=>'Gracias por registrar su empresa',
                             'placeEditNew'=>'Admin - Lugar a editar - Nuevo',
                             'placeEditModified'=>'Admin - Lugar a editar - Modificado',
                             'publishedPlace'=>'Su empresa ha sido publicada',
@@ -45,8 +49,8 @@ class HtmlMail extends Db_Object {
     static public function showFile($code, $values) {
         $file = BASE_FILE.'data/HtmlMail/'.$code.'.html';
         if (file_exists($file)) {
-            $htmlMail = new HtmlMail(array('content'=>file_get_contents($file)));
-            return $htmlMail->showUi('Mail', array('values'=>$values));
+            $htmlMail = new HtmlMail(array('mail_es'=>file_get_contents($file)));
+            return $htmlMail->showUi('MailFile', array('values'=>$values));
         }
     }
 

@@ -49,7 +49,7 @@ class Navigation_Controller extends Controller{
                                             <div class="introPageLeft">
                                                 <div class="introPageLeftTop">
                                                     <h1>'.Params::param('titlePage').'</h1>
-                                                    '.str_replace('#COUNTRY', Params::param('country'), HtmlSection::showFile('intro')).'
+                                                    '.str_replace('#LINK_SUSCRIBE', url('inscribir'), str_replace('#COUNTRY', Params::param('country'), HtmlSection::showFile('intro'))).'
                                                 </div>
                                                 <div class="introPageLeftTop">
                                                     '.$place->showUi('IntroPlaces').'
@@ -203,8 +203,7 @@ class Navigation_Controller extends Controller{
                         $placeEdit = new PlaceEdit();
                         $placeEdit->insertMail($this->values);
                         $placeEdit = PlaceEdit::read($placeEdit->id());
-                        $placeEdit->sendEmail($placeEdit->get('emailEditor'), 'welcomePlaceEdit');
-                        if ($this->values['choicePromotion']=='1') {
+                        if ($this->values['choicePromotion']=='promoted') {
                             $order = new Order();
                             $order->insert(array('idPlaceEdit'=>$placeEdit->id(),
                                                 'name'=>$placeEdit->get('nameEditor'),
@@ -213,14 +212,29 @@ class Navigation_Controller extends Controller{
                                                 'price'=>'10',
                                                 'payed'=>'0'));
                             $order = Order::read($order->id());
-                            $order->paypalRequest();
+                            switch($this->values['choicePayment']) {
+                                default:
+                                    $placeEdit->sendEmail($placeEdit->get('emailEditor'), 'welcomePlaceEditTransference');
+                                    header('Location: '.url('transferencia'));
+                                break;
+                                case 'khipu':
+                                    $placeEdit->sendEmail($placeEdit->get('emailEditor'), 'welcomePlaceEditKhipu');
+                                    $order->khipuRequest();
+                                break;
+                                case 'paypal':
+                                    $placeEdit->sendEmail($placeEdit->get('emailEditor'), 'welcomePlaceEditPayPal');
+                                    $order->paypalRequest();
+                                break;
+                            }
                         } else {
+                            $placeEdit->sendEmail($placeEdit->get('emailEditor'), 'welcomePlaceEditFree');
                             header('Location: '.url('inscribir-gracias'));
                         }
                         exit();
                     }
                 }
-                $this->content = $placeEditForm->createPublic();
+                $this->content = HtmlSection::showFile('inscribirTop').'
+                                '.$placeEditForm->createPublic();
                 return $this->ui->render();
             break;
             case 'modificar':
@@ -270,7 +284,7 @@ class Navigation_Controller extends Controller{
                             }
                             $placeEdit = PlaceEdit::read($placeEdit->id());
                             $placeEdit->sendEmail($placeEdit->get('emailEditor'), 'modifyPlaceEdit');
-                            if ((isset($this->values['choicePromotion']) && $this->values['choicePromotion']=='1') || $this->action=='promocionar') {
+                            if ((isset($this->values['choicePromotion']) && $this->values['choicePromotion']=='promoted') || $this->action=='promocionar') {
                                 $order = new Order();
                                 $order->insert(array('idPlaceEdit'=>$placeEdit->id(),
                                                     'name'=>$placeEdit->get('nameEditor'),
@@ -279,7 +293,17 @@ class Navigation_Controller extends Controller{
                                                     'price'=>'10',
                                                     'payed'=>'0'));
                                 $order = Order::read($order->id());
-                                $order->paypalRequest();
+                                switch($this->values['choicePayment']) {
+                                    default:
+                                        header('Location: '.url('transferencia'));
+                                    break;
+                                    case 'khipu':
+                                        $order->khipuRequest();
+                                    break;
+                                    case 'paypal':
+                                        $order->paypalRequest();
+                                    break;
+                                }
                             } else {
                                 header('Location: '.url('modificar-gracias'));
                             }
@@ -292,18 +316,17 @@ class Navigation_Controller extends Controller{
                 }
                 return $this->ui->render();
             break;
-            case 'pagado':
-            case 'anulado':
+            case 'paypal':
                 $this->header = '<meta name="robots" content="noindex,nofollow"/>';
                 $url = url('');
-                $order = Order::readFirst(array('where'=>'MD5(CONCAT("plasticwebs_'.$this->action.'",idOrder))="'.$this->id.'"'));
+                $order = Order::readFirst(array('where'=>'MD5(CONCAT("plasticwebs_'.$this->id.'",idOrder))="'.$this->extraId.'"'));
                 $place = Place::read($order->get('idPlace'));
                 $placeEdit = PlaceEdit::read($order->get('idPlaceEdit'));
                 if ($order->id()!='') {
-                    switch ($this->action) {
+                    switch ($this->id) {
                         case 'pagado':
                             $order->modifySimple('payed', '1');
-                            HtmlMail::send($order->get('email'), 'payedThanks', array('NAME'=>$order->get('name')));
+                            HtmlMail::sendFromFile($order->get('email'), 'payedThanks', array('NAME'=>$order->get('name')));
                             if ($place->id()!='') {
                                 $place->sendEmail(Params::param('email'), 'payedPlace');
                                 $url = url('pago-gracias/'.$order->encodeId());
@@ -324,16 +347,57 @@ class Navigation_Controller extends Controller{
                 header('Location: '.$url);
                 exit();
             break;
+            case 'khipu':
+                $this->header = '<meta name="robots" content="noindex,nofollow"/>';
+                $url = url('');
+                $order = Order::readFirst(array('where'=>'MD5(CONCAT("plasticwebs_'.$this->id.'",idOrder))="'.$this->extraId.'"'));
+                $place = Place::read($order->get('idPlace'));
+                $placeEdit = PlaceEdit::read($order->get('idPlaceEdit'));
+                if ($order->id()!='') {
+                    switch ($this->id) {
+                        case 'pagado':
+                            $url = url('pago-confirmacion/'.$order->encodeId());
+                        break;
+                        case 'anulado':
+                            $url = url('pago-anulado/'.$order->encodeId());
+                        break;
+                        case 'notificado':
+                            if (Khipu::notificated()) {
+                                $order->modifySimple('payed', '1');
+                                HtmlMail::sendFromFile($order->get('email'), 'payedThanks', array('NAME'=>$order->get('name')));
+                                if ($place->id()!='') {
+                                    $place->sendEmail(Params::param('email'), 'payedPlace');
+                                    $url = url('pago-gracias/'.$order->encodeId());
+                                } else {
+                                    $placeEdit->sendEmail(Params::param('email'), 'payedPlaceEdit');
+                                    $url = url('pago-espera-gracias/'.$order->encodeId());
+                                }
+                            }
+                            return '';
+                        break;
+                    }
+                }
+                header('Location: '.$url);
+                exit();
+            break;
+            case 'transferencia':
             case 'inscribir-gracias':
             case 'pago-gracias':
             case 'pago-espera-gracias':
             case 'pago-anulado':
+            case 'pago-confirmacion':
             case 'pago-espera-anulado':
             case 'modificar-gracias':
                 $this->header = '<meta name="robots" content="noindex,nofollow"/>';
                 $this->layoutPage = 'message';
                 $order = Order::readCoded($this->id);
                 switch($this->action) {
+                    case 'transferencia':
+                        $this->titlePage = 'Gracias por la inscripción';
+                        $this->message = 'Muchas gracias por inscribir a su empresa.<br/>
+                                        Estamos a la espera de la transferencia bancaria para activar la misma.';
+                        $this->content = '<div class="messageSimple">'.HtmlSection::showFile('transfer').'</div>';
+                    break;
                     case 'inscribir-gracias':
                         $this->titlePage = 'Gracias por la inscripción';
                         $this->message = 'Muchas gracias por inscribir a su empresa.<br/>
@@ -357,6 +421,13 @@ class Navigation_Controller extends Controller{
                         $this->titlePage = 'Gracias por su pago';
                         $this->messageInfo = 'Muchas gracias por realizar su pago.<br/>
                                         Vamos a revisar la información y la publicaremos lo antes posible.<br/>
+                                        Le informaremos sobre el proceso via email.';
+                    break;
+                    case 'pago-confirmacion':
+                        $placeEdit = PlaceEdit::read($order->get('idPlaceEdit'));
+                        $this->titlePage = 'Gracias por su pago';
+                        $this->messageInfo = 'Muchas gracias por realizar su pago.<br/>
+                                        Estamos a la espera de la confirmación por parte de Khipu.<br/>
                                         Le informaremos sobre el proceso via email.';
                     break;
                     case 'pago-anulado':
@@ -512,7 +583,7 @@ class Navigation_Controller extends Controller{
                         <script type="text/javascript" src="'.BASE_URL.'libjs/jquery/jquery-1.10.2.min.js"></script>
                         <script type="text/javascript" src="'.BASE_URL.'libjs/jquery/jquery-ui-1.10.3.custom.min.js"></script>
                         <script type="text/javascript" src="'.BASE_URL.'libjs/jquery/jquery.form.js"></script>
-                        <script type="text/javascript" src="'.BASE_URL.'libjs/public.js"></script>';
+                        <script type="text/javascript" src="'.BASE_URL.'libjs/public.js?v=4"></script>';
     }
 
     public function checkCaptcha(&$errors) {

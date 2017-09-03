@@ -30,5 +30,10 @@ class HtmlSection extends Db_Object {
         return (file_exists($file)) ? '<div class="pageComplete">'.file_get_contents($file).'</div>' : '';
     }
 
+    static public function showFileSimple($code) {
+        $file = BASE_FILE.'data/HtmlSection/'.$code.'.html';
+        return (file_exists($file)) ? file_get_contents($file) : '';
+    }
+
 }
 ?>

@@ -8,12 +8,12 @@ class PlaceEdit extends Db_Object {
 
 	public function insertMail($values, $options=array()) {
 		parent::insert($values, $options);
-		$this->sendEmail(Params::param('email'), 'placeEditNew');
+		$this->sendEmail(Params::param('email'), 'placeEditNew', $values);
 	}
 
 	public function insertMailPromoted($values, $options=array()) {
 		parent::insert($values, $options);
-		$this->sendEmail(Params::param('email'), 'placeEditNewPromoted');
+		$this->sendEmail(Params::param('email'), 'placeEditNewPromoted', $values);
 	}
 
 	public function modifyMail($values, $options=array()) {
@@ -33,15 +33,17 @@ class PlaceEdit extends Db_Object {
 		return PlaceEdit::readFirst(array('where'=>'MD5(CONCAT("plasticwebs_placeedit_",idPlaceEdit))="'.$code.'"'));
 	}
 	
-	public function sendEmail($emailTo, $typeEmail='placeEditNew') {
+	public function sendEmail($emailTo, $typeEmail='placeEditNew', $values=array()) {
 		$mailPlaceEdit = $this->showUi('Email');
 		$encodedId = $this->encodeId();
+		$type = (isset($values['choicePayment'])) ? $values['choicePayment'] : '';
 		$linkDelete = url('lugar-editar-borrar/'.$encodedId);
 		$linkUpdate = url('lugar-editar-modificar/'.$encodedId);
 		$linkPublish = url('lugar-editar-publicar/'.$encodedId);
 		$linkPublishPromote = url('lugar-editar-publicar-promocionar/'.$encodedId);
-		HtmlMail::send($emailTo, $typeEmail, array('NAME'=>$this->get('nameEditor'),
+		HtmlMail::sendFromFile($emailTo, $typeEmail, array('NAME'=>$this->get('nameEditor'),
 												'PLACE'=>$mailPlaceEdit,
+												'TYPE'=>$type,
 												'LINK_DELETE'=>$linkDelete,
 												'LINK_UPDATE'=>$linkUpdate,
 												'LINK_PUBLISH'=>$linkPublish,

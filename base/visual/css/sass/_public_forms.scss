@@ -99,9 +99,8 @@
 		font-weight: bold;
 		text-transform: uppercase;
 		letter-spacing: -1px;
-		box-shadow: 1px 1px 5px rgba($black, 0.2);
 		box-sizing: content-box;
-		text-shadow: 0 0 5px rgba($black, 0.4);
+		text-shadow: 0 0 5px rgba($black, 0.2);
 		@include borderRadius(3px);
 		&:hover {
 			background: darken($colorMain, 10%);
@@ -260,6 +259,34 @@
 	}
 }
 
+.messageForm {
+	margin: auto;
+	max-width: $sizeTablet * 4 / 5;
+	text-align: center;
+	color: lighten($black, 40%);
+	font-size: $fontSizeSmall;
+	padding: 0 0 30px;
+	p {
+		padding: 0 0 10px;
+		margin: 0;
+		line-height: 1.3;
+		&:last-child {
+			padding: 0;
+		}
+		a {
+			font-weight: bold;
+			color: lighten($black, 50%);
+			&:hover {
+				color: $black;
+			}
+		}
+	}
+	&.messageFormBottom {
+		padding: 30px 0 0 0;
+		text-align: left;
+	}
+}
+
 .formPublic {
 	background: darken($white, 4%);
 	border: 1px solid darken($white, 10%);
@@ -372,14 +399,63 @@
 					float: left;
 					display: inline-block;
 					margin: 0 10px 5px 0;
+					&:checked {
+						+ label {
+							span {
+								display: block;
+							}
+						}
+					}
 				}
 				label {
-					width: auto;
+					float: right;
+					width: calc(100% - 40px);
 					display: block;
+					font-size: $fontSizeSmall;
 					strong {
 						font-weight: bold;
-						color: $colorAccent;
+						color: darken($white, 60%);
 					}
+					span {
+						display: none;
+						margin: 10px 0 0 0;
+						padding: 10px;
+						background: rgba($white, 0.8);
+						border: 1px solid rgba($white, 0.2);
+						color: darken($white, 70%);
+						line-height: 1.2;
+						a {
+							color: $colorText;
+							&:hover {
+								color: lighten($colorText, 20%);
+							}
+						}
+						strong {
+							color: darken($white, 50%);
+						}
+						ul {
+							display: block;
+							padding: 10px 0;
+							margin: 0 0 0 40px;
+							li {
+								display: block;
+								padding: 0 0 10px;
+								margin: 0;
+								list-style: none;
+								&:last-child {
+									padding: 0;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		&.choicePromotion {
+			.radioValue {
+				label {
+					font-size: $fontSizeSmall;
+					line-height: 1.2;
 				}
 			}
 		}
@@ -390,7 +466,6 @@
 			}
 		}
 		.captcha {
-			padding: 20px 0 0 0;
 			text-align: center;
 			.g-recaptcha {
 				display: inline-block;

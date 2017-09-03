@@ -3,6 +3,9 @@ class PlaceEdit_Form extends Form{
 
 	public function createPublic($place='') {
 		$form = (is_object($place)) ? Place_Form::newObject($place) : $this;
+		$paymentsAccepted = explode(':', PAYMENTS_ACCEPTED);
+		$this->values['choicePromotion'] = (isset($this->values['choicePromotion'])) ? $this->values['choicePromotion'] : 'promoted';
+		$this->values['choicePayment'] = (isset($this->values['choicePayment'])) ? $this->values['choicePayment'] : $paymentsAccepted[0];
 		$captchaError = (isset($this->errors['captcha'])) ? '<div class="error">'.$this->errors['captcha'].'</div>' : '';
 		$fields = '<div class="formFieldsWrapper">
 						<div class="formFields">
@@ -15,7 +18,7 @@ class PlaceEdit_Form extends Form{
 							</div>
 						</div>
 						<div class="formFields">
-							<h2>Datos sobre la empresa</h2>
+							<h2>Datos sobre su empresa</h2>
 							<div class="formFieldsIns">
 								'.$form->field('title').'
 								<div class="formFields2">
@@ -36,9 +39,12 @@ class PlaceEdit_Form extends Form{
 						<div class="formFieldsPromotion">
 							'.FormField_Radio::create(array('name'=>'choicePromotion', 
 											'class'=>'choicePromotion',
+											'selected'=>$this->values['choicePromotion'],
 											'value'=>array(
-												'Deseo listar esta empresa de forma gratuita.', 
-												'Deseo <strong>promocionar esta empresa por 10$USD anuales</strong>. Se verá en los primeros lugares de las búsquedas y tendré la opcion de adjuntar el logo de mi empresa.'
+												'not-promoted'=>'Deseo inscribir a mi empresa de forma gratuita.', 
+
+												'promoted'=>'<strong>Deseo promocionar a mi empresa por 10$USD (dólares americanos) anuales.</strong>
+												Aparecerá en los primeros lugares de las búsquedas y podré adjuntar el logo de la misma.'
 												))).'
 						</div>
 						<div class="formFields formFieldsPromoted">
@@ -50,10 +56,23 @@ class PlaceEdit_Form extends Form{
 								</div>
 							</div>
 						</div>
-						<div class="formFieldsPromoted formFieldsPromotedMessage message messageInfo">
-							<p><i class="icon icon-paypal"></i></p>
-							<p>El pago de los 10$USD (dólares americanos) se realiza mediante <a href="http://www.paypal.com" target="_blank">PayPal</a>. Antes de proceder le recomendamos leer nuestros <a href="'.url('terminos-condiciones').'" target="_blank">Términos y Condiciones de Uso</a>.</p>
-							<p>Para cualquier información adicional puede contactarse con <a href="http://www.plasticwebs.com/contacto" target="_blank">Plasticwebs</a>.</p>
+						<div class="formFields formFieldsPromoted">
+							<h2>Forma de pago</h2>
+							<div class="formFieldsIns">
+								'.FormField_Radio::create(array('name'=>'choicePayment', 
+								'class'=>'choicePayment',
+								'selected'=>$this->values['choicePayment'],
+								'value'=>array(
+									'khipu'=>'<strong>Tarjeta de crédito o débito</strong>
+									<span>El pago se realizará mediante el servicio de pagos en línea <a href="https://www.khipu.com" target="_blank">Khipu</a></span>', 
+
+									'paypal'=>'<strong>PayPal</strong>
+									<span>El pago se realizará mediante el servicio de pagos en línea <a href="https://www.paypal.com" target="_blank">PayPal</a></span>', 
+
+									'transference'=>'<strong>Transferencia bancaria o giro postal</strong>
+									<span>'.HtmlSection::showFileSimple('transfer').'</span>'
+									))).'
+							</div>
 						</div>
 						<div class="formField">
 							<div class="captcha">
@@ -62,7 +81,8 @@ class PlaceEdit_Form extends Form{
 							</div>
 						</div>
 					</div>';
-		return Form::createForm($fields, array('submit'=>'Guardar', 'class'=>'formPublic formPlaceEdit'));
+		return Form::createForm($fields, array('submit'=>'Guardar', 'class'=>'formPublic formPlaceEdit')).'
+				'.HtmlSection::showFile('inscribirBottom');
 	}
 
 	public function createPublicPromote($place='') {
@@ -88,7 +108,7 @@ class PlaceEdit_Form extends Form{
 							</div>
 						</div>
 						<div class="formFields">
-							<h2>Actualice los datos de la empresa</h2>
+							<h2>Actualice los datos de su empresa</h2>
 							<div class="formFieldsIns">
 								'.$form->field('title').'
 								<div class="formFields2">
@@ -135,7 +155,7 @@ class PlaceEdit_Form extends Form{
 							</div>
 						</div>
 						<div class="formFields">
-							<h2>Datos sobre la empresa</h2>
+							<h2>Datos sobre su empresa</h2>
 							<div class="formFieldsIns">
 								'.$form->field('title').'
 								<div class="formFields2">

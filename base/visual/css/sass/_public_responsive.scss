@@ -171,11 +171,15 @@
 		}
 		h1 {
 			font-size: $fontSizeHuge * 2 / 3;
-
 		}
 		.contentLeft,
 		.contentRight {
 			@include noFloat();
+		}
+		&.contentWrapper-simple {
+			h1 {
+				font-size: $fontSizeBig;
+			}
 		}
 	}
 	.introPage {
@@ -236,6 +240,9 @@
 		}
 	}
 	.formPublic {
+		margin: 0 -10px;
+		box-shadow: 0 0 0 rgba($white, 0);
+		border: 0;
 		.formFields2,
 		.formFields3 {
 			.formField {

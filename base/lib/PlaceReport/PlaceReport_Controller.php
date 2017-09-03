@@ -51,7 +51,7 @@ class PlaceReport_Controller extends Controller {
 									$mailReport = $report->showUi('Email');
 									$mailPlace = $place->showUi('Email');
 									$linkDelete = url('lugar-borrar/'.$place->encodeId());
-									HtmlMail::send(Params::param('email'), 'report', array('PLACE'=>$mailPlace,
+									HtmlMail::sendFromFile(Params::param('email'), 'report', array('PLACE'=>$mailPlace,
 																						'REPORT'=>$mailReport,
 																						'LINK_DELETE'=>$linkDelete));
 									header('Location: '.url('reportar/gracias'));

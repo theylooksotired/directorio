@@ -75,7 +75,7 @@ class Place extends Db_Object {
 	}
 
 	public function sendEmail($emailTo, $typeEmail='placeNew') {
-		HtmlMail::send($emailTo, $typeEmail, array('NAME'=>$this->get('nameEditor'),
+		HtmlMail::sendFromFile($emailTo, $typeEmail, array('NAME'=>$this->get('nameEditor'),
 												'PLACE_LINK'=>$this->url(),
 												'LINK_MODIFY'=>url('modificar/'.$this->id()),
 												'LINK_PROMOTE'=>url('lugar-promocionar/'.$this->encodeId()),

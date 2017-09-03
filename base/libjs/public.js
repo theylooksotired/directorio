@@ -25,7 +25,7 @@ $(document).ready(function(){
 
     //SUBSCRIBE
     var triggerPromotion = function() {
-        if ($('.choicePromotion input:checked').val()==1) {
+        if ($('.choicePromotion input:checked').val()=='promoted') {
             $('.formFieldsPromoted').show();
         } else {
             $('.formFieldsPromoted').hide();

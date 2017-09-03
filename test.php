@@ -2,7 +2,13 @@
 define('APP_FOLDER', 'base');
 require_once('base/config/config_test.php');
 
-HtmlMail::send('theylooksotired@gmail.com', 'notification', array('CONTENT'=>'dddd'));
+Url::init();
+Lang::init();
+Params::init();
+
+$order = Order::readFirst(array('order'=>'created DESC'));
+$order->khipuRequest();
+
 /*
 $items = HtmlMail::readList();
 foreach ($items as $item) {
