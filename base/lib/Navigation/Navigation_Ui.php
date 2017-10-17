@@ -76,18 +76,26 @@ class Navigation_Ui extends Ui {
 						</div>
 						'.$this->footer();
 			break;
+			case 'clean':
+				return $this->header().'
+						<div class="contentWrapper contentWrapperSimple contentWrapper-'.$layoutPage.'">
+							'.$content.'
+						</div>
+						'.$this->footer();
+			break;
 			case 'message':
 				return $this->header().'
 						<div class="contentWrapper contentWrapperMessage contentWrapper-simple">
-							'.$title.'
-							'.$message.'
-							'.$messageError.'
-							'.$messageInfo.'
-							'.$content.'
+							<div class="message">
+								'.$title.'
+								<div class="messageIns">
+									'.$this->object->message.'
+								</div>
+							</div>
 							<div class="buttonHome">
 								<a href="'.url('').'">
-									<i class="icon icon-place-map"></i>
 									<span>Ir a la página de inicio</span>
+									<i class="icon icon-arrow-right"></i>
 								</a>
 							</div>
 						</div>

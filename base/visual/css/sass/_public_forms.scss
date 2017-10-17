@@ -293,28 +293,32 @@
 	padding: 15px;
 	margin: auto;
 	max-width: $sizeTablet * 4 / 5;
-	@include lightShadow();
+	box-sizing: border-box;
 	.formFields {
-		padding: 0 0 10px;
-		&:last-child {
+		padding: 25px 0 0 0;
+		margin: 20px 0 0 0;
+		border-top: 3px solid rgba($colorAccentAlt, 0.3);
+		&:first-child {
 			padding: 0;
+			margin: 0;
+			border-top: 0;
 		}
 		h2 {
 			text-transform: uppercase;
 			font-weight: bold;
 			font-size: $fontSizeSmall;
-			color: darken($colorAccentAlt, 20%);
-			padding: 0 0 15px;
+			color: darken($colorAccentAlt, 10%);
+			padding: 0 0 10px;
 		}
 	}
 	.formField {
 		padding: 0 0 10px;
 		label {
 			display: block;
-			color: darken($white, 80%);
-			font-size: $fontSizeTiny;
+			color: darken($white, 70%);
+			font-size: $fontSizeSmall;
 			padding: 0 0 5px;
-			font-weight: normal;
+			font-weight: bold;
 			line-height: 1;
 			@include borderBox();
 		}
@@ -340,6 +344,7 @@
 			border: 1px solid darken($white, 25%);
 			background: $white;
 			@include borderBox();
+			@include borderRadius(3px);
 		}
 		.formFieldsImage {
 			border-bottom: 0;
@@ -394,6 +399,9 @@
 			.radioValue {
 				padding: 0 0 10px;
 				@include clearer();
+				&:last-child {
+					padding: 0;
+				}
 				input {
 					width: auto;
 					float: left;
@@ -412,6 +420,8 @@
 					width: calc(100% - 40px);
 					display: block;
 					font-size: $fontSizeSmall;
+					cursor: pointer;
+					font-weight: normal;
 					strong {
 						font-weight: bold;
 						color: darken($white, 60%);
@@ -446,6 +456,13 @@
 									padding: 0;
 								}
 							}
+						}
+					}
+					&:hover {
+						color: lighten($colorText, 10%);
+						strong,
+						span {
+							color: lighten($colorText, 10%);
 						}
 					}
 				}
@@ -523,4 +540,8 @@
 			}
 		}
 	}
+}
+
+.captcha {
+	padding: 20px 0 0 0;
 }

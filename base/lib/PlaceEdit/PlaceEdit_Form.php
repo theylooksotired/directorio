@@ -46,6 +46,12 @@ class PlaceEdit_Form extends Form{
 												'promoted'=>'<strong>Deseo promocionar a mi empresa por 10$USD (dólares americanos) anuales.</strong>
 												Aparecerá en los primeros lugares de las búsquedas y podré adjuntar el logo de la misma.'
 												))).'
+							<div class="formFieldsPromotionLink">
+								<a href="#promocion">
+									<span>Ver todas las ventajas</span>
+									<i class="icon icon-down-arrow"></i>
+								</a>
+							</div>
 						</div>
 						<div class="formFields formFieldsPromoted">
 							<h2>Estilo de la empresa</h2>
@@ -82,7 +88,13 @@ class PlaceEdit_Form extends Form{
 						</div>
 					</div>';
 		return Form::createForm($fields, array('submit'=>'Guardar', 'class'=>'formPublic formPlaceEdit')).'
-				'.HtmlSection::showFile('inscribirBottom');
+				'.HtmlSection::showFile('inscribirBottom').'
+				<a name="promocion"></a>
+				<div class="promotion">
+					<div class="promotionIns">
+						'.HtmlSection::showFile('promotion').'
+					</div>
+				</div>';
 	}
 
 	public function createPublicPromote($place='') {

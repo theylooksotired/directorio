@@ -3,12 +3,14 @@ class Navigation_Controller extends Controller{
 
     public function __construct($GET, $POST, $FILES) {
         parent::__construct($GET, $POST, $FILES);
+        $this->adsenseFullPageActive = false;
         $this->ui = new Navigation_Ui($this);
     }
 
     public function controlActions(){
         switch ($this->action) {
             default:
+            	$this->adsenseFullPageActive = true;
                 if ($this->action!='') {
                     $this->layoutPage = 'place';
                     $info = explode('-', $this->action);
@@ -34,7 +36,7 @@ class Navigation_Controller extends Controller{
                 }
             break;
             case 'intro':
-                $place = new Place();
+            	$place = new Place();
                 $this->layoutPage = 'intro';
                 $this->content = '<div class="searchMainWrapper" style="background-image: url('.BASE_URL.'visual/img/cover-'.Params::param('countryCode').'.jpg);">
                                         <div class="searchMain">
@@ -64,7 +66,21 @@ class Navigation_Controller extends Controller{
                                     </div>';
                 return $this->ui->render();
             break;
+            case 'promocion':
+                $this->layoutPage = 'clean';
+            	$this->titlePage = 'Promocione a su empresa';
+                $this->content = '<div class="promotion promotionMain">
+										<div class="promotionIns">
+											'.HtmlSection::showFile('promotion').'
+											<div class="promotionButton">
+												<a href="'.url('inscribir').'">Inscriba a su empresa</a>
+											</div>
+										</div>
+									</div>';
+                return $this->ui->render();
+            break;
             case 'ciudad':
+            	$this->adsenseFullPageActive = true;
                 $items = new ListObjects('Place', array('where'=>'cityUrl="'.$this->id.'" AND cityUrl!=""', 'order'=>'promoted DESC, titleUrl', 'results'=>'10'));
                 if ($items->isEmpty()) {
                     $place = new Place();
@@ -91,6 +107,7 @@ class Navigation_Controller extends Controller{
                 return $this->ui->render();
             break;
             case 'tag':
+            	$this->adsenseFullPageActive = true;
                 $page = (isset($_GET['pagina']) && $_GET['pagina']!='') ? ' - Página '.(intval($_GET['pagina'])) : '';
                 $info = explode('-', $this->id);
                 $item = Tag::read($info[0]);
@@ -218,10 +235,12 @@ class Navigation_Controller extends Controller{
                                     header('Location: '.url('transferencia'));
                                 break;
                                 case 'khipu':
+                                	$order->modifySimple('paymentType', '1');
                                     $placeEdit->sendEmail($placeEdit->get('emailEditor'), 'welcomePlaceEditKhipu');
                                     $order->khipuRequest();
                                 break;
                                 case 'paypal':
+                                	$order->modifySimple('paymentType', '2');
                                     $placeEdit->sendEmail($placeEdit->get('emailEditor'), 'welcomePlaceEditPayPal');
                                     $order->paypalRequest();
                                 break;
@@ -298,9 +317,11 @@ class Navigation_Controller extends Controller{
                                         header('Location: '.url('transferencia'));
                                     break;
                                     case 'khipu':
+                                    	$order->modifySimple('paymentType', '1');
                                         $order->khipuRequest();
                                     break;
                                     case 'paypal':
+                                    	$order->modifySimple('paymentType', '2');
                                         $order->paypalRequest();
                                     break;
                                 }
@@ -359,7 +380,11 @@ class Navigation_Controller extends Controller{
                             $url = url('pago-confirmacion/'.$order->encodeId());
                         break;
                         case 'anulado':
-                            $url = url('pago-anulado/'.$order->encodeId());
+                            if ($place->id()!='') {
+                                $url = url('pago-anulado/'.$order->encodeId());
+                            } else {
+                                $url = url('pago-espera-anulado/'.$order->encodeId());
+                            }
                         break;
                         case 'notificado':
                             if (Khipu::notificated()) {
@@ -388,6 +413,7 @@ class Navigation_Controller extends Controller{
             case 'pago-confirmacion':
             case 'pago-espera-anulado':
             case 'modificar-gracias':
+            case 'pedido-ya-pagado':
                 $this->header = '<meta name="robots" content="noindex,nofollow"/>';
                 $this->layoutPage = 'message';
                 $order = Order::readCoded($this->id);
@@ -430,27 +456,58 @@ class Navigation_Controller extends Controller{
                                         Estamos a la espera de la confirmación por parte de Khipu.<br/>
                                         Le informaremos sobre el proceso via email.';
                     break;
-                    case 'pago-anulado':
+                    /*
                         $place = Place::read($order->get('idPlace'));
                         $this->titlePage = 'Su pago no se realizó';
                         $this->messageError = 'Lo sentimos, no pudimos recibir su pago.<br/>
                                         Si se trata de un error escríbanos a <a href="mailto:info@plasticwebs.com" target="_blank">info@plasticwebs.com</a><br/>
                                         Puede ver la empresa a promocionar haciendo click <a href="'.$place->url().'">aquí</a>.';
                     break;
+                    */
+                    case 'pago-anulado':
                     case 'pago-espera-anulado':
                         $placeEdit = PlaceEdit::read($order->get('idPlaceEdit'));
+                        $paymentsAccepted = explode(':', PAYMENTS_ACCEPTED);
                         $this->titlePage = 'Su pago no se realizó';
+                        $btnPaypal = (in_array('paypal', $paymentsAccepted)) ? '<div class="retryPayment retryPaymentPaypal">
+							                                                		<a href="'.url('paypal-order/'.$this->id).'" target="_blank">PayPal</a>
+							                                                	</div>' : '';
+                        $btnKhipu = (in_array('khipu', $paymentsAccepted)) ? '<div class="retryPayment retryPaymentKhipu">
+						                                                		<a href="'.url('khipu-order/'.$this->id).'" target="_blank">Khipu</a>
+						                                                	</div>' : '';
                         $this->content = '<div class="pageComplete pageCompleteMessage">
                                                 <p>Lo sentimos, no pudimos recibir su pago. Si cree que se trata de un error escríbanos a <a href="mailto:info@plasticwebs.com" target="_blank">info@plasticwebs.com</a> con todos los datos posibles para que podamos solucionar el problema.</p>
-                                                <p>Puede volver a internar el pago haciendo click en:</p>
-                                                <div class="buttonPaypalWrapper">
-                                                    '.$order->paypalButton().'
+                                                <p>Si tuvo un problema con el sistema de pagos, puede volver a intentarlo haciendo click en:</p>
+                                                <div class="retryPayments">
+                                                	'.$btnPaypal.'
+                                                	'.$btnKhipu.'
                                                 </div>
                                                 <p>Mil disculpas por los problemas ocasionados.</p>
                                             </div>';
                     break;
+                    case 'pedido-ya-pagado':
+                        $this->titlePage = 'El pedido ya ha sido pagado';
+                        $this->messageInfo = 'Muchas gracias por realizar su pago, pero este pedido ya ha sido pagado.<br/>
+                                        Si se trata de un error escríbanos a <a href="mailto:info@plasticwebs.com" target="_blank">info@plasticwebs.com</a>.';
+                    break;
                 }
                 return $this->ui->render();
+            break;
+            case 'paypal-order':
+            case 'khipu-order':
+            	$order = Order::readCoded($this->id);
+            	if ($order->get('payed')=='1') {
+            		header('Location: '.url('pedido-ya-pagado'));
+            	} else {
+            		switch ($this->action) {
+            			case 'paypal-order':
+            				$order->paypalRequest();
+            			break;
+            			case 'khipu-order':
+            				$order->khipuRequest();
+            			break;
+            		}
+            	}
             break;
 
 
@@ -599,6 +656,17 @@ class Navigation_Controller extends Controller{
         if (!$responseCaptcha->{'success'}) {
             $errors['captcha'] = 'Por favor, haga click en el siguiente botón para verificar que no es un robot';
         }
+    }
+
+    public function adsenseFullPage() {
+    	if ($this->adsenseFullPageActive) {
+    		return '<script>
+				      (adsbygoogle = window.adsbygoogle || []).push({
+				        google_ad_client: "ca-pub-7429223453905389",
+				        enable_page_level_ads: true
+				      });
+				    </script>';
+    	}
     }
 
 }

@@ -75,7 +75,7 @@ class PlaceReport_Controller extends Controller {
 						$this->header = '<meta name="robots" content="noindex,nofollow"/>';
 						$this->layoutPage = 'message';
 						$this->titlePage = 'Gracias por su reporte';
-						$this->message = 'Vamos a analizar la situación y daremos de baja el sitio si es necesario.';
+						$this->message = 'Vamos a analizar la situación y daremos de baja el registro de la empresa si es necesario.';
 						return $this->ui->render();
 					break;
 	            }

@@ -98,14 +98,19 @@ class Place_Ui extends Ui {
 					<div class="tagsPlace">
 						'.$this->object->tags->showList(array('function'=>'Public')).'
 					</div>
-					<div class="actions">
-						<div class="action action-update">
-							<a rel="nofollow" href="'.url('modificar/'.$this->object->id()).'"><i class="icon icon-edit"></i> Actualizar<span> esta información</span></a>
+					<div class="actionsPlace">
+						<div class="actionPlace actionPlace-update">
+							<div class="actionPlaceIns">
+								<h3>¿Esta empresa es de su propiedad?</h3>
+								<p>Actualice la información de la misma de forma gratuita o promocione a su empresa para que salga en los primeros resultados de búsqueda de nuestro sitio.</p>
+							</div>
+							<a rel="nofollow" href="'.url('modificar/'.$this->object->id()).'"><i class="icon icon-edit"></i> Editar</a>
 						</div>
-						<div class="action action-promote">
-							<a rel="nofollow" href="'.url('promocionar/'.$this->object->id()).'"><i class="icon icon-promotion"></i> Promocionar</a>
-						</div>
-						<div class="action action-report">
+						<div class="actionPlace actionPlace-report">
+							<div class="actionPlaceIns">
+								<h3>¿Esta información es incorrecta o la empresa no existe?</h3>
+								<p>Por favor, escríbanos si los datos de esta empresa no corresponden o si esta información le molesta de alguna manera.</p>
+							</div>
 							<a rel="nofollow" href="'.url('reportar/'.$this->object->id()).'"><i class="icon icon-warning"></i> Reportar</a>
 						</div>
 					</div>

@@ -13,6 +13,10 @@
     <meta property="og:url" content="<?php echo $metaUrl;?>" />    
     <?php echo $metaImage;?>
 
+	<meta name="theme-color" content="#FFA12C">
+	<meta name="msapplication-navbutton-color" content="#FFA12C">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#FFA12C">
+
     <link rel="shortcut icon" href="<?php echo BASE_URL;?>visual/img/favicon.ico"/>
     <link rel="canonical" href="<?php echo $metaUrl;?>" />
 
@@ -26,12 +30,7 @@
     <?php echo Params::param('metainfo-google-analytics');?>
 
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-7429223453905389",
-        enable_page_level_ads: true
-      });
-    </script>
+    <?php echo method_exists($control, 'adsenseFullPage') ? $control->adsenseFullPage() : ''; ?>
 
 </head>
 <body>

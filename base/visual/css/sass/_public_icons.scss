@@ -10,6 +10,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-down-arrow:before {
+  content: "\e91a";
+}
+.icon-info:before {
+  content: "\e919";
+}
 .icon-edit:before {
   content: "\e916";
 }

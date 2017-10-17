@@ -62,6 +62,7 @@ body {
 			font-size: $fontSizeTiny;
 			color: desaturate($colorAccent, 20%);
 			text-transform: uppercase;
+			padding: 0 0 5px;
 		}
 		em {
 			font-style: normal;
@@ -152,9 +153,9 @@ body {
 	margin-right: 10px;
 }
 .message {
-	color: $colorAccept;
-	background: rgba($colorAccept, 0.1);
-	border: 1px solid rgba($colorAccept, 0.15);
+	color: darken($colorAccept, 5%);
+	background: rgba($colorAccept, 0.05);
+	border: 1px solid rgba($colorAccept, 0.1);
 	font-weight: bold;
 	padding: 15px;
 	text-align: center;
@@ -162,6 +163,7 @@ body {
 	max-width: $sizeTablet * 2 / 3;
 	line-height: 1.5;
 	margin: 40px auto;
+	box-sizing: border-box;
 	@include borderRadius(5px);
 	p {
 		&:last-child {
@@ -169,7 +171,7 @@ body {
 		}
 	}
 	a {
-		color: darken($colorAccept, 10%);
+		color: darken($colorAccept, 15%);
 		&:hover {
 			text-decoration: underline;
 			opacity: 0.7;
@@ -230,14 +232,52 @@ body {
 		}
 	}
 }
+
+.contentWrapperMessage {
+	.message {
+		font-size: $fontSizeBig * 7 / 10;
+		padding: 30px 30px 30px 100px;
+		text-align: left;
+		position: relative;
+		margin: 100px auto 200px auto;
+		&:before {
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			width: 40px;
+			font-size: 40px;
+			padding: 30px 20px;
+			line-height: 40px;
+			content: "\e919";
+			font-family: 'icons';
+			font-weight: normal;
+			background: rgba(lighten($colorAccept, 10%), 0.3);
+			color: rgba($white, 0.9);
+		}
+		h1 {
+			text-align: left;
+			font-size: $fontSizeBig;
+			margin: 0;
+			padding: 0 0 10px;
+			color: darken($colorAccept, 15%);
+			&:before,
+			&:after {
+				display: none;
+			}
+		}
+	}
+}
+
+
 .buttonHome {
 	text-align: center;
 	margin: 200px auto 20px auto;
 	a {
 		display: inline-block;
-		background: rgba($colorText, 0.1);
-		border: 1px solid rgba($colorText, 0.15);
-		color: $colorText;
+		background: rgba($colorText, 0.03);
+		border: 1px solid rgba($colorText, 0.04);
+		color: rgba($colorText, 0.5);
 		padding: 10px 20px;
 		text-align: center;
 		font-weight: bold;
@@ -249,12 +289,16 @@ body {
 		}
 		i {
 			font-size: $fontSizeBig;
-			padding: 0 5px 0 0;
+			padding: 0 0 0 5px;
+			color: rgba($colorText, 0.6);
 		}
 		@include borderRadius(3px);
 		&:hover {
 			background: lighten($colorText, 10%);
 			color: $white;
+			i {
+				color: $white;
+			}
 		}
 	}
 }
@@ -482,60 +526,6 @@ body {
 	}
 }
 
-.promotion {
-	max-width: $sizeTablet;
-	margin: auto;
-	padding: 20px;
-	background: darken($white, 3%);
-	@include clearer();
-	.promotionRight {
-		width: 300px;
-		float: right;
-	}
-	.promotionLeft {
-		width: calc(100% - 350px);
-		float: left;
-		font-size: $fontSizeNormal;
-	}
-	.promotionAd {
-		padding: 20px 20px 20px 30px;
-		background: lighten($colorText, 15%);
-		border-left: 30px solid lighten($colorText, 12%);
-		color: $white;
-		font-size: $fontSizeBig;
-		text-align: left;
-		p {
-			padding: 0 0 0 30px;
-		}
-		.promotionAdNumber {
-			font-size: $fontSizeHuge * 2.5;
-			color: lighten($colorMainAlt, 15%);
-			font-weight: 900;
-			letter-spacing: -0.1em;
-			line-height: 0.9;
-			text-indent: -30px;
-			display: block;
-			em {
-				font-size: $fontSizeBig;
-				color: lighten($colorMainAlt, 15%);
-				font-weight: normal;
-				font-style: normal;
-				letter-spacing: 0;
-				display: inline-block;
-				padding: 0 0 0 10px;
-				text-indent: 0;
-			}
-		}
-		.promotionAdPrice {
-			color: lighten($colorMainAlt, 25%);
-			font-size: $fontSizeTiny;
-			font-style: italic;
-			padding: 0 0 10px;
-			display: block;
-		}
-	}
-}
-
 .actions {
 	padding: 20px 0;
 	@include clearer();
@@ -575,6 +565,69 @@ body {
 				border: 1px solid darken($colorAccept, 10%);
 				&:hover {
 					background: darken($colorAccept, 10%);
+				}
+			}
+		}
+	}
+}
+
+.actionsPlace {
+	background: rgba($colorText, 0.05);
+	border: 1px solid darken($white, 10%);
+	border-top: 0;
+	padding: 15px;
+	margin: 0 0 20px;
+	font-size: $fontSizeSmall;
+	color: lighten($colorText, 5%);
+	.actionPlace {
+		padding: 0 0 10px;
+		margin: 0 0 5px;
+		border-bottom: 1px solid darken($white, 10%);
+		@include clearer();
+		&:last-child {
+			padding: 0;
+			margin: 0;
+			border: 0;
+		}
+		h3 {
+			font-weight: bold;
+			color: lighten($colorText, 15%);
+		}
+		.actionPlaceIns {
+			float: left;
+			width: calc(100% - 220px);
+		}
+		a {
+			display: block;
+			float: right;
+			margin: 10px 0 0 0;
+			padding: 5px 10px 5px 30px;
+			width: 130px;
+			text-align: center;
+			color: $white;
+			text-transform: uppercase;
+			font-size: $fontSizeSmall;
+			vertical-align: middle;
+			background: $colorActive;
+			border: 1px solid darken($colorActive, 5%);
+			box-sizing: border-box;
+			position: relative;
+			@include borderRadius(3px);
+			&:hover {
+				background: darken($colorActive, 10%);
+			}
+			i {
+				position: absolute;
+				top: 5px;
+				left: 5px;
+			}
+		}
+		&.actionPlace-report {
+			a {
+				background: desaturate(lighten($colorText, 30%), 40%);
+				border: 1px solid darken(desaturate(lighten($colorText, 30%), 40%), 5%);
+				&:hover {
+					background: darken(desaturate(lighten($colorText, 30%), 40%), 10%);
 				}
 			}
 		}
@@ -623,7 +676,7 @@ body {
 		}
 	}
 	.pageComplete {
-		max-width: $sizeTablet;
+		max-width: $sizeTablet * 4 / 5;;
 		margin: auto;
 	}
 }
@@ -898,10 +951,11 @@ body {
 .reportPlace {
 	max-width: $sizeTablet * 4 / 5;
 	margin: auto;
-	padding: 15px;
+	padding: 0;
 	background: darken($white, 3%);
 	border: 1px solid darken($white, 10%);
 	border-bottom: 0;
+	box-sizing: border-box;
 	.itemPublic {
 		border: 0;
 		background: transparent;
@@ -983,6 +1037,121 @@ body {
 		text-transform: uppercase;
 		margin: 0 0 20px;
 		color: lighten($black, 40%);
+	}
+}
+
+.retryPayments {
+	text-align: center;
+	margin: 10px 0 30px 0;
+	.retryPayment {
+		display: inline-block;
+		padding: 0 10px;
+		a {
+			display: inline-block;
+			padding: 10px 30px;
+			background: lighten(desaturate($colorText, 50%), 30%);
+			border: 1px solid lighten(desaturate($colorText, 50%), 20%);
+			color: $white;
+			font-weight: bold;
+			@include borderRadius(5px);
+			&:hover {
+				background: lighten(desaturate($colorText, 50%), 20%);
+				border: 1px solid lighten(desaturate($colorText, 50%), 20%);
+			}
+		}
+	}
+}
+
+.formFieldsPromotionLink {
+	text-align: right;
+	a {
+		display: inline-block;
+		padding: 10px 15px;
+		background: lighten($colorText, 20%);
+		border: 1px solid lighten($colorText, 30%);
+		color: $white;
+		font-size: $fontSizeSmall;
+		@include borderRadius(5px);
+		&:hover {
+			background: lighten($colorText, 25%);
+		}
+		span,
+		i {
+			display: inline-block;
+			vertical-align: middle;
+		}
+		i {
+			padding: 0 0 0 5px;
+		}
+	}
+}
+
+.contentWrapper-clean {
+	max-width: 100%;
+}
+.promotion {
+	margin: 50px 0 -70px 0;
+	background: $white;
+	border-top: 50px solid rgba(lighten($colorText, 10%), 0.1);
+	.promotionIns {
+		max-width: $sizeDesktop;
+		margin: auto;
+		padding: 40px 0;
+		.pageComplete {
+			max-width: 100%;
+		}
+		h1 {
+			font-size: $fontSizeHuge * 8 / 10;
+			letter-spacing: -1px;
+			padding: 0 0 30px;
+			margin: 0 0 30px;
+			color: lighten($colorText, 15%);
+			position: relative;
+			&:before {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 150px;
+				height: 10px;
+				background: rgba(lighten($colorText, 10%), 0.1);
+				content: '';
+			}
+		}
+		h2 {
+			font-size: $fontSizeHuge * 6 / 10;
+			letter-spacing: -1px;
+			padding: 0 0 30px;
+			margin: 0;
+			color: $colorAccentAlt;
+			font-weight: normal;
+		}
+		ul {
+			margin: 20px 0;
+			li {
+				display: block;
+				margin: 0 20px;
+				padding: 0 0 20px 40px;
+				list-style: none;
+				position: relative;
+				font-size: $fontSizeBig;
+				&:before {
+					content: "\e903";
+					font-family: 'icons';
+					color: $colorAccept;
+					font-size: 20px;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+			&.secondary {
+				li {
+					&:before {
+						color: $colorAccentAlt;
+					}
+				}
+			}
+		}
 	}
 }
 

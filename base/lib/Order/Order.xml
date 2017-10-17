@@ -66,8 +66,9 @@
             <label>paymentType</label>
             <type>radio</type>
             <values>
+            	<value>paymentTypeDeposit</value>
+                <value>paymentTypeKhipu</value>
                 <value>paymentTypePaypal</value>
-                <value>paymentTypeDeposit</value>
             </values>
         </attribute>
         <attribute>
