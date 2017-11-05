@@ -77,6 +77,7 @@ class Navigation_Ui extends Ui {
 						'.$this->footer();
 			break;
 			case 'clean':
+			case 'promotion':
 				return $this->header().'
 						<div class="contentWrapper contentWrapperSimple contentWrapper-'.$layoutPage.'">
 							'.$content.'

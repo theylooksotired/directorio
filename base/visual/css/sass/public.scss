@@ -634,24 +634,6 @@ body {
 	}
 }
 
-.contentWrapper-promotion {
-	max-width: 100%;
-	background: $colorMainAlt;
-	h1 {
-		max-width: $sizeDesktop;
-		margin: auto;
-		text-align: center;
-		font-family: $fontFamily;
-		font-weight: bold;
-		text-transform: uppercase;
-		letter-spacing: -2px;
-		padding: 20px 0 30px 0;
-		font-size: $fontSizeHuge * 4 / 5;
-		color: $white;
-		text-shadow: 1px 1px 3px darken($colorMainAlt, 15%);
-	}
-}
-
 .contentWrapper-simple {
 	max-width: 100%;
 	background: darken($white, 2%);
@@ -1089,41 +1071,70 @@ body {
 .contentWrapper-clean {
 	max-width: 100%;
 }
+.contentWrapper-promotion {
+	max-width: 100%;
+	background: darken($white, 5%);
+}
 .promotion {
-	margin: 50px 0 -70px 0;
-	background: $white;
-	border-top: 50px solid rgba(lighten($colorText, 10%), 0.1);
+	margin: auto;
+	padding: 140px 0 0 0;
+	position: relative;
+	&:before {	
+		position: absolute;
+		top: -20px;
+		left: 0;
+		right: 0;
+		height: 130px;
+		background-color: $white;
+		background-image: url(../../img/directorio_bg_small.png);
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		content: '';
+	}
 	.promotionIns {
 		max-width: $sizeDesktop;
 		margin: auto;
-		padding: 40px 0;
-		.pageComplete {
-			max-width: 100%;
-		}
+		max-width: $sizeTablet;
+		background: rgba($white, 0.8);
+		border: 1px solid rgba($black, 0.05);
+		padding: 30px;
+		box-sizing: content-box;
+		position: relative;
+		z-index: 2;
 		h1 {
-			font-size: $fontSizeHuge * 8 / 10;
+			font-size: $fontSizeHuge * 6 / 10;
 			letter-spacing: -1px;
 			padding: 0 0 30px;
 			margin: 0 0 30px;
-			color: lighten($colorText, 15%);
+			color: $colorAccept;
 			position: relative;
-			&:before {
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				width: 150px;
-				height: 10px;
-				background: rgba(lighten($colorText, 10%), 0.1);
-				content: '';
+			text-align: center;
+			span {
+				display: block;
+				padding: 5px 0 0 0;
+				font-size: $fontSizeHuge * 4 / 10;
+				color: lighten($colorAccept, 5%);
+				text-transform: none;	
+				em {
+					display: inline;
+					font-size: $fontSizeHuge * 6 / 10;
+					color: lighten($colorAccept, 10%);
+				}
+			}
+			&:before,
+			&:after {
+				display: none;
 			}
 		}
 		h2 {
-			font-size: $fontSizeHuge * 6 / 10;
+			font-size: $fontSizeHuge * 5 / 10;
 			letter-spacing: -1px;
 			padding: 0 0 30px;
 			margin: 0;
 			color: $colorAccentAlt;
 			font-weight: normal;
+			text-align: center;
 		}
 		ul {
 			margin: 20px 0;
@@ -1133,7 +1144,7 @@ body {
 				padding: 0 0 20px 40px;
 				list-style: none;
 				position: relative;
-				font-size: $fontSizeBig;
+				font-size: $fontSizeBig * 8 / 10;
 				&:before {
 					content: "\e903";
 					font-family: 'icons';
@@ -1152,6 +1163,10 @@ body {
 				}
 			}
 		}
+	}
+	.formFieldsPromotionLink {
+		text-align: center;
+		padding: 20px 0 50px 0;
 	}
 }
 

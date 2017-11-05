@@ -36,6 +36,7 @@ class PlaceEdit_Form extends Form{
 								'.$this->field('idPlaceEdit').'
 							</div>
 						</div>
+						<a name="continuar"></a>
 						<div class="formFieldsPromotion">
 							'.FormField_Radio::create(array('name'=>'choicePromotion', 
 											'class'=>'choicePromotion',
@@ -47,9 +48,9 @@ class PlaceEdit_Form extends Form{
 												Aparecerá en los primeros lugares de las búsquedas y podré adjuntar el logo de la misma.'
 												))).'
 							<div class="formFieldsPromotionLink">
-								<a href="#promocion">
+								<a href="'.url('promocion').'" target="_blank">
 									<span>Ver todas las ventajas</span>
-									<i class="icon icon-down-arrow"></i>
+									<i class="icon icon-arrow-right"></i>
 								</a>
 							</div>
 						</div>
@@ -88,13 +89,7 @@ class PlaceEdit_Form extends Form{
 						</div>
 					</div>';
 		return Form::createForm($fields, array('submit'=>'Guardar', 'class'=>'formPublic formPlaceEdit')).'
-				'.HtmlSection::showFile('inscribirBottom').'
-				<a name="promocion"></a>
-				<div class="promotion">
-					<div class="promotionIns">
-						'.HtmlSection::showFile('promotion').'
-					</div>
-				</div>';
+				'.HtmlSection::showFile('inscribirBottom');
 	}
 
 	public function createPublicPromote($place='') {

@@ -66,19 +66,6 @@ class Navigation_Controller extends Controller{
                                     </div>';
                 return $this->ui->render();
             break;
-            case 'promocion':
-                $this->layoutPage = 'clean';
-            	$this->titlePage = 'Promocione a su empresa';
-                $this->content = '<div class="promotion promotionMain">
-										<div class="promotionIns">
-											'.HtmlSection::showFile('promotion').'
-											<div class="promotionButton">
-												<a href="'.url('inscribir').'">Inscriba a su empresa</a>
-											</div>
-										</div>
-									</div>';
-                return $this->ui->render();
-            break;
             case 'ciudad':
             	$this->adsenseFullPageActive = true;
                 $items = new ListObjects('Place', array('where'=>'cityUrl="'.$this->id.'" AND cityUrl!=""', 'order'=>'promoted DESC, titleUrl', 'results'=>'10'));
@@ -195,6 +182,21 @@ class Navigation_Controller extends Controller{
                 $this->metaKeywords = 'terminos, condiciones, legal, directorio, empresas';
                 $this->content = HtmlSection::showFile('terms');
                 return $this->ui->render();
+            break;
+            case 'promocion':
+            	$this->layoutPage = 'promotion';
+            	$this->titlePage = 'Ventajas de inscribir a su empresa en nuestro directorio';
+            	$this->metaDescription = 'Mejore el SEO de su sitio web inscribiendo a su empresa en nuestro directorio.';
+                $this->metaKeywords = 'seo, inscribir, empresa, negocio, inscripcion, optimizacion';
+                $this->content = '<div class="promotion">
+									<div class="promotionIns">
+										'.HtmlSection::showFile('promotion').'
+										<div class="buttonBig">
+											<a href="'.url('inscribir').'">Inscribir <em>a mi empresa</em></a>
+										</div>
+									</div>
+								</div>';
+				return $this->ui->render();
             break;
 
 
