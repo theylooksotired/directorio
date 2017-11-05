@@ -228,7 +228,7 @@ class Navigation_Controller extends Controller{
                                                 'name'=>$placeEdit->get('nameEditor'),
                                                 'email'=>$placeEdit->get('emailEditor'),
                                                 'paymentType'=>'0',
-                                                'price'=>'1',
+                                                'price'=>'10',
                                                 'payed'=>'0'));
                             $order = Order::read($order->id());
                             switch($this->values['choicePayment']) {
