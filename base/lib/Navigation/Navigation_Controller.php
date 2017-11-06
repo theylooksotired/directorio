@@ -8,6 +8,7 @@ class Navigation_Controller extends Controller{
     }
 
     public function controlActions(){
+        $this->metaImage = BASE_URL.'visual/img/directorio_bg.png';
         switch ($this->action) {
             default:
             	$this->adsenseFullPageActive = true;
@@ -180,14 +181,16 @@ class Navigation_Controller extends Controller{
                 $this->titlePage = 'Términos y condiciones';
                 $this->metaDescription = 'Términos y condiciones del sitio '.Params::param('titlePage');
                 $this->metaKeywords = 'terminos, condiciones, legal, directorio, empresas';
+                $this->metaUrl = url($this->action);
                 $this->content = HtmlSection::showFile('terms');
                 return $this->ui->render();
             break;
             case 'promocion':
-            	$this->layoutPage = 'promotion';
+                $this->layoutPage = 'promotion';
             	$this->titlePage = 'Ventajas de inscribir a su empresa en nuestro directorio';
             	$this->metaDescription = 'Mejore el SEO de su sitio web inscribiendo a su empresa en nuestro directorio.';
                 $this->metaKeywords = 'seo, inscribir, empresa, negocio, inscripcion, optimizacion';
+                $this->metaUrl = url($this->action);
                 $this->content = '<div class="promotion">
 									<div class="promotionIns">
 										'.HtmlSection::showFile('promotion').'
