@@ -23,7 +23,7 @@
     <title><?php echo $title;?></title>
 
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
-    <link href="<?php echo BASE_URL;?>visual/css/stylesheets/public.css?v=5" rel="stylesheet" type="text/css" />
+    <link href="<?php echo BASE_URL;?>visual/css/stylesheets/public.css?v=8" rel="stylesheet" type="text/css" />
 
     <?php echo $header;?>
 

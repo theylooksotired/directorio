@@ -277,4 +277,37 @@
 	.buttonHome {
 		margin: 40px auto;
 	}
+	.promotion {
+		.promotionIns {
+			padding: 15px;
+			h1 {
+				font-size: $fontSizeBig;
+				padding: 0 0 15px;
+				margin: 0 0 15px;
+				span {
+					font-size: $fontSizeBig;
+					em {
+						font-size: $fontSizeBig;
+					}
+				}
+			}
+			h2 {
+				font-size: $fontSizeBig;
+				padding: 20px 0 15px 0;
+			}
+			ul {
+				margin: 10px 0;
+				padding: 0;
+				width: 100%;
+				li {
+					margin: 0 10px;
+					padding: 0 0 10px 30px;
+					font-size: $fontSizeNormal;
+				}
+			}
+		}
+		.formFieldsPromotionLink {
+			padding: 20px 0;
+		}
+	}
 }
