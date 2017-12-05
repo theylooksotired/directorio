@@ -53,8 +53,8 @@ class Order extends Db_Object {
 		$notifyUrl = (isset($options['notifyUrl']) && $options['notifyUrl']!='') ? $options['notifyUrl'] : url('khipu/notificado/'.md5('plasticwebs_notificado'.$this->id()));
 		return array('item_name' => $this->get('name'),
 					'item_number' => $this->id(),
-					'item_amount' => doubleval($this->get('price') * 7),
-					'currency_code' => 'BOB',
+					'item_amount' => doubleval($this->get('price')),
+					'currency_code' => 'USD',
 					'cancel_url' => $cancelUrl,
 					'notify_url' => $notifyUrl,
 					'return_url' => $returnUrl);
