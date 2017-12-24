@@ -346,11 +346,13 @@ class Navigation_Controller extends Controller{
                 $this->mode = 'json';
                 $autocomplete = (isset($_GET['term'])) ? $_GET['term'] : '';
                 if ($autocomplete!='' && strlen($autocomplete)>=3) {
-                    $query = 'SELECT idTag as idItem, name as infoItem
+                    $query = 'SELECT '.Db::prefixTable('Tag').'.idTag as idItem, '.Db::prefixTable('Tag').'.name as infoItem
                             FROM '.Db::prefixTable('Tag').'
                             LEFT JOIN '.Db::prefixTable('PlaceTag').' ON '.Db::prefixTable('Tag').'.idTag='.Db::prefixTable('PlaceTag').'.idTag
-                            WHERE name LIKE "%'.$autocomplete.'%"
-                            ORDER BY nameUrl LIMIT 20';
+                            WHERE '.Db::prefixTable('Tag').'.name LIKE "%'.$autocomplete.'%"
+                            ORDER BY '.Db::prefixTable('Tag').'.nameUrl
+                            LIMIT 20';
+                    echo $query;
                     $results = array();
                     $resultsAll = Db::returnAll($query);
                     foreach ($resultsAll as $result) {
