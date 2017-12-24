@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <?php echo Params::param('metainfo-google-webmasters');?>
 
-    <meta property="og:title" content="<?php echo $title;?>" /> 
-    <meta property="og:description" content="<?php echo $metaDescription;?>" />    
-    <meta property="og:url" content="<?php echo $metaUrl;?>" />    
+    <meta property="og:title" content="<?php echo $title;?>" />
+    <meta property="og:description" content="<?php echo $metaDescription;?>" />
+    <meta property="og:url" content="<?php echo $metaUrl;?>" />
     <?php echo $metaImage;?>
 
 	<meta name="theme-color" content="#FFA12C">
@@ -23,7 +23,7 @@
     <title><?php echo $title;?></title>
 
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
-    <link href="<?php echo BASE_URL;?>visual/css/stylesheets/public.css?v=8" rel="stylesheet" type="text/css" />
+    <link href="<?php echo BASE_URL;?>visual/css/stylesheets/public.css?v=9" rel="stylesheet" type="text/css" />
 
     <?php echo $header;?>
 
