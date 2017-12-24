@@ -348,6 +348,7 @@ class Navigation_Controller extends Controller{
                 if ($autocomplete!='' && strlen($autocomplete)>=3) {
                     $query = 'SELECT idTag as idItem, name as infoItem
                             FROM '.Db::prefixTable('Tag').'
+                            LEFT JOIN '.Db::prefixTable('PlaceTag').' ON '.Db::prefixTable('Tag').'.idTag='.Db::prefixTable('PlaceTag').'.idTag
                             WHERE name LIKE "%'.$autocomplete.'%"
                             ORDER BY nameUrl LIMIT 20';
                     $results = array();
