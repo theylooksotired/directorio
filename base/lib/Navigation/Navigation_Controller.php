@@ -359,7 +359,7 @@ class Navigation_Controller extends Controller{
                         $resultsIns = array();
                         $resultsIns['id'] = $result['idItem'];
                         $resultsIns['value'] = $result['infoItem'];
-                        $resultsIns['label'] = $result['infoItem'].' <em>('.$result['numItems'].')</em>';
+                        $resultsIns['label'] = $result['infoItem'].' ('.$result['numItems'].')';
                         array_push($results, $resultsIns);
                     }
                     return json_encode($results);
