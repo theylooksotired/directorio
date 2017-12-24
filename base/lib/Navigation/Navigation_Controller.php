@@ -351,7 +351,7 @@ class Navigation_Controller extends Controller{
                             JOIN '.Db::prefixTable('PlaceTag').' ON '.Db::prefixTable('Tag').'.idTag='.Db::prefixTable('PlaceTag').'.idTag
                             WHERE '.Db::prefixTable('Tag').'.name LIKE "%'.$autocomplete.'%"
                             GROUP BY '.Db::prefixTable('Tag').'.idTag
-                            ORDER BY numItems, '.Db::prefixTable('Tag').'.nameUrl
+                            ORDER BY numItems DESC, '.Db::prefixTable('Tag').'.nameUrl
                             LIMIT 20';
                     $results = array();
                     $resultsAll = Db::returnAll($query);
@@ -359,7 +359,7 @@ class Navigation_Controller extends Controller{
                         $resultsIns = array();
                         $resultsIns['id'] = $result['idItem'];
                         $resultsIns['value'] = $result['infoItem'];
-                        $resultsIns['label'] = $result['infoItem'].' ('.$result['numItems'].')';
+                        $resultsIns['label'] = $result['infoItem'].' <em>('.$result['numItems'].')</em>';
                         array_push($results, $resultsIns);
                     }
                     return json_encode($results);
