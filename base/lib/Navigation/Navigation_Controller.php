@@ -342,7 +342,8 @@ class Navigation_Controller extends Controller{
                 }
                 return $this->ui->render();
             break;
-            case 'tag':
+            case 'tag-autocomplete':
+                return 22;
                 $this->mode = 'json';
                 $autocomplete = (isset($_GET['term'])) ? $_GET['term'] : '';
                 if ($autocomplete!='' && strlen($autocomplete)>=3) {

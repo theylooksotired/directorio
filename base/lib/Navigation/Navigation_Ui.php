@@ -162,7 +162,7 @@ class Navigation_Ui extends Ui {
 						</div>
 					</div>
 					<div class="datajs">
-						<div class="datajs datajs-tag" data-url="'.url('tag').'"></div>
+						<div class="datajs datajs-tag" data-url="'.url('tag-autocomplete').'"></div>
 					</div>
 				</footer>';
 	}
