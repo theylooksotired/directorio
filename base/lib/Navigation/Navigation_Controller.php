@@ -28,11 +28,11 @@ class Navigation_Controller extends Controller{
                         $this->breadCrumbs = array(url('ciudad')=>'Ciudades', url('ciudad/'.$item->get('cityUrl'))=>$item->get('city'), $item->url()=>$item->getBasicInfo());
                         return $this->ui->render();
                     } else {
-                        header("HTTP/1.1 301 Moved Permanently"); 
+                        header("HTTP/1.1 301 Moved Permanently");
                         header('Location: '.url(''));
                     }
-                } else {                
-                    header("HTTP/1.1 301 Moved Permanently"); 
+                } else {
+                    header("HTTP/1.1 301 Moved Permanently");
                     header('Location: '.url(''));
                 }
             break;
@@ -41,7 +41,7 @@ class Navigation_Controller extends Controller{
                 $this->layoutPage = 'intro';
                 $this->content = '<div class="searchMainWrapper" style="background-image: url('.BASE_URL.'visual/img/cover-'.Params::param('countryCode').'.jpg);">
                                         <div class="searchMain">
-                                            <div class="searchMainIns">    
+                                            <div class="searchMainIns">
                                                 '.Navigation_Ui::search().'
                                             </div>
                                         </div>
@@ -133,26 +133,26 @@ class Navigation_Controller extends Controller{
                     $this->content = $item->showUi('Cities').'
                                     '.$items->showList(array('function'=>'Public', 'middle'=>Adsense::inline())).'
                                     '.$items->pager();
-                    return $this->ui->render();                
+                    return $this->ui->render();
                 } else {
                     $item = Tag::readFirst(array('where'=>'nameUrl="'.$this->id.'"'));
                     if ($item->id()!='') {
-                        header("HTTP/1.1 301 Moved Permanently"); 
+                        header("HTTP/1.1 301 Moved Permanently");
                         header('Location: '.$item->url());
                     } else {
-                        header("HTTP/1.1 301 Moved Permanently"); 
-                        header('Location: '.url(''));                        
+                        header("HTTP/1.1 301 Moved Permanently");
+                        header('Location: '.url(''));
                     }
                 }
             break;
             case 'web':
                 $item = Place::readFirst(array('where'=>'titleUrl="'.$this->id.'"'));
                 if ($item->id()!='') {
-                    header("HTTP/1.1 301 Moved Permanently"); 
+                    header("HTTP/1.1 301 Moved Permanently");
                     header('Location: '.$item->url());
                 } else {
-                    header("HTTP/1.1 301 Moved Permanently"); 
-                    header('Location: '.url(''));                        
+                    header("HTTP/1.1 301 Moved Permanently");
+                    header('Location: '.url(''));
                 }
             break;
             case 'buscar':
@@ -172,7 +172,7 @@ class Navigation_Controller extends Controller{
                     $this->content = $items->showListPager(array('function'=>'Public', 'message'=>'<div class="message">Lo sentimos, pero no encontramos resultados para su busqueda.</div>', 'middle'=>Adsense::inline()));
                     return $this->ui->render();
                 } else {
-                    header("HTTP/1.1 301 Moved Permanently"); 
+                    header("HTTP/1.1 301 Moved Permanently");
                     header('Location: '.url(''));
                 }
             break;
@@ -341,6 +341,26 @@ class Navigation_Controller extends Controller{
                     $this->messageError = 'Lo sentimos, pero la empresa no existe.';
                 }
                 return $this->ui->render();
+            break;
+            case 'tag':
+                $this->mode = 'json';
+                $autocomplete = (isset($_GET['term'])) ? $_GET['term'] : '';
+                if ($autocomplete!='' && strlen($autocomplete)>=3) {
+                    $query = 'SELECT idTag as idItem, name as infoItem
+                            FROM '.Db::prefixTable('Tag').'
+                            WHERE name LIKE "%'.$autocomplete.'%" OR
+                            ORDER BY nameUrl LIMIT 20';
+                    $results = array();
+                    $resultsAll = Db::returnAll($query);
+                    foreach ($resultsAll as $result) {
+                        $resultsIns = array();
+                        $resultsIns['id'] = $result['idItem'];
+                        $resultsIns['value'] = $result['infoItem'];
+                        $resultsIns['label'] = $result['infoItem'];
+                        array_push($results, $resultsIns);
+                    }
+                    return json_encode($results);
+                }
             break;
             case 'paypal':
                 $this->header = '<meta name="robots" content="noindex,nofollow"/>';

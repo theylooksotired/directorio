@@ -161,6 +161,9 @@ class Navigation_Ui extends Ui {
 							</div>
 						</div>
 					</div>
+					<div class="datajs">
+						<div class="datajs datajs-tag" data-url="'.urlencode(url('tag')).'"></div>
+					</div>
 				</footer>';
 	}
 

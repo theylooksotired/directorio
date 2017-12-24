@@ -5,10 +5,10 @@ $(document).ready(function(){
         $(ele).autocomplete({
             minLength: 2,
             source: function(request, response) {
-                                $.getJSON($(ele).parents('.autocompleteItem').attr('rel'), {
-                                        term: extractLast(request.term)
-                                }, response );
-                        },
+                $.getJSON($('.datajs-tag').data('url'), {
+                    term: extractLast(request.term)
+                }, response );
+            },
             focus: function() {
                 return false;
             },
@@ -41,7 +41,7 @@ $(document).ready(function(){
 
     //SMOOTH SCROLL
     smoothScroll();
-    
+
 });
 
 $(window).load(function() {
@@ -124,8 +124,8 @@ function smoothScroll() {
         .not('[href="#0"]')
         .click(function(event) {
             if (
-                location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
-                && 
+                location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+                &&
                 location.hostname == this.hostname
             ) {
                 var target = $(this.hash);

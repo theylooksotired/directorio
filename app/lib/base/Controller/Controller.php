@@ -28,7 +28,7 @@ abstract class Controller{
         $this->files = isset($FILES) ? $FILES : array();
         $this->login = User_Login::getInstance();
     }
-    
+
     /**
     * Function to get the title for a page.
     * By default it uses the title defined in the Parameters.
@@ -39,7 +39,7 @@ abstract class Controller{
         } else {
             return Params::param('metainfo-titlePage');
         }
-    }   
+    }
 
     /**
     * Function to get the extra header tags for a page.
@@ -304,7 +304,7 @@ abstract class Controller{
                     $where = substr($where, 0, -4);
                     $concat = 'CONCAT('.substr($concat, 0, -5).')';
                     if ($where!='') {
-                        $query = 'SELECT '.(string)$this->object->info->info->sql->primary.' as idItem, 
+                        $query = 'SELECT '.(string)$this->object->info->info->sql->primary.' as idItem,
                                 '.$concat.' as infoItem
                                 FROM '.Db::prefixTable($this->type).'
                                 WHERE '.$where.'
@@ -318,7 +318,7 @@ abstract class Controller{
                             $resultsIns['label'] = $result['infoItem'];
                             array_push($results, $resultsIns);
                         }
-                        return json_encode($results);                        
+                        return json_encode($results);
                     }
                 }
             break;
@@ -336,7 +336,7 @@ abstract class Controller{
                         header('Location: '.url($this->type.'/search/'.$searchString, true));
                     } else {
                         header('Location: '.url($this->type.'/listAdmin', true));
-                    }    
+                    }
                 }
             break;
             case 'export-json':
@@ -465,7 +465,7 @@ abstract class Controller{
                 $linkMultiple = url($this->type.'/multiple-'.$multipleAction, true);
                 $multipleActionsOptions .= '<div class="multipleAction multipleOption" rel="'.$linkMultiple.'">
                                                 '.__($multipleAction.'Selected').'
-                                            </div>';    
+                                            </div>';
             }
             return '<div class="multipleActions">
                         <div class="multipleAction multipleActionCheckAll">
@@ -556,7 +556,7 @@ abstract class Controller{
                                     array('submit'=>array('save'=>__('save'),
                                             'saveCheck'=>__('saveCheck')))));
     }
-    
+
     /**
     * Modify an element and return the proper information to render.
     */
@@ -658,7 +658,7 @@ abstract class Controller{
             if ($permission->id()=='') {
                 if ($this->mode == 'ajax') {
                     return __('permissionsDeny');
-                } else {            
+                } else {
                     header('Location: '.url('NavigationAdmin/permissions', true));
                     exit();
                 }
