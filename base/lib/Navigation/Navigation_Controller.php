@@ -343,8 +343,6 @@ class Navigation_Controller extends Controller{
                 return $this->ui->render();
             break;
             case 'tag-autocomplete':
-                return 22;
-                /*
                 $this->mode = 'json';
                 $autocomplete = (isset($_GET['term'])) ? $_GET['term'] : '';
                 if ($autocomplete!='' && strlen($autocomplete)>=3) {
@@ -362,7 +360,7 @@ class Navigation_Controller extends Controller{
                         array_push($results, $resultsIns);
                     }
                     return json_encode($results);
-                }*/
+                }
             break;
             case 'paypal':
                 $this->header = '<meta name="robots" content="noindex,nofollow"/>';
