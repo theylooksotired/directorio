@@ -346,20 +346,20 @@ class Navigation_Controller extends Controller{
                 $this->mode = 'json';
                 $autocomplete = (isset($_GET['term'])) ? $_GET['term'] : '';
                 if ($autocomplete!='' && strlen($autocomplete)>=3) {
-                    $query = 'SELECT '.Db::prefixTable('Tag').'.idTag as idItem, '.Db::prefixTable('Tag').'.name as infoItem
+                    $query = 'SELECT '.Db::prefixTable('Tag').'.idTag as idItem, '.Db::prefixTable('Tag').'.name as infoItem, COUNT(dir_Tag.idTag) as numItems
                             FROM '.Db::prefixTable('Tag').'
-                            LEFT JOIN '.Db::prefixTable('PlaceTag').' ON '.Db::prefixTable('Tag').'.idTag='.Db::prefixTable('PlaceTag').'.idTag
+                            JOIN '.Db::prefixTable('PlaceTag').' ON '.Db::prefixTable('Tag').'.idTag='.Db::prefixTable('PlaceTag').'.idTag
                             WHERE '.Db::prefixTable('Tag').'.name LIKE "%'.$autocomplete.'%"
-                            ORDER BY '.Db::prefixTable('Tag').'.nameUrl
+                            GROUP BY '.Db::prefixTable('Tag').'.idTag
+                            ORDER BY numItems, '.Db::prefixTable('Tag').'.nameUrl
                             LIMIT 20';
-                    echo $query;
                     $results = array();
                     $resultsAll = Db::returnAll($query);
                     foreach ($resultsAll as $result) {
                         $resultsIns = array();
                         $resultsIns['id'] = $result['idItem'];
                         $resultsIns['value'] = $result['infoItem'];
-                        $resultsIns['label'] = $result['infoItem'];
+                        $resultsIns['label'] = $result['infoItem'].' ('.$result['numItems'].')';
                         array_push($results, $resultsIns);
                     }
                     return json_encode($results);
