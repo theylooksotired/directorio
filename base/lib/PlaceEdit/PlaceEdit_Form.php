@@ -315,18 +315,6 @@ class PlaceEdit_Form extends Form{
 		$form = Form::createForm($this->createFormFieldsPublicAdmin(), array('submit'=>'Actualizar', 'class'=>'formPublic formPlaceEdit'));
 		if ($place->id()!='') {
 			$form = Form::createForm($this->createFormFieldsPublicAdminPlace($place), array('submit'=>'Actualizar', 'class'=>'formPublic formPlaceEdit'));
-			/*
-			$form = '<div class="adminWrapper">
-						<div class="adminItem adminItem2">
-							<h2>Informacion original</h2>
-							'.$place->showUi('Info').'
-						</div>
-						<div class="adminItem adminItem2">
-							<h2>Informacion modificada</h2>
-							'.$form.'
-						</div>
-					</div>';
-			*/
 		}
 		return $form.'
 				<div class="btnPublish">
@@ -334,6 +322,6 @@ class PlaceEdit_Form extends Form{
 					* Esta accion es irreversible.
 				</div>';
 	}
-	
+
 }
 ?>

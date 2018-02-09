@@ -29,13 +29,13 @@
         </attribute>
         <attribute>
             <name>nameEditor</name>
-            <label>name</label>
+            <label>nameEditor</label>
             <required>notEmpty</required>
             <type>text-long</type>
         </attribute>
         <attribute>
             <name>emailEditor</name>
-            <label>email</label>
+            <label>emailEditor</label>
             <required>notEmpty</required>
             <type>text-email</type>
         </attribute>
