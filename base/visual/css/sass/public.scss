@@ -802,6 +802,7 @@ body {
 	}
 	.itemCompleteWrapper {
 		padding: 15px;
+		line-height: 1.2em;
 		@include clearer();
 		.itemCompleteWrapperLeft {
 			width: 20%;

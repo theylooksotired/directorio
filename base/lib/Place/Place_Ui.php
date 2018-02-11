@@ -147,7 +147,7 @@ class Place_Ui extends Ui {
 		$info .= ($this->object->get('email')!='') ? '<p class="email"><i class="icon icon-email"></i> <em>Email :</em> <a href="mailto:'.$this->object->get('email').'">'.$this->object->get('email').'</a></p>' : '';
 		$info .= ($this->object->get('web')!='') ? '<p class="web"><i class="icon icon-globe"></i> <em>Sitio web :</em> <a href="'.Url::format($this->object->get('web')).'" target="_blank">'.Url::format($this->object->get('web')).'</a></p>' : '';
 		$shortDescription = ($this->object->get('shortDescription')!='') ? '<p class="shortDescription"><strong>'.$this->object->get('shortDescription').'</strong></p>' : '';
-		$description = ($this->object->get('description')!='') ? '<p class="description">'.$this->object->get('description').'</p>' : '';
+		$description = ($this->object->get('description')!='') ? '<p class="description">'.nl2br($this->object->get('description')).'</p>' : '';
 		$city = ($this->object->get('city')!='') ? '<p><i class="icon icon-city"></i> <em>Ciudad :</em> <a href="'.url('ciudad/'.$this->object->get('cityUrl')).'"><span itemprop="addressLocality">'.$this->object->get('city').'</span></a>, <span itemprop="addressRegion">'.Params::param('country').'</span></p>' : '';
 		$address = ($this->object->get('address')!='') ? '<p><i class="icon icon-address"></i> <em>Dirección :</em> <span itemprop="streetAddress">'.$this->object->get('address').'</span></p>' : '';
 		$this->object->loadTags();
