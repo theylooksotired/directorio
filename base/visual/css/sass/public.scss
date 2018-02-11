@@ -346,6 +346,25 @@ body {
 	&.itemPublicPromoted {
 		background: lighten(saturate($colorMainAlt, 50%), 43%);
 		border: 1px solid lighten($colorMainAlt, 30%);
+		position: relative;
+		.itemPublicPromotedStar {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 3px 5px;
+			background: lighten($colorMainAlt, 30%);
+			color: lighten($colorMainAlt, 10%);
+			font-size: $fontSizeTiny;
+			line-height: 1;
+			i,
+			span {
+				display: inline-block;
+				vertical-align: middle;
+			}
+			i {
+				padding: 0 5px 0 0;
+			}
+		}
 		.tagsPlace {
 			background: lighten($colorMainAlt, 30%);
 		}

@@ -62,6 +62,10 @@ class Place_Ui extends Ui {
 									<h2>'.$this->object->getBasicInfo().'</h2>
 									'.$description.'
 									<p>'.$info.'</p>
+									<div class="itemPublicPromotedStar">
+										<i class="icon icon-promotion"></i>
+										<span>Empresa promocionada</span>
+									</div>
 								</div>
 							</div>
 						</a>
@@ -71,7 +75,7 @@ class Place_Ui extends Ui {
 					</div>
 				</div>';
 	}
-	
+
 	public function renderComplete() {
 		$info = '';
 		$info .= ($this->object->get('telephone')!='') ? '<p class="telephone"><i class="icon icon-telephone"></i> <em>Teléfonos :</em> <span itemprop="telephone">'.$this->object->get('telephone').'</span></p>' : '';
