@@ -358,10 +358,11 @@ body {
 			i,
 			span {
 				position: static;
-				font-size: $fontSizeTiny * 8 / 10;
+				font-size: $fontSizeTiny * 7 / 10;
 				color: darken($colorMainAlt, 20%);
 				display: inline-block;
 				vertical-align: middle;
+				font-weight: bold;
 			}
 			i {
 				padding: 0 5px 0 0;
