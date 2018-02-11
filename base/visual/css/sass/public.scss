@@ -778,7 +778,6 @@ body {
 	}
 	.itemComplete {
 		padding: 50px 0 100px 0;
-		line-height: 1.3em;
 		.itemCompleteInfo {
 			background: transparent;
 			margin: 0;
@@ -803,6 +802,7 @@ body {
 	}
 	.itemCompleteWrapper {
 		padding: 15px;
+		line-height: 1.3em;
 		@include clearer();
 		.itemCompleteWrapperLeft {
 			width: 20%;
@@ -824,6 +824,7 @@ body {
 	}
 	.itemCompleteInfoWrapper.itemCompleteInfo {
 		padding: 15px 15px 40px 15px;
+		line-height: 1.2em;
 		@include clearer();
 		.itemCompleteInfoLeft,
 		.itemCompleteInfoRight {
