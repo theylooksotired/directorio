@@ -353,11 +353,12 @@ body {
 			right: 0;
 			padding: 3px 5px;
 			background: lighten($colorMainAlt, 30%);
-			color: lighten($colorMainAlt, 10%);
-			font-size: $fontSizeTiny;
-			line-height: 1;
+			text-transform: uppercase;
 			i,
 			span {
+				position: static;
+				font-size: $fontSizeTiny;
+				color: darken($colorMainAlt, 10%);
 				display: inline-block;
 				vertical-align: middle;
 			}
