@@ -51,6 +51,16 @@ class Order extends Db_Object {
 		$returnUrl = (isset($options['returnUrl']) && $options['returnUrl']!='') ? $options['returnUrl'] : url('khipu/pagado/'.md5('plasticwebs_pagado'.$this->id()));
 		$cancelUrl = (isset($options['cancelUrl']) && $options['cancelUrl']!='') ? $options['cancelUrl'] : url('khipu/anulado/'.md5('plasticwebs_anulado'.$this->id()));
 		$notifyUrl = (isset($options['notifyUrl']) && $options['notifyUrl']!='') ? $options['notifyUrl'] : url('khipu/notificado/'.md5('plasticwebs_notificado'.$this->id()));
+		echo ' -- ';
+		echo (defined(KHIPU_CURRENCY) && KHIPU_CURRENCY=='USD');
+		echo ' -- ';
+		echo (defined(KHIPU_CURRENCY));
+		echo ' -- ';
+		echo (KHIPU_CURRENCY=='USD');
+		echo ' -- ';
+		echo KHIPU_CURRENCY;
+		echo ' -- ';
+		exit();
 		return array('item_name' => $this->get('name'),
 					'item_number' => $this->id(),
 					'item_amount' => ((defined(KHIPU_CURRENCY) && KHIPU_CURRENCY=='USD') ? doubleval($this->get('price')) : doubleval($this->get('price') * 7)),
