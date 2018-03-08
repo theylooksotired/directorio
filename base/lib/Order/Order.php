@@ -32,9 +32,8 @@ class Order extends Db_Object {
 	}
 
 	public function khipuRequest($options=array()) {
-		Khipu::checkoutRequestUrl($this->formatOptionsKhipu($options));
-		//header('Location: '.Khipu::checkoutRequestUrl($this->formatOptionsKhipu($options)));
-		//exit();
+		header('Location: '.Khipu::checkoutRequestUrl($this->formatOptionsKhipu($options)));
+		exit();
 	}
 
 	public function formatOptionsPaypal($options=array()) {
