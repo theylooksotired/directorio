@@ -12,7 +12,7 @@ class Khipu {
 		$expiration = new DateTime();
 		$expiration->modify('+1 month');
 		$khipu = new Khipu\Client\PaymentsApi($client);
-		try {
+		//try {
 		    $optionsKhipu = array(
 		    	"transaction_id" => $options['item_number'],
 		        "return_url" => $options['return_url'],
@@ -33,9 +33,9 @@ class Khipu {
 		    print_r($paymentId);
 		    exit();
 		    return $paymentId['payment_url'];
-		} catch(Exception $e) {
-		    echo $e->getMessage();
-		}
+		//} catch(Exception $e) {
+		  //  echo $e->getMessage();
+		//}
 	}
 
 	static public function formatOptions($options=array()) {
