@@ -12,6 +12,8 @@ class Khipu {
 		$expiration = new DateTime();
 		$expiration->modify('+1 month');
 		$khipu = new Khipu\Client\PaymentsApi($client);
+		print_r($options);
+		exit();
 		try {
 		    $optionsKhipu = array(
 		    	"transaction_id" => $options['item_number'],
