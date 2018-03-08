@@ -22,8 +22,16 @@ class Khipu {
 		        "expires_date" => $expiration,
 		    	"body" => $options['item_name']
 		    );
+		    echo '<pre>';
+		    echo 1;
+		    print_r($optionsKhipu);
 		    $response = $khipu->paymentsPost($options['item_name'], $options['currency_code'], $options['item_amount'], $optionsKhipu);
+		    echo 2;
+		    print_r($response);
 		    $paymentId = $khipu->paymentsIdGet($response->getPaymentId());
+		    echo 3;
+		    print_r($paymentId);
+		    exit();
 		    return $paymentId['payment_url'];
 		} catch(Exception $e) {
 		    echo $e->getMessage();
