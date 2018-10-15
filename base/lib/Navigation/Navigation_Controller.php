@@ -22,6 +22,8 @@ class Navigation_Controller extends Controller{
                             header('Location: '.$item->url());
                             exit();
                         }
+                        $this->mode = 'amp';
+                        $this->header = $item->showUi('JsonHeader');
                         $this->titlePage = $item->getBasicInfo();
                         $this->metaUrl = $item->url('');
                         $this->metaImage = $item->get('image', 'web');
@@ -170,6 +172,12 @@ class Navigation_Controller extends Controller{
             case 'buscar':
                 if (isset($this->values['search']) && $this->values['search']!='') {
                     $search = Text::simpleUrl($this->values['search']);
+                    header('Location: '.url('buscar/'.$search));
+                    exit();
+                }
+                if (isset($_GET['search']) && $_GET['search']!='') {
+                    $search = Text::simpleUrl($_GET['search']);
+                    header("HTTP/1.1 301 Moved Permanently");
                     header('Location: '.url('buscar/'.$search));
                     exit();
                 }

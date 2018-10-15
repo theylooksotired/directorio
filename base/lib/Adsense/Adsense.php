@@ -82,6 +82,45 @@ class Adsense {
 					'.Adsense::links().'
 				</div>';
 	}
-	
+
+	static public function amp() {
+		if (!isMobile()) return Adsense::ampDesktop();
+		return '<div class="adsense">
+					<amp-ad width="100vw" height=320
+						  type="adsense"
+						  data-ad-client="ca-pub-7429223453905389"
+						  data-ad-slot="3066154144"
+						  data-auto-format="rspv"
+						  data-full-width>
+						    <div overflow></div>
+						</amp-ad>
+				</div>';
+	}
+
+	static public function ampDesktop() {
+		return '<div class="adsense">
+					<amp-ad
+						layout="fixed-height"
+						height=100
+						type="adsense"
+						data-ad-client="ca-pub-7429223453905389"
+						data-ad-slot="3066154144">
+					</amp-ad>
+				</div>';
+	}
+
+	static public function ampInline() {
+		if (isMobile()) return Adsense::amp();
+		return '<div class="adsense">
+					<amp-ad
+						layout="fixed-height"
+						height=250
+						type="adsense"
+						data-ad-client="ca-pub-7429223453905389"
+						data-ad-slot="3066154144">
+					</amp-ad>
+				</div>';
+	}
+
 }
 ?>

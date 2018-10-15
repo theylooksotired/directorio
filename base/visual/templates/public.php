@@ -25,9 +25,8 @@
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
     <link href="<?php echo BASE_URL;?>visual/css/stylesheets/public.css?v=13" rel="stylesheet" type="text/css" />
 
+    <?php echo Navigation_Ui::analytics();?>
     <?php echo $header;?>
-
-    <?php echo Params::param('metainfo-google-analytics');?>
 
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <?php echo method_exists($control, 'adsenseFullPage') ? $control->adsenseFullPage() : ''; ?>

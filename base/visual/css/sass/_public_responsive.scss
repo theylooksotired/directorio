@@ -43,7 +43,7 @@
 		}
 	}
 	.actions .action {
-		width: calc(100% / 3) !important;
+		width: calc(100% / 3);
 		a {
 			span {
 				display: none;
@@ -225,7 +225,7 @@
 			padding: 0;
 		}
 		span {
-			display: none;		
+			display: none;
 		}
 	}
 	.itemComplete {
@@ -234,7 +234,7 @@
 				@include noFloat();
 				padding: 0 0 10px;
 				max-width: 320px;
-				width: auto !important;
+				width: auto;
 				margin: auto;
 			}
 		}

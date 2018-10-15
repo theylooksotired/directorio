@@ -78,22 +78,22 @@ class Place_Ui extends Ui {
 
 	public function renderComplete() {
 		$info = '';
-		$info .= ($this->object->get('telephone')!='') ? '<p class="telephone"><i class="icon icon-telephone"></i> <em>Teléfonos :</em> <span itemprop="telephone">'.$this->object->get('telephone').'</span></p>' : '';
+		$info .= ($this->object->get('telephone')!='') ? '<p class="telephone"><i class="icon icon-telephone"></i> <em>Teléfonos :</em> <span>'.$this->object->get('telephone').'</span></p>' : '';
 		$info .= ($this->object->get('email')!='') ? '<p class="email"><i class="icon icon-email"></i> <em>Email :</em> <a href="mailto:'.$this->object->get('email').'">'.$this->object->get('email').'</a></p>' : '';
 		$info .= ($this->object->get('web')!='') ? '<p class="web"><i class="icon icon-globe"></i> <em>Sitio web :</em> <a href="'.Url::format($this->object->get('web')).'" target="_blank">'.Url::format($this->object->get('web')).'</a></p>' : '';
 		$shortDescription = ($this->object->get('shortDescription')!='') ? '<p class="shortDescription"><strong>'.$this->object->get('shortDescription').'</strong></p>' : '';
 		$description = ($this->object->get('description')!='') ? '<p class="description">'.$this->object->get('description').'</p>' : '';
-		$city = ($this->object->get('city')!='') ? '<p><i class="icon icon-city"></i> <em>Ciudad :</em> <a href="'.url('ciudad/'.$this->object->get('cityUrl')).'"><span itemprop="addressLocality">'.$this->object->get('city').'</span></a>, <span itemprop="addressRegion">'.Params::param('country').'</span></p>' : '';
-		$address = ($this->object->get('address')!='') ? '<p><i class="icon icon-address"></i> <em>Dirección :</em> <span itemprop="streetAddress">'.$this->object->get('address').'</span></p>' : '';
+		$city = ($this->object->get('city')!='') ? '<p><i class="icon icon-city"></i> <em>Ciudad :</em> <a href="'.url('ciudad/'.$this->object->get('cityUrl')).'"><span>'.$this->object->get('city').'</span></a>, <span>'.Params::param('country').'</span></p>' : '';
+		$address = ($this->object->get('address')!='') ? '<p><i class="icon icon-address"></i> <em>Dirección :</em> <span>'.$this->object->get('address').'</span></p>' : '';
 		$this->object->loadTags();
-		return '<div class="itemComplete" itemscope itemtype="http://schema.org/LocalBusiness">
-					<h1 itemprop="name">'.$this->object->getBasicInfo().'</h1>
-					'.Adsense::top().'
+		return '<div class="itemComplete">
+					<h1>'.$this->object->getBasicInfo().'</h1>
+					'.Adsense::amp().'
 					<div class="itemCompleteInfo">
 						'.$shortDescription.'
 						'.$description.'
 						'.$info.'
-						<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+						<div class="itemCompleteAddress">
 							'.$address.'
 							'.$city.'
 						</div>
@@ -118,9 +118,8 @@ class Place_Ui extends Ui {
 							<a rel="nofollow" href="'.url('reportar/'.$this->object->id()).'"><i class="icon icon-warning"></i> Reportar</a>
 						</div>
 					</div>
-					'.Adsense::inline().'
+					'.Adsense::ampInline().'
 				</div>
-				'.Adsense::linksAll().'
 				'.$this->renderRelated();
 	}
 
@@ -143,17 +142,17 @@ class Place_Ui extends Ui {
 
 	public function renderCompletePromoted() {
 		$info = '';
-		$info .= ($this->object->get('telephone')!='') ? '<p class="telephone"><i class="icon icon-telephone"></i> <em>Teléfonos :</em> <span itemprop="telephone">'.$this->object->get('telephone').'</span></p>' : '';
+		$info .= ($this->object->get('telephone')!='') ? '<p class="telephone"><i class="icon icon-telephone"></i> <em>Teléfonos :</em> <span>'.$this->object->get('telephone').'</span></p>' : '';
 		$info .= ($this->object->get('email')!='') ? '<p class="email"><i class="icon icon-email"></i> <em>Email :</em> <a href="mailto:'.$this->object->get('email').'">'.$this->object->get('email').'</a></p>' : '';
 		$info .= ($this->object->get('web')!='') ? '<p class="web"><i class="icon icon-globe"></i> <em>Sitio web :</em> <a href="'.Url::format($this->object->get('web')).'" target="_blank">'.Url::format($this->object->get('web')).'</a></p>' : '';
 		$shortDescription = ($this->object->get('shortDescription')!='') ? '<p class="shortDescription"><strong>'.$this->object->get('shortDescription').'</strong></p>' : '';
 		$description = ($this->object->get('description')!='') ? '<p class="description">'.nl2br($this->object->get('description')).'</p>' : '';
-		$city = ($this->object->get('city')!='') ? '<p><i class="icon icon-city"></i> <em>Ciudad :</em> <a href="'.url('ciudad/'.$this->object->get('cityUrl')).'"><span itemprop="addressLocality">'.$this->object->get('city').'</span></a>, <span itemprop="addressRegion">'.Params::param('country').'</span></p>' : '';
-		$address = ($this->object->get('address')!='') ? '<p><i class="icon icon-address"></i> <em>Dirección :</em> <span itemprop="streetAddress">'.$this->object->get('address').'</span></p>' : '';
+		$city = ($this->object->get('city')!='') ? '<p><i class="icon icon-city"></i> <em>Ciudad :</em> <a href="'.url('ciudad/'.$this->object->get('cityUrl')).'"><span>'.$this->object->get('city').'</span></a>, <span>'.Params::param('country').'</span></p>' : '';
+		$address = ($this->object->get('address')!='') ? '<p><i class="icon icon-address"></i> <em>Dirección :</em> <span>'.$this->object->get('address').'</span></p>' : '';
 		$this->object->loadTags();
-		return '<div class="itemComplete itemCompletePromoted" itemscope itemtype="http://schema.org/LocalBusiness">
+		return '<div class="itemComplete itemCompletePromoted">
 					<div class="itemCompleteIns">
-						<h1 itemprop="name">'.$this->object->getBasicInfo().'</h1>
+						<h1 >'.$this->object->getBasicInfo().'</h1>
 						<div class="itemCompleteWrapper">
 							<div class="itemCompleteWrapperLeft">
 								'.$this->object->getImage('image', 'web').'
@@ -166,7 +165,7 @@ class Place_Ui extends Ui {
 							</div>
 						</div>
 						<div class="itemCompleteInfoWrapper itemCompleteInfo">
-							<div class="itemCompleteInfoLeft" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+							<div class="itemCompleteInfoLeft">
 								'.$address.'
 								'.$city.'
 							</div>
@@ -195,7 +194,7 @@ class Place_Ui extends Ui {
 				<strong>Descripción corta:</strong> '.nl2br($this->object->get('shortDescription')).'<br/><br/>
 				<strong>Descripción:</strong> '.nl2br($this->object->get('description')).'<br/>';
 	}
-	
+
 	public function renderRelated() {
 		if ($this->object->get('related')!='') {
 			$html = '';
@@ -221,12 +220,23 @@ class Place_Ui extends Ui {
 				</div>';
 	}
 
+	public function renderJsonHeader() {
+		$info = array("@context" => "http://schema.org/",
+					"@type" => "LocalBusiness",
+					"name" => $this->object->getBasicInfo(),
+					"image" => $this->object->getImageUrl('image', 'web', BASE_URL.'visual/img/directorio.jpg'),
+					"telephone" => $this->object->get('telephone'),
+					"address" => array("@type" => "PostalAddress", "streetAddress" => $this->object->get('address'), "addressLocality"=>$this->object->get('city'), "addressRegion"=>Params::param('country'))
+					);
+		return '<script type="application/ld+json">'.json_encode($info).'</script>';
+	}
+
 	/**
 	* @cache
 	*/
 	static public function renderCities() {
 		$query = 'SELECT dir_Place.city, dir_Place.cityUrl, COUNT(dir_Place.idPlace) as numElements
-					FROM dir_Place 
+					FROM dir_Place
 					GROUP BY dir_Place.cityUrl
 					ORDER BY numElements DESC
 					LIMIT 24';
@@ -243,7 +253,7 @@ class Place_Ui extends Ui {
 	*/
 	static public function renderCitiesComplete() {
 		$query = 'SELECT dir_Place.city, dir_Place.cityUrl, COUNT(dir_Place.idPlace) as numElements
-					FROM dir_Place 
+					FROM dir_Place
 					GROUP BY dir_Place.cityUrl
 					ORDER BY city';
 		$items = Db::returnAll($query);
@@ -259,7 +269,7 @@ class Place_Ui extends Ui {
 	*/
 	static public function renderTags() {
 		$query = 'SELECT t.idTag, t.name, t.nameUrl, COUNT(t.idTag) as numElements
-					FROM dir_Tag t, dir_PlaceTag pt 
+					FROM dir_Tag t, dir_PlaceTag pt
 					WHERE t.idTag=pt.idTag
 					GROUP BY t.nameUrl
 					ORDER BY numElements DESC
