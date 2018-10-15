@@ -310,4 +310,13 @@
 			padding: 20px 0;
 		}
 	}
+	.actionsPlace .actionPlace .actionPlaceIns,
+	.actionsPlace .actionPlace a {
+		width: auto;
+		float: none;
+		margin: 0 0 10px;
+		&:last-child {
+			margin: 0;
+		}
+	}
 }
