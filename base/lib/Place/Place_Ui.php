@@ -155,7 +155,7 @@ class Place_Ui extends Ui {
 						<h1 >'.$this->object->getBasicInfo().'</h1>
 						<div class="itemCompleteWrapper">
 							<div class="itemCompleteWrapperLeft">
-								'.$this->object->getImage('image', 'web').'
+								'.$this->object->getImageAmp('image', 'web').'
 							</div>
 							<div class="itemCompleteWrapperRight">
 								<div class="itemCompleteInfo">
