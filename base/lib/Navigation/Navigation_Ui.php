@@ -11,7 +11,8 @@ class Navigation_Ui extends Ui {
 		$content = (isset($this->object->content)) ? $this->object->content : '';
 		switch ($layoutPage) {
 			default:
-				return $this->header().'
+				$amp = ($layoutPage=='amp') ? true : false;
+				return $this->header($amp).'
 						<div class="contentWrapper">
 							<div class="contentLeft">
 								'.$this->breadCrumbs().'
@@ -19,11 +20,11 @@ class Navigation_Ui extends Ui {
 								'.$message.'
 								'.$messageError.'
 								'.$messageInfo.'
-								'.Adsense::top().'
+								'.(($amp) ? Adsense::amp() : Adsense::top()).'
 								'.$content.'
 							</div>
 							<div class="contentRight">
-								'.Adsense::side().'
+								'.(($amp) ? Adsense::ampInline() : Adsense::side()).'
 								'.$this->contentSide().'
 							</div>
 						</div>

@@ -77,12 +77,14 @@ class Navigation_Controller extends Controller{
                 return $this->ui->render();
             break;
             case 'ciudad':
+                $this->mode = 'amp';
+                $this->layoutPage = 'amp';
+                $this->adsenseFullPageActive = true;
                 if ($this->extraId!='') {
                     header("HTTP/1.1 301 Moved Permanently");
                     header('Location: '.url($this->action.'/'.$this->id));
                     exit();
                 }
-                $this->adsenseFullPageActive = true;
                 $items = new ListObjects('Place', array('where'=>'cityUrl="'.$this->id.'" AND cityUrl!=""', 'order'=>'promoted DESC, titleUrl', 'results'=>'10'));
                 if ($items->isEmpty()) {
                     $place = new Place();
@@ -103,12 +105,14 @@ class Navigation_Controller extends Controller{
                     $this->metaDescription = $this->titlePage;
                     $this->metaUrl = url($this->action.'/'.$this->id);
                     $this->breadCrumbs = array(url('ciudad')=>'Ciudades', url('ciudad/'.$item->get('cityUrl'))=>$item->get('city'));
-                    $this->content = $items->showList(array('function'=>'Public', 'middle'=>Adsense::inline())).'
+                    $this->content = $items->showList(array('function'=>'Public', 'middle'=>Adsense::ampInline())).'
                                     '.$items->pager();
                 }
                 return $this->ui->render();
             break;
             case 'tag':
+                $this->mode = 'amp';
+                $this->layoutPage = 'amp';
             	$this->adsenseFullPageActive = true;
                 $page = (isset($_GET['pagina']) && $_GET['pagina']!='') ? ' - Página '.(intval($_GET['pagina'])) : '';
                 $info = explode('-', $this->id);
@@ -145,7 +149,7 @@ class Navigation_Controller extends Controller{
                     $this->metaDescription = $this->titlePage;
                     $this->metaUrl = url($this->action.'/'.$this->id);
                     $this->content = $item->showUi('Cities').'
-                                    '.$items->showList(array('function'=>'Public', 'middle'=>Adsense::inline())).'
+                                    '.$items->showList(array('function'=>'Public', 'middle'=>Adsense::ampInline())).'
                                     '.$items->pager();
                     return $this->ui->render();
                 } else {
@@ -153,9 +157,11 @@ class Navigation_Controller extends Controller{
                     if ($item->id()!='') {
                         header("HTTP/1.1 301 Moved Permanently");
                         header('Location: '.$item->url());
+                        exit();
                     } else {
                         header("HTTP/1.1 301 Moved Permanently");
                         header('Location: '.url(''));
+                        exit();
                     }
                 }
             break;
