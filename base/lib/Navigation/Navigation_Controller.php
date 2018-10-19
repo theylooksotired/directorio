@@ -145,6 +145,11 @@ class Navigation_Controller extends Controller{
                         $this->breadCrumbs = array($item->url()=>$item->getBasicInfo());
                     }
                     $items = new ListObjects('Place', array('query'=>$query, 'queryCount'=>$queryCount, 'results'=>'10'));
+                    if ($items->isEmpty()) {
+                        header("HTTP/1.1 301 Moved Permanently");
+                        header('Location: '.url(''));
+                        exit();
+                    }
                     $this->header = $items->metaNavigation();
                     $this->metaDescription = $this->titlePage;
                     $this->metaUrl = url($this->action.'/'.$this->id);
