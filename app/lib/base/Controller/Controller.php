@@ -64,7 +64,8 @@ abstract class Controller{
     * By default it uses the keywords defined in the Parameters.
     */
     public function getMetaKeywords() {
-        return (isset($this->metaKeywords)) ? $this->metaKeywords : Params::param('metainfo-metaKeywords');
+        $keywords = (isset($this->metaKeywords)) ? $this->metaKeywords : Params::param('metainfo-metaKeywords');
+        return str_replace('"', '', $description);
     }
 
     /**
