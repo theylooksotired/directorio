@@ -9,7 +9,7 @@ class Navigation_Ui extends Ui {
 		$messageError = (isset($this->object->messageError)) ? '<div class="message messageError">'.$this->object->messageError.'</div>' : '';
 		$messageInfo = (isset($this->object->messageInfo)) ? '<div class="message messageInfo">'.$this->object->messageInfo.'</div>' : '';
 		$content = (isset($this->object->content)) ? $this->object->content : '';
-		$amp = ($layoutPage=='amp' || $this->object->mode=='amp') ? true : false;
+		$amp = ($layoutPage=='amp' || (isset($this->object->mode) && $this->object->mode=='amp')) ? true : false;
 		switch ($layoutPage) {
 			default:
 				return $this->header($amp).'
