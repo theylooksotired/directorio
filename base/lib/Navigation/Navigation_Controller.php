@@ -46,17 +46,18 @@ class Navigation_Controller extends Controller{
                 }
             break;
             case 'intro':
+                $this->mode = 'amp';
             	$place = new Place();
                 $this->layoutPage = 'intro';
                 $this->content = '<div class="searchMainWrapper" style="background-image: url('.BASE_URL.'visual/img/cover-'.Params::param('countryCode').'.jpg);">
                                         <div class="searchMain">
                                             <div class="searchMainIns">
-                                                '.Navigation_Ui::search().'
+                                                '.Navigation_Ui::searchAmp().'
                                             </div>
                                         </div>
                                     </div>
                                     <div class="contentWrapper contentWrapperIntro">
-                                        '.Adsense::top().'
+                                        '.Adsense::amp().'
                                         <div class="introPage">
                                             <div class="introPageLeft">
                                                 <div class="introPageLeftTop">
@@ -68,7 +69,7 @@ class Navigation_Controller extends Controller{
                                                 </div>
                                             </div>
                                             <div class="introPageRight">
-                                                '.Adsense::side().'
+                                                '.Adsense::ampInline().'
                                                 '.$this->ui->contentSide().'
                                             </div>
                                             <div class="clearer"></div>

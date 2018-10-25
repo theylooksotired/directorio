@@ -9,9 +9,9 @@ class Navigation_Ui extends Ui {
 		$messageError = (isset($this->object->messageError)) ? '<div class="message messageError">'.$this->object->messageError.'</div>' : '';
 		$messageInfo = (isset($this->object->messageInfo)) ? '<div class="message messageInfo">'.$this->object->messageInfo.'</div>' : '';
 		$content = (isset($this->object->content)) ? $this->object->content : '';
+		$amp = ($layoutPage=='amp' || $this->object->mode=='amp') ? true : false;
 		switch ($layoutPage) {
 			default:
-				$amp = ($layoutPage=='amp') ? true : false;
 				return $this->header($amp).'
 						<div class="contentWrapper">
 							<div class="contentLeft">
@@ -31,7 +31,7 @@ class Navigation_Ui extends Ui {
 						'.$this->footer();
 			break;
 			case 'intro':
-				return $this->header().'
+				return $this->header($amp).'
 						'.$message.'
 						'.$messageError.'
 						'.$messageInfo.'
@@ -191,7 +191,7 @@ class Navigation_Ui extends Ui {
 				</form>';
 	}
 
-	public function searchAmp() {
+	static public function searchAmp() {
 		return '<form accept-charset="UTF-8" class="formSearchSimple" action="'.url('buscar').'" method="GET" target="_top">
 					<fieldset>
 						<div class="text formField">
