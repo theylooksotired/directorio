@@ -147,7 +147,22 @@ class Navigation_Ui extends Ui {
 							<div class="footerList footerCountries">
 								<div class="footerTitle">Otros directorios</div>
 								<div class="footerListItems">
-									'.HtmlSection::showFile('countries').'
+									<p>
+										<a href="http://www.argentina-directorio.com" target="_blank" title="Directorio de empresas de Argentina">Argentina</a>
+										<a href="http://www.directorio.com.bo" target="_blank" title="Directorio de empresas de Bolivia">Bolivia</a>
+										<a href="http://www.directorio-chile.com" target="_blank" title="Directorio de empresas de Chile">Chile</a>
+										<a href="http://www.colombia-directorio.com" target="_blank" title="Directorio de empresas de Colombia">Colombia</a>
+										<a href="http://www.ecuador-directorio.com" target="_blank" title="Directorio de empresas de Ecuador">Ecuador</a>
+										<a href="http://www.directorio-guatemala.com" target="_blank" title="Directorio de empresas de Guatemala">Guatemala</a>
+										<a href="http://www.directorio-honduras.com" target="_blank" title="Directorio de empresas de Honduras">Honduras</a>
+										<a href="http://www.mexico-directorio.com" target="_blank" title="Directorio de empresas de México">México</a>
+										<a href="http://www.directorio-panama.com" target="_blank" title="Directorio de empresas de Panamá">Panamá</a>
+										<a href="http://www.paraguay-directorio.com" target="_blank" title="Directorio de empresas de Paraguay">Paraguay</a>
+										<a href="http://www.peru-directorio.com" target="_blank" title="Directorio de empresas de Perú">Perú</a>
+										<a href="http://www.telefono.do" target="_blank" title="Directorio de empresas de República Dominicana">República Dominicana</a>
+										<a href="http://www.uruguay-directorio.com" target="_blank" title="Directorio de empresas de Uruguay">Uruguay</a>
+										<a href="http://www.venezuela-directorio.com" target="_blank" title="Directorio de empresas de Venezuela">Venezuela</a>
+									</p>
 								</div>
 							</div>
 							<div class="clearer"></div>
