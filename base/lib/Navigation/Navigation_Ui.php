@@ -9,9 +9,10 @@ class Navigation_Ui extends Ui {
 		$messageError = (isset($this->object->messageError)) ? '<div class="message messageError">'.$this->object->messageError.'</div>' : '';
 		$messageInfo = (isset($this->object->messageInfo)) ? '<div class="message messageInfo">'.$this->object->messageInfo.'</div>' : '';
 		$content = (isset($this->object->content)) ? $this->object->content : '';
+		$amp = ($layoutPage=='amp' || (isset($this->object->mode) && $this->object->mode=='amp')) ? true : false;
 		switch ($layoutPage) {
 			default:
-				return $this->header().'
+				return $this->header($amp).'
 						<div class="contentWrapper">
 							<div class="contentLeft">
 								'.$this->breadCrumbs().'
@@ -19,18 +20,18 @@ class Navigation_Ui extends Ui {
 								'.$message.'
 								'.$messageError.'
 								'.$messageInfo.'
-								'.Adsense::top().'
+								'.(($amp) ? Adsense::amp() : Adsense::top()).'
 								'.$content.'
 							</div>
 							<div class="contentRight">
-								'.Adsense::side().'
+								'.(($amp) ? Adsense::ampInline() : Adsense::side()).'
 								'.$this->contentSide().'
 							</div>
 						</div>
 						'.$this->footer();
 			break;
 			case 'intro':
-				return $this->header().'
+				return $this->header($amp).'
 						'.$message.'
 						'.$messageError.'
 						'.$messageInfo.'
@@ -38,7 +39,7 @@ class Navigation_Ui extends Ui {
 						'.$this->footer();
 			break;
 			case 'place':
-				return $this->header().'
+				return $this->header(true).'
 						<div class="contentWrapper">
 							<div class="contentLeft">
 								'.$this->breadCrumbs().'
@@ -48,7 +49,7 @@ class Navigation_Ui extends Ui {
 								'.$content.'
 							</div>
 							<div class="contentRight">
-								'.Adsense::side().'
+								'.Adsense::ampInline().'
 								'.$this->contentSide().'
 							</div>
 						</div>
@@ -58,7 +59,7 @@ class Navigation_Ui extends Ui {
 				return '<div class="pagePromoted">
 							<div class="pagePromotedBackground" style="background-color:'.$this->object->place->get('colorBackground').';">
 								<div class="pagePromotedBackgroundMask">
-									'.$this->header().'
+									'.$this->header(true).'
 									'.$content.'
 								</div>
 							</div>
@@ -105,7 +106,7 @@ class Navigation_Ui extends Ui {
 		}
 	}
 
-	public function header() {
+	public function header($amp=false) {
 		$subscribeTop = '';
 		$layoutPage = (isset($this->object->layoutPage)) ? $this->object->layoutPage : '';
 		if ($this->object->action!='inscribir' && $layoutPage!='simple') {
@@ -126,7 +127,7 @@ class Navigation_Ui extends Ui {
 				        <div class="headerRight">
 							'.$subscribeTop.'
 							<div class="searchTop">
-								'.Navigation_Ui::search().'
+								'.(($amp) ? Navigation_Ui::searchAmp() : Navigation_Ui::search()).'
 							</div>
 						</div>
 					</div>
@@ -205,6 +206,21 @@ class Navigation_Ui extends Ui {
 				</form>';
 	}
 
+	static public function searchAmp() {
+		return '<form accept-charset="UTF-8" class="formSearchSimple" action="'.url('buscar').'" method="GET" target="_top">
+					<fieldset>
+						<div class="text formField">
+							<input type="search" name="search" size="50" placeholder="Buscar..."/>
+						</div>
+						<div class="formFieldSubmit">
+							<button type="submit" class="formSubmit">
+							<i class="icon icon-search"></i><span>Buscar</span>
+							</button>
+						</div>
+					</fieldset>
+				</form>';
+	}
+
 	public function breadCrumbs() {
 		$html = '';
 		if (isset($this->object->breadCrumbs) && is_array($this->object->breadCrumbs)) {
@@ -220,6 +236,26 @@ class Navigation_Ui extends Ui {
 						'.substr($html, 0, -8).'
 					</div>';
 		}
+	}
+
+	static public function analytics() {
+		return '<script async src="https://www.googletagmanager.com/gtag/js?id='.Params::param('metainfo-google-analytics').'"></script>
+			    <script>
+			      window.dataLayer = window.dataLayer || [];
+			      function gtag(){dataLayer.push(arguments);}
+			      gtag(\'js\', new Date());
+			      gtag(\'config\', \''.Params::param('metainfo-google-analytics').'\');
+			    </script>';
+	}
+
+	static public function analyticsAmp() {
+		return '<amp-analytics type="googleanalytics">
+			<script type="application/json">{"vars": {"account": "'.Params::param('metainfo-google-analytics').'"}, "triggers": { "trackPageview": { "on": "visible", "request": "pageview"}}}</script>
+		</amp-analytics>';
+	}
+
+	static public function autoadsAmp() {
+		return '<amp-auto-ads type="adsense" data-ad-client="ca-pub-7429223453905389"></amp-auto-ads>';
 	}
 
 }

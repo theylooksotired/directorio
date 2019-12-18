@@ -35,10 +35,11 @@ abstract class Controller{
     */
     public function getTitle() {
         if (isset($this->titlePage)) {
-            return (strlen($this->titlePage)>50) ? $this->titlePage : $this->titlePage.' - '.Params::param('metainfo-titlePage');
+            $title = (strlen($this->titlePage)>50) ? $this->titlePage : $this->titlePage.' - '.Params::param('metainfo-titlePage');
         } else {
-            return Params::param('metainfo-titlePage');
+            $title = Params::param('metainfo-titlePage');
         }
+        return str_replace('"', "'", $title);
     }
 
     /**
@@ -54,7 +55,8 @@ abstract class Controller{
     * By default it uses the meta-description defined in the Parameters.
     */
     public function getMetaDescription() {
-        return (isset($this->metaDescription) && $this->metaDescription!='') ? $this->metaDescription : Params::param('metainfo-metaDescription');
+        $description = (isset($this->metaDescription) && $this->metaDescription!='') ? $this->metaDescription : Params::param('metainfo-metaDescription');
+        return str_replace('"', "'", $description);
     }
 
     /**
@@ -62,7 +64,8 @@ abstract class Controller{
     * By default it uses the keywords defined in the Parameters.
     */
     public function getMetaKeywords() {
-        return (isset($this->metaKeywords)) ? $this->metaKeywords : Params::param('metainfo-metaKeywords');
+        $keywords = (isset($this->metaKeywords)) ? $this->metaKeywords : Params::param('metainfo-metaKeywords');
+        return str_replace('"', '', $description);
     }
 
     /**

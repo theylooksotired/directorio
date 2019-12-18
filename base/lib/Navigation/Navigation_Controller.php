@@ -17,6 +17,13 @@ class Navigation_Controller extends Controller{
                     $info = explode('-', $this->action);
                     $item = Place::read($info[0]);
                     if ($item->id()!='') {
+                        if (strpos($this->action, '_')!==false) {
+                            header("HTTP/1.1 301 Moved Permanently");
+                            header('Location: '.$item->url());
+                            exit();
+                        }
+                        $this->mode = 'amp';
+                        $this->header = $item->showUi('JsonHeader');
                         $this->titlePage = $item->getBasicInfo();
                         $this->metaUrl = $item->url('');
                         $this->metaImage = $item->get('image', 'web');
@@ -30,24 +37,27 @@ class Navigation_Controller extends Controller{
                     } else {
                         header("HTTP/1.1 301 Moved Permanently");
                         header('Location: '.url(''));
+                        exit();
                     }
                 } else {
                     header("HTTP/1.1 301 Moved Permanently");
                     header('Location: '.url(''));
+                    exit();
                 }
             break;
             case 'intro':
+                $this->mode = 'amp';
             	$place = new Place();
                 $this->layoutPage = 'intro';
                 $this->content = '<div class="searchMainWrapper" style="background-image: url('.BASE_URL.'visual/img/cover-'.Params::param('countryCode').'.jpg);">
                                         <div class="searchMain">
                                             <div class="searchMainIns">
-                                                '.Navigation_Ui::search().'
+                                                '.Navigation_Ui::searchAmp().'
                                             </div>
                                         </div>
                                     </div>
                                     <div class="contentWrapper contentWrapperIntro">
-                                        '.Adsense::top().'
+                                        '.Adsense::amp().'
                                         <div class="introPage">
                                             <div class="introPageLeft">
                                                 <div class="introPageLeftTop">
@@ -59,7 +69,7 @@ class Navigation_Controller extends Controller{
                                                 </div>
                                             </div>
                                             <div class="introPageRight">
-                                                '.Adsense::side().'
+                                                '.Adsense::ampInline().'
                                                 '.$this->ui->contentSide().'
                                             </div>
                                             <div class="clearer"></div>
@@ -68,7 +78,14 @@ class Navigation_Controller extends Controller{
                 return $this->ui->render();
             break;
             case 'ciudad':
-            	$this->adsenseFullPageActive = true;
+                $this->mode = 'amp';
+                $this->layoutPage = 'amp';
+                $this->adsenseFullPageActive = true;
+                if ($this->extraId!='') {
+                    header("HTTP/1.1 301 Moved Permanently");
+                    header('Location: '.url($this->action.'/'.$this->id));
+                    exit();
+                }
                 $items = new ListObjects('Place', array('where'=>'cityUrl="'.$this->id.'" AND cityUrl!=""', 'order'=>'promoted DESC, titleUrl', 'results'=>'10'));
                 if ($items->isEmpty()) {
                     $place = new Place();
@@ -89,12 +106,14 @@ class Navigation_Controller extends Controller{
                     $this->metaDescription = $this->titlePage;
                     $this->metaUrl = url($this->action.'/'.$this->id);
                     $this->breadCrumbs = array(url('ciudad')=>'Ciudades', url('ciudad/'.$item->get('cityUrl'))=>$item->get('city'));
-                    $this->content = $items->showList(array('function'=>'Public', 'middle'=>Adsense::inline())).'
+                    $this->content = $items->showList(array('function'=>'Public', 'middle'=>Adsense::ampInline())).'
                                     '.$items->pager();
                 }
                 return $this->ui->render();
             break;
             case 'tag':
+                $this->mode = 'amp';
+                $this->layoutPage = 'amp';
             	$this->adsenseFullPageActive = true;
                 $page = (isset($_GET['pagina']) && $_GET['pagina']!='') ? ' - Página '.(intval($_GET['pagina'])) : '';
                 $info = explode('-', $this->id);
@@ -127,11 +146,16 @@ class Navigation_Controller extends Controller{
                         $this->breadCrumbs = array($item->url()=>$item->getBasicInfo());
                     }
                     $items = new ListObjects('Place', array('query'=>$query, 'queryCount'=>$queryCount, 'results'=>'10'));
+                    if ($items->isEmpty()) {
+                        header("HTTP/1.1 301 Moved Permanently");
+                        header('Location: '.url(''));
+                        exit();
+                    }
                     $this->header = $items->metaNavigation();
                     $this->metaDescription = $this->titlePage;
                     $this->metaUrl = url($this->action.'/'.$this->id);
                     $this->content = $item->showUi('Cities').'
-                                    '.$items->showList(array('function'=>'Public', 'middle'=>Adsense::inline())).'
+                                    '.$items->showList(array('function'=>'Public', 'middle'=>Adsense::ampInline())).'
                                     '.$items->pager();
                     return $this->ui->render();
                 } else {
@@ -139,9 +163,11 @@ class Navigation_Controller extends Controller{
                     if ($item->id()!='') {
                         header("HTTP/1.1 301 Moved Permanently");
                         header('Location: '.$item->url());
+                        exit();
                     } else {
                         header("HTTP/1.1 301 Moved Permanently");
                         header('Location: '.url(''));
+                        exit();
                     }
                 }
             break;
@@ -158,6 +184,12 @@ class Navigation_Controller extends Controller{
             case 'buscar':
                 if (isset($this->values['search']) && $this->values['search']!='') {
                     $search = Text::simpleUrl($this->values['search']);
+                    header('Location: '.url('buscar/'.$search));
+                    exit();
+                }
+                if (isset($_GET['search']) && $_GET['search']!='') {
+                    $search = Text::simpleUrl($_GET['search']);
+                    header("HTTP/1.1 301 Moved Permanently");
                     header('Location: '.url('buscar/'.$search));
                     exit();
                 }
@@ -627,8 +659,13 @@ class Navigation_Controller extends Controller{
                 }
                 return $this->ui->render();
             break;
+
+            /**
+            * CACHE ALL
+            **/
             case 'cache-all-console':
                 $this->mode = 'ajax';
+                $this->checkAuthorization();
                 File::createDirectory(BASE_FILE.'cache', false);
                 if (!is_writable(BASE_FILE.'cache')) {
                     return str_replace('#DIRECTORY', BASE_FILE.'cache', __('directoryNotWritable'));
@@ -642,6 +679,8 @@ class Navigation_Controller extends Controller{
             * GITHUB
             */
             case 'check-github-now':
+                $this->mode = 'ajax';
+                $this->checkAuthorization();
                 $url = "https://github.com/theylooksotired/directorio/archive/master.zip";
                 $zipFile = LOCAL_FILE."master.zip";
                 file_put_contents($zipFile, fopen($url, 'r'));
@@ -657,8 +696,7 @@ class Navigation_Controller extends Controller{
         		if (is_writable(BASE_FILE.'cache')) {
                     Cache::cacheAll();
                 }
-                header('Location: '.url(''));
-                exit();
+                return 'DONE';
             break;
         }
     }
@@ -695,6 +733,14 @@ class Navigation_Controller extends Controller{
 				      });
 				    </script>';
     	}
+    }
+
+    function checkAuthorization() {
+        $headers = apache_request_headers();
+        if (!isset($headers) || !isset($headers['Authorization']) || $headers['Authorization']!='plastic') {
+            header('Location: '.url(''));
+            exit();
+        }
     }
 
 }

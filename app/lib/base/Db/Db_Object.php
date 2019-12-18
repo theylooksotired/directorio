@@ -20,7 +20,7 @@ class Db_Object extends Db_Sql {
         $this->syncValues($values);
         $this->loadedMultiple = false;
     }
-    
+
     /**
     * Reload the object.
     */
@@ -95,7 +95,7 @@ class Db_Object extends Db_Sql {
                 $refObjectIns = new $refObject();
                 $order = ($refObjectIns->hasOrd()) ? 'ord' : $refObjectIns->orderBy();
                 $list = $refObjectIns->readListObject(array('where'=>Db::prefixTable($refObject).'.'.$lnkAttribute.'="'.$this->id().'"',
-                                                            'completeList'=>false, 
+                                                            'completeList'=>false,
                                                             'order'=>$order));
                 $this->set($name, $list);
             break;
@@ -104,7 +104,7 @@ class Db_Object extends Db_Sql {
             case 'multiple-autocomplete':
                 $refObject = (string)$item->refObject;
                 $refObjectIns = new $refObject();
-                if ((string)$item->lnkObject!='') {                
+                if ((string)$item->lnkObject!='') {
                     $lnkObject = (string)$item->lnkObject;
                     $repeat = (string)$item->repeat;
                     $lnkObjectIns = new $lnkObject();
@@ -300,7 +300,7 @@ class Db_Object extends Db_Sql {
             if (isset($values['value']) && is_array($values['value'])) {
                 foreach ($values['value'] as $key=>$value) {
                     $result[] = __($value);
-                }                
+                }
             }
             return $result;
         }
@@ -358,7 +358,7 @@ class Db_Object extends Db_Sql {
     public function infoSearchQueryCount() {
         return (string)$this->info->info->form->searchQueryCount;
     }
-    
+
     /**
     * Gets the value of an attribute.
     */
@@ -387,7 +387,7 @@ class Db_Object extends Db_Sql {
         }
         return $list;
     }
-    
+
     /**
     * Gets the label of an attribute, it works for attributes as selects of multiple objects.
     */
@@ -434,7 +434,7 @@ class Db_Object extends Db_Sql {
         $file = STOCK_FILE.$this->className.'Files/'.$this->get($attributeName);
         return (is_file($file)) ? $file : '';
     }
-    
+
     /**
     * Gets the HTML image that the attribute points.
     */
@@ -444,6 +444,20 @@ class Db_Object extends Db_Sql {
             return '<img src="'.$imageUrl.'" alt="'.$this->getBasicInfo().'"/>';
         } else {
             return $alternative;
+        }
+    }
+
+    /**
+    * Gets the HTML image that the attribute points.
+    */
+    public function getImageAmp($attributeName, $version='', $alternative='') {
+        $imageUrl = $this->getImageUrl($attributeName, $version);
+        if ($imageUrl!='') {
+            $imageFile = str_replace(BASE_URL, BASE_FILE, $imageUrl);
+            if (is_file($imageFile)) {
+                $imageSize = getimagesize($imageFile);
+                return '<amp-img src="'.$imageUrl.'" alt="'.$this->getBasicInfo().'" width="'.$imageSize[0].'" height="'.$imageSize[1].'" layout="intrinsic"/>';
+            }
         }
     }
 
@@ -470,12 +484,10 @@ class Db_Object extends Db_Sql {
     /**
     * Gets the url of an image that the attribute points.
     */
-    public function getImageUrl($attributeName, $version='') {
+    public function getImageUrl($attributeName, $version='', $alternative='') {
         $version = ($version != '') ? '_'.strtolower($version) : '';
         $file = STOCK_FILE.$this->className.'/'.$this->get($attributeName).'/'.$this->get($attributeName).$version.'.jpg';
-        if (is_file($file)) {
-            return str_replace(STOCK_FILE, STOCK_URL, $file);
-        }
+        return (is_file($file)) ? str_replace(STOCK_FILE, STOCK_URL, $file) : $alternative;
     }
 
     /**
@@ -553,6 +565,6 @@ class Db_Object extends Db_Sql {
         $uiObject = new $uiObjectName($this);
         return $uiObject->$render($params);
     }
-    
+
 }
 ?>
