@@ -1,11 +1,4 @@
-directorio*
-test_*
 stff
-gulpfile*
-package*
-unzip*
 .DS_Store
 base/config/
 base/cache/
-node_modules
-crawl/

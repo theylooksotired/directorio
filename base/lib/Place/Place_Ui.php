@@ -56,7 +56,7 @@ class Place_Ui extends Ui {
 						<a href="'.$this->object->url().'">
 							<div class="itemPublicWrapper">
 								<div class="itemPublicWrapperLeft">
-									'.$this->object->getImageAmp('image', 'web').'
+									'.$this->object->getImageAmpFill('image', 'web').'
 								</div>
 								<div class="itemPublicWrapperRight">
 									<h2>'.$this->object->getBasicInfo().'</h2>

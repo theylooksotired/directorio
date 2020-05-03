@@ -698,6 +698,25 @@ class Navigation_Controller extends Controller{
                 }
                 return 'DONE';
             break;
+
+            case 'check-github-all':
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.plasticmails.net/directorio/check-github-now &> /dev/null');
+
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.directorio.com.bo/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.directorio-chile.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.telefono.do/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.argentina-directorio.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.directorio-panama.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.mexico-directorio.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.directorio-honduras.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.peru-directorio.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.ecuador-directorio.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.directorio-guatemala.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.uruguay-directorio.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.paraguay-directorio.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.venezuela-directorio.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.colombia-directorio.com/check-github-now &> /dev/null');
+            break;
         }
     }
 
