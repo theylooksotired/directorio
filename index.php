@@ -54,6 +54,7 @@ try {
     $metaDescription = $control->getMetaDescription();
     $metaImage = $control->getMetaImage();
     $metaUrl = $control->getMetaUrl();
+    $metaAds = $control->getMetaAds();
     $mode = $control->getMode();
 } catch (Exception $e) {
     $mode = 'ajax';

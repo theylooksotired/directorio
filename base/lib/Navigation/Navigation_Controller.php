@@ -32,6 +32,7 @@ class Navigation_Controller extends Controller{
                         $this->place = $item;
                         $this->content = ($item->get('promoted')=='1') ? $item->showUi('CompletePromoted') : $item->showUi('Complete');
                         $this->layoutPage = ($item->get('promoted')=='1') ? 'promoted' : $this->layoutPage;
+                        $this->metaAds = ($item->get('promoted')=='1') ? false : true;
                         $this->breadCrumbs = array(url('ciudad')=>'Ciudades', url('ciudad/'.$item->get('cityUrl'))=>$item->get('city'), $item->url()=>$item->getBasicInfo());
                         return $this->ui->render();
                     } else {

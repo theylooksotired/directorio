@@ -91,6 +91,10 @@ abstract class Controller{
         return (isset($this->metaUrl) && $this->metaUrl!='') ? $this->metaUrl : url('');
     }
 
+    public function getMetaAds() {
+        return (isset($this->metaAds) && $this->metaAds===false) ? false : true;
+    }
+
     /**
     * Function to get the mode to render a page.
     * By default it uses the public method.
