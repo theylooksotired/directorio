@@ -182,8 +182,6 @@ class Navigation_Controller extends Controller{
                 }
             break;
             case 'buscar':
-                $this->mode = 'amp';
-                $this->layoutPage = 'amp';
                 if (isset($this->values['search']) && $this->values['search']!='') {
                     $search = Text::simpleUrl($this->values['search']);
                     header('Location: '.url('buscar/'.$search));
@@ -196,6 +194,9 @@ class Navigation_Controller extends Controller{
                     exit();
                 }
                 if ($this->id!='') {
+                    $this->mode = 'amp';
+                    $this->layoutPage = 'amp';
+                    $this->adsenseFullPageActive = true;
                     $search = str_replace('-', ' ', Text::simpleUrl($this->id));
                     $this->titlePage = 'Resultados de la busqueda - '.ucwords($search);
                     $this->titlePageHtml = '<span>Resultados de la busqueda</span> '.ucwords($search);
@@ -203,6 +204,7 @@ class Navigation_Controller extends Controller{
                     if ($items->isEmpty()) {
                         $items = new ListObjects('Place', array('where'=>'search LIKE ("%'.$search.'%")', 'order'=>'promoted DESC, titleUrl', 'results'=>'10'));
                     }
+                    $this->header = $items->metaNavigation();
                     $this->content = $items->showListPager(array('function'=>'Public', 'message'=>'<div class="message">Lo sentimos, pero no encontramos resultados para su busqueda.</div>', 'middle'=>Adsense::inline()));
                     return $this->ui->render();
                 } else {
