@@ -441,7 +441,7 @@ class Db_Object extends Db_Sql {
     public function getImage($attributeName, $version='', $alternative='') {
         $imageUrl = $this->getImageUrl($attributeName, $version);
         if ($imageUrl!='') {
-            return '<img src="'.$imageUrl.'?v=1" alt="'.$this->getBasicInfo().'"/>';
+            return '<img src="'.$imageUrl.'" alt="'.$this->getBasicInfo().'"/>';
         } else {
             return $alternative;
         }
@@ -456,7 +456,7 @@ class Db_Object extends Db_Sql {
             $imageFile = str_replace(BASE_URL, BASE_FILE, $imageUrl);
             if (is_file($imageFile)) {
                 $imageSize = getimagesize($imageFile);
-                return '<amp-img src="'.$imageUrl.'?v=1" alt="'.$this->getBasicInfo().'" width="'.$imageSize[0].'" height="'.$imageSize[1].'" layout="intrinsic"/>';
+                return '<amp-img src="'.$imageUrl.'" alt="'.$this->getBasicInfo().'" width="'.$imageSize[0].'" height="'.$imageSize[1].'" layout="intrinsic"/>';
             }
         }
     }
@@ -467,7 +467,7 @@ class Db_Object extends Db_Sql {
     public function getImageAmpFill($attributeName, $version='', $alternative='') {
         $imageUrl = $this->getImageUrl($attributeName, $version, false);
         if ($imageUrl!='') {
-            return '<amp-img src="'.$imageUrl.'?v=1" alt="'.$this->getBasicInfo().'" layout="fill" class="amp-container"/>';
+            return '<amp-img src="'.$imageUrl.'" alt="'.$this->getBasicInfo().'" layout="fill" class="amp-container"/>';
         }
     }
 
