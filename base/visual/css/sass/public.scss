@@ -380,8 +380,7 @@ body {
 			display: table;
 			width: 100%;
 			.itemPublicWrapperLeft {
-				width: 150px;
-				min-height: 100px;
+				width: 20%;
 				display: table-cell;
 				vertical-align: top;
 				padding: 15px;
@@ -391,7 +390,7 @@ body {
 				}
 			}
 			.itemPublicWrapperRight {
-				width: calc(100% - 150px);
+				width: 80%;
 				display: table-cell;
 				vertical-align: top;
 				padding: 15px;

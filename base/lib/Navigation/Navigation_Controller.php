@@ -182,6 +182,8 @@ class Navigation_Controller extends Controller{
                 }
             break;
             case 'buscar':
+                $this->mode = 'amp';
+                $this->layoutPage = 'amp';
                 if (isset($this->values['search']) && $this->values['search']!='') {
                     $search = Text::simpleUrl($this->values['search']);
                     header('Location: '.url('buscar/'.$search));
