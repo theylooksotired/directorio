@@ -13,7 +13,25 @@ class Tag_Ui extends Ui {
 		return $this->object->getBasicInfo().' ';
 	}
 
-	public function renderCities($options=[]) {
+	public function renderCities() {
+		$query = 'SELECT DISTINCT dir_Place.city
+			FROM dir_Place
+			JOIN dir_PlaceTag ON dir_Place.idPlace=dir_PlaceTag.idPlace AND dir_PlaceTag.idTag="'.$this->object->id().'"';
+		$items = Db::returnAllColumn($query);
+		$info = '';
+		if (sizeof($items)>0) {
+			asort($items);
+			foreach($items as $item) {
+				$info .= '<a href="'.$this->object->url().'/'.Text::simple($item).'" class="cityLink">'.$item.'</a> ';
+			}
+		}
+		return ($info!='') ? '<div class="cityLinks">
+									<p>Ver <strong>'.$this->object->getBasicInfo().'</strong> en :</p>
+									<div class="cityLinksItems">'.$info.'</div>
+								</div>' : '';
+	}
+
+	public function renderCitiesOld($options=[]) {
 		$items = explode(',', $this->object->get('cities'));
 		$info = '';
 		if (sizeof($items)>0) {

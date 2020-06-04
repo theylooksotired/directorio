@@ -15,8 +15,7 @@ class Tag extends Db_Object {
 		// Update cities
 		$query = 'SELECT DISTINCT dir_Place.city
 					FROM dir_Place
-					JOIN dir_PlaceTag ON dir_Place.idPlace=dir_PlaceTag.idPlace
-									AND dir_PlaceTag.idTag="'.$this->id().'"';
+					JOIN dir_PlaceTag ON dir_Place.idPlace=dir_PlaceTag.idPlace AND dir_PlaceTag.idTag="'.$this->id().'"';
 		$info = '';
 		foreach (Db::returnAllColumn($query) as $itemIns) {
 			$info .= $itemIns.',';
