@@ -59,7 +59,15 @@ class PlaceReport_Controller extends Controller {
 								}
 							}
 							$this->content = '<div class="report">
-												'.HtmlSection::showFile('report').'
+												<div class="reportTopWrapper">
+													<div class="reportTopImage">
+														<img src="'.BASE_URL.'visual/img/warning.svg"/>
+													</div>
+													<div class="reportTopInfo">
+														<p>Por favor <strong>diganos claramente la razón</strong> por la que desea reportar esta información.</p>
+														<p>De acuerdo a la gravedad o cantidad de reportes eliminaremos los registros de nuestro sitio web.</p>
+													</div>
+												</div>
 												<div class="reportPlace">
 													'.$place->showUi('Simple').'
 												</div>
@@ -73,10 +81,11 @@ class PlaceReport_Controller extends Controller {
 					break;
 					case 'gracias':
 						$this->header = '<meta name="robots" content="noindex,nofollow"/>';
-						$this->layoutPage = 'message';
-						$this->titlePage = 'Gracias por su reporte';
-						$this->message = 'Vamos a analizar la situación y daremos de baja el registro de la empresa si es necesario.';
-						return $this->ui->render();
+	                    $this->layoutPage = 'message';
+	                    $this->messageImage = 'warning';
+	                    $this->titlePage = 'Gracias por su reporte';
+	                    $this->message = '<p>Vamos a analizar la situación y daremos de baja el registro de la empresa si es necesario.</p>';
+	                    return $this->ui->render();
 					break;
 	            }
 	 		break;

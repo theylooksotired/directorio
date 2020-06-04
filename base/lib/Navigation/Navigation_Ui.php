@@ -57,19 +57,30 @@ class Navigation_Ui extends Ui {
 			break;
 			case 'promoted':
 				return '<div class="pagePromoted">
-							<div class="pagePromotedBackground" style="background-color:'.$this->object->place->get('colorBackground').';">
-								<div class="pagePromotedBackgroundMask">
-									'.$this->header(true).'
+							'.$this->header(true).'
+							'.$content.'
+							'.$this->footer().'
+						</div>';
+			break;
+			case 'simple':
+			case 'form':
+				return '<div class="contentAllWrapper contentAllWrapper-clean">
+							'.$this->header().'
+							<div class="contentWrapper contentWrapperSimple contentWrapper-clean">
+								<div class="contentWrapperIns">
+									'.$message.'
+									'.$messageError.'
+									'.$messageInfo.'
 									'.$content.'
 								</div>
 							</div>
 							'.$this->footer().'
 						</div>';
 			break;
-			case 'simple':
+			case 'clean':
 				return $this->header().'
-						<div class="contentWrapper contentWrapperSimple contentWrapper-'.$layoutPage.'">
-							'.$title.'
+						<div class="contentWrapper contentWrapperSimple contentWrapper-clean">
+							'.(($amp) ? Adsense::amp() : Adsense::top()).'
 							'.$message.'
 							'.$messageError.'
 							'.$messageInfo.'
@@ -77,31 +88,38 @@ class Navigation_Ui extends Ui {
 						</div>
 						'.$this->footer();
 			break;
-			case 'clean':
-			case 'promotion':
-				return $this->header().'
-						<div class="contentWrapper contentWrapperSimple contentWrapper-'.$layoutPage.'">
-							'.$content.'
-						</div>
-						'.$this->footer();
+			case 'empty':
+				return '<div class="contentAllWrapper contentAllWrapper-empty">
+							'.$this->header().'
+							<div class="contentWrapper contentWrapperSimple contentWrapper-clean">
+								'.$message.'
+								'.$messageError.'
+								'.$messageInfo.'
+								'.$content.'
+							</div>
+						</div>';
 			break;
 			case 'message':
-				return $this->header().'
-						<div class="contentWrapper contentWrapperMessage contentWrapper-simple">
-							<div class="message">
-								'.$title.'
-								<div class="messageIns">
-									'.$this->object->message.'
+				return '<div class="contentAllWrapper contentAllWrapper-clean">
+							'.$this->header().'
+							<div class="contentWrapper contentWrapperMessage contentWrapper-clean">
+								'.(isset($this->object->messageImage) ? '<div class="messageImage"><img src="'.BASE_URL.'visual/img/'.$this->object->messageImage.'.svg"/></div>' : '').'
+								<div class="message">
+									'.$title.'
+									<div class="messageIns">
+										'.(isset($this->object->message) ? $this->object->message : '').'
+										<p class="messageMail">Para cualquier duda o consulta escríbanos a <a href="mailto:info@plasticwebs.com">info@plasticwebs.com</a></p>
+									</div>
+								</div>
+								<div class="buttonHome">
+									<a href="'.url('').'">
+										<span>Ir a la página de inicio</span>
+										<i class="icon icon-arrow-right"></i>
+									</a>
 								</div>
 							</div>
-							<div class="buttonHome">
-								<a href="'.url('').'">
-									<span>Ir a la página de inicio</span>
-									<i class="icon icon-arrow-right"></i>
-								</a>
-							</div>
-						</div>
-						'.$this->footer();
+							'.$this->footer().'
+						</div>';
 			break;
 		}
 	}
@@ -142,7 +160,7 @@ class Navigation_Ui extends Ui {
 							<div class="footerList footerCities">
 								<div class="footerTitle">Ciudades de '.Params::param('country').'</div>
 								<div class="footerListItems">
-									'.$place->showUi('cities').'
+									'.$place->showUi('Cities').'
 								</div>
 							</div>
 							<div class="footerList footerCountries">
@@ -185,9 +203,25 @@ class Navigation_Ui extends Ui {
 
 	public function contentSide() {
 		$place = new Place();
-		return '<aside class="contentSide">
-					<h2>Categorías más buscadas</h2>
-					'.$place->showUi('Tags').'
+		return '<aside>
+					<div class="contentSide">
+						<h2>Ciudades</h2>
+						<div class="contentSideItems">	
+							'.$place->showUi('Cities', ['urlBase'=>'ciudad-tag']).'
+						</div>
+						<div class="contentSideButton">
+							<a href="'.url('ciudad').'">Ver todas las ciudades</a>
+						</div>
+					</div>
+					<div class="contentSide">
+						<h2>Categorías más buscadas</h2>
+						<div class="contentSideItems">	
+							'.$place->showUi('Tags').'
+						</div>
+						<div class="contentSideButton">
+							<a href="'.url('tag').'">Ver todas las categorías</a>
+						</div>
+					</div>
 				</aside>';
 	}
 

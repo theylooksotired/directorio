@@ -14,13 +14,25 @@ class Email {
     * Format headers to send an email
     */
     static public function send($mailTo, $subject, $htmlMail, $replyTo='') {
-        $replyTo = ($replyTo=='') ? Params::param('email') : $replyTo;
-        $headers = 'MIME-Version: 1.0'."\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1'."\r\n";
-        $headers .= 'From: "'.Params::param('metainfo-titlePage').'" <'.Params::param('email').'>'."\r\n";
-        $headers .= 'Reply-To: '.$replyTo.''."\r\n";
-        $headers .= 'X-Mailer: PHP/'.phpversion();
-        return @mail($mailTo, html_entity_decode($subject), utf8_decode($htmlMail), $headers);
+        require_once BASE_FILE."helpers/mailer/PHPMailer.php";
+        require_once BASE_FILE."helpers/mailer/SMTP.php";
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->CharSet = 'utf-8';
+        $mail->Host = MAIL_HOST;
+        $mail->SMTPAuth = true;
+        $mail->Username = MAIL_USERNAME;
+        $mail->Password = MAIL_PASSWORD;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+        $mail->setFrom('info@plasticwebs.com', 'Plastic Webs');
+        $mail->addReplyTo('info@plasticwebs.com', 'Plastic Webs');
+        $mail->addAddress($mailTo);
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $htmlMail;
+        $mail->AltBody = strip_tags($htmlMail);
+        $mail->send();
     }
     
 }

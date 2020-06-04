@@ -25,12 +25,13 @@ class FormField_Default {
         $this->options['name'] = ($nameMultiple) ? $options['nameMultiple'].'['.$options['idMultiple'].']['.$this->name.']' : $this->name;
         $this->options['value'] = $this->values[$this->name];
         $this->options['error'] = $this->errors[$this->name];
-        $this->options['label'] = (string)$this->item->label;
+        $this->options['label'] = (isset($options['label'])) ? $options['label'] : (string)$this->item->label;
         $this->options['placeholder'] = (string)$this->item->placeholder;
         $this->options['lang'] = (string)$this->item->lang;
         $this->options['layout'] = (string)$this->item->layout;
-        $this->options['required'] = ((string)$this->item->required!='') ? true : false;
+        $this->options['required'] = (isset($options['required'])) ? $options['required'] : (((string)$this->item->required!='') ? true : false);
         $this->options['typeField'] = (isset($options['typeField'])) ? $options['typeField'] : 'text';
+        $this->options['class'] = (isset($options['class'])) ? $options['class'] : '';
     }
 
     /**

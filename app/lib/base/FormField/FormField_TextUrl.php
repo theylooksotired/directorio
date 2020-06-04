@@ -1,6 +1,6 @@
 <?php
 /**
-* @class FormFieldTextTelephone
+* @class FormFieldTextUrl
 *
 * This is a helper class to generate a telephone text form field.
 *
@@ -8,7 +8,7 @@
 * @package Asterion
 * @version 3.0.1
 */
-class FormField_TextTelephone extends FormField_Text {
+class FormField_TextUrl extends FormField_Text {
 
     /**
     * The constructor of the object.
@@ -16,7 +16,7 @@ class FormField_TextTelephone extends FormField_Text {
     public function __construct($options) {
         parent::__construct($options);
         $this->options['size'] = '10';
-        $this->options['typeField'] = 'tel';
+        $this->options['typeField'] = 'url';
     }
 
     /**

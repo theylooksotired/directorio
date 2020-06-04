@@ -150,6 +150,9 @@ class Form {
                     case 'select-link-simple':
                         return FormField::show('selectLinkSimple', $options);
                     break;
+                    case 'select-city':
+                        return FormField::show('selectCity', $options);
+                    break;
                 }
             break;
             case 'id':

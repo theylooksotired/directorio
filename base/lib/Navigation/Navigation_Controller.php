@@ -89,12 +89,14 @@ class Navigation_Controller extends Controller{
                 }
                 $items = new ListObjects('Place', array('where'=>'cityUrl="'.$this->id.'" AND cityUrl!=""', 'order'=>'promoted DESC, titleUrl', 'results'=>'10'));
                 if ($items->isEmpty()) {
+                    $this->layoutPage = 'clean';
                     $place = new Place();
                     $this->titlePage = 'Ciudades de '.Params::param('country');
                     $this->metaDescription = $this->titlePage;
                     $this->metaUrl = url($this->action);
                     $this->breadCrumbs = array(url('ciudad')=>'Ciudades');
-                    $this->content = '<div class="cityList">
+                    $this->content = '<h1>'.$this->titlePage.'</h1>
+                                        <div class="cityList">
                                             '.$place->showUi('CitiesComplete').'
                                         </div>';
                 } else {
@@ -111,6 +113,25 @@ class Navigation_Controller extends Controller{
                                     '.$items->pager();
                 }
                 return $this->ui->render();
+            break;
+            case 'ciudad-tag':
+                $this->mode = 'amp';
+                $this->layoutPage = 'amp';
+                $this->adsenseFullPageActive = true;
+                $item = Place::readFirst(['where'=>'cityUrl="'.$this->id.'" AND cityUrl!=""']);
+                if ($item->id()!='') {
+                    $this->layoutPage = 'clean';
+                    $this->titlePage = 'Empresas y negocios en '.$item->get('city').', '.Params::param('country');
+                    $this->titlePageIns = '<span>Empresas y negocios en</span> '.$item->get('city').', '.Params::param('country');
+                    $this->metaDescription = $this->titlePage;
+                    $this->metaUrl = url($this->action);
+                    $this->content = Tag_Ui::intro(['place'=>$item, 'titlePage'=>$this->titlePageIns]);
+                    return $this->ui->render();
+                } else {
+                    header("HTTP/1.1 301 Moved Permanently");
+                    header('Location: '.url('ciudad/'.$this->id));
+                    exit();
+                }
             break;
             case 'tag':
                 $this->mode = 'amp';
@@ -160,26 +181,13 @@ class Navigation_Controller extends Controller{
                                     '.$items->pager();
                     return $this->ui->render();
                 } else {
-                    $item = Tag::readFirst(array('where'=>'nameUrl="'.$this->id.'"'));
-                    if ($item->id()!='') {
-                        header("HTTP/1.1 301 Moved Permanently");
-                        header('Location: '.$item->url());
-                        exit();
-                    } else {
-                        header("HTTP/1.1 301 Moved Permanently");
-                        header('Location: '.url(''));
-                        exit();
-                    }
-                }
-            break;
-            case 'web':
-                $item = Place::readFirst(array('where'=>'titleUrl="'.$this->id.'"'));
-                if ($item->id()!='') {
-                    header("HTTP/1.1 301 Moved Permanently");
-                    header('Location: '.$item->url());
-                } else {
-                    header("HTTP/1.1 301 Moved Permanently");
-                    header('Location: '.url(''));
+                    $this->layoutPage = 'clean';
+                    $this->titlePage = 'Empresas y negocios en '.Params::param('country');
+                    $this->titlePageIns = '<span>Empresas y negocios en</span> '.Params::param('country');
+                    $this->metaDescription = $this->titlePage;
+                    $this->metaUrl = url($this->action);
+                    $this->content = Tag_Ui::intro(['titlePage'=>$this->titlePageIns]);
+                    return $this->ui->render();
                 }
             break;
             case 'buscar':
@@ -206,7 +214,7 @@ class Navigation_Controller extends Controller{
                         $items = new ListObjects('Place', array('where'=>'search LIKE ("%'.$search.'%")', 'order'=>'promoted DESC, titleUrl', 'results'=>'10'));
                     }
                     $this->header = $items->metaNavigation();
-                    $this->content = $items->showListPager(array('function'=>'Public', 'message'=>'<div class="message">Lo sentimos, pero no encontramos resultados para su busqueda.</div>', 'middle'=>Adsense::inline()));
+                    $this->content = $items->showListPager(array('function'=>'Public', 'message'=>'<div class="message">Lo sentimos, pero no encontramos resultados para su busqueda.</div>', 'middle'=>Adsense::ampInline()));
                     return $this->ui->render();
                 } else {
                     header("HTTP/1.1 301 Moved Permanently");
@@ -222,22 +230,22 @@ class Navigation_Controller extends Controller{
                 $this->content = HtmlSection::showFile('terms');
                 return $this->ui->render();
             break;
-            case 'promocion':
-                $this->layoutPage = 'promotion';
-            	$this->titlePage = 'Ventajas de inscribir a su empresa en nuestro directorio';
-            	$this->metaDescription = 'Mejore el SEO de su sitio web inscribiendo a su empresa en nuestro directorio.';
-                $this->metaKeywords = 'seo, inscribir, empresa, negocio, inscripcion, optimizacion';
-                $this->metaUrl = url($this->action);
-                $this->content = '<div class="promotion">
-									<div class="promotionIns">
-										'.HtmlSection::showFile('promotion').'
-										<div class="buttonBig">
-											<a href="'.url('inscribir').'">Inscribir <em>a mi empresa</em></a>
-										</div>
-									</div>
-								</div>';
-				return $this->ui->render();
-            break;
+    //         case 'promocion':
+    //             $this->layoutPage = 'promotion';
+    //         	$this->titlePage = 'Ventajas de inscribir a su empresa en nuestro directorio';
+    //         	$this->metaDescription = 'Mejore el SEO de su sitio web inscribiendo a su empresa en nuestro directorio.';
+    //             $this->metaKeywords = 'seo, inscribir, empresa, negocio, inscripcion, optimizacion';
+    //             $this->metaUrl = url($this->action);
+    //             $this->content = '<div class="promotion">
+				// 					<div class="promotionIns">
+				// 						'.HtmlSection::showFile('promotion').'
+				// 						<div class="buttonBig">
+				// 							<a href="'.url('inscribir').'">Inscribir <em>a mi empresa</em></a>
+				// 						</div>
+				// 					</div>
+				// 				</div>';
+				// return $this->ui->render();
+    //         break;
 
 
 
@@ -246,16 +254,20 @@ class Navigation_Controller extends Controller{
             * PUBLIC ADMIN
             */
             case 'inscribir':
-                $this->layoutPage = 'simple';
+                $this->layoutPage = 'form';
                 $this->titlePage = 'Inscriba a su empresa en nuestro directorio';
                 $this->metaDescription = 'Inscriba de forma totalmente gratuita a su empresa en nuestro directorio.';
                 $this->activateJS();
                 $placeEditForm = new PlaceEdit_Form();
+                $withErrors = false;
                 if (count($this->values)>0) {
+                    $this->values['city'] = (isset($this->values['cityOther']) && $this->values['cityOther']!='') ? $this->values['cityOther'] : (isset($this->values['city']) ? $this->values['city'] : '');
+                    $this->values['description'] = (isset($this->values['description'])) ? preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', strip_tags($this->values['description'], '<p><ul><ol><li><u><em><strong>')) : '';
                     $placeEditForm = new PlaceEdit_Form($this->values);
                     $errors = $placeEditForm->isValid();
                     $this->checkCaptcha($errors);
                     if (count($errors) > 0) {
+                        $withErrors = true;
                         $this->messageError = 'Lo sentimos, pero hay errores en el formulario que debe corregir.';
                         $placeEditForm = new PlaceEdit_Form($this->values, $errors);
                     } else {
@@ -276,11 +288,6 @@ class Navigation_Controller extends Controller{
                                     $placeEdit->sendEmail($placeEdit->get('emailEditor'), 'welcomePlaceEditTransference');
                                     header('Location: '.url('transferencia'));
                                 break;
-                                case 'khipu':
-                                	$order->modifySimple('paymentType', '1');
-                                    $placeEdit->sendEmail($placeEdit->get('emailEditor'), 'welcomePlaceEditKhipu');
-                                    $order->khipuRequest();
-                                break;
                                 case 'paypal':
                                 	$order->modifySimple('paymentType', '2');
                                     $placeEdit->sendEmail($placeEdit->get('emailEditor'), 'welcomePlaceEditPayPal');
@@ -294,22 +301,23 @@ class Navigation_Controller extends Controller{
                         exit();
                     }
                 }
-                $this->content = HtmlSection::showFile('inscribirTop').'
-                                '.$placeEditForm->createPublic();
+                $this->content = ($withErrors) ? $placeEditForm->createPublicUpdate() : $placeEditForm->createPublic();
                 return $this->ui->render();
             break;
             case 'modificar':
-            case 'promocionar':
                 $this->layoutPage = 'simple';
                 $this->activateJS();
                 $this->header .= '<meta name="robots" content="noindex,nofollow"/>';
                 $place = Place::read($this->id);
-                if ($place->id()!='') {
-                    $placeEditForm = new PlaceEdit_Form();
+                if ($place->id()!='' && $place->get('promoted')!='1') {
+                    $placeEditValues = $place->valuesArray();
+                    unset($placeEditValues['nameEditor']);
+                    unset($placeEditValues['emailEditor']);
+                    $placeEditForm = new PlaceEdit_Form($placeEditValues);
                     if ($this->action=='modificar') {
                         $this->titlePage = 'Actualizar la información de '.$place->getBasicInfo();
                         $this->titlePageHtml = '<span>Actualizar la información de</span> '.$place->getBasicInfo();
-                        $this->content = ($place->get('promoted')=='1') ? $placeEditForm->createPublicPromoted($place) : $placeEditForm->createPublic($place);
+                        $this->content = $placeEditForm->createPublic(['update'=>true]);
                     } else {
                         if ($place->get('promoted')=='1') {
                             $this->titlePage = 'Esta empresa ya se encuentra promocionada';
@@ -328,7 +336,7 @@ class Navigation_Controller extends Controller{
                             $this->messageError = 'Lo sentimos, pero hay errores en el formulario que debe corregir.';
                             $placeEditForm = new PlaceEdit_Form($this->values, $errors);
                             if ($this->action=='modificar') {
-                                $this->content = ($place->get('promoted')=='1') ? $placeEditForm->createPublicPromoted() : $placeEditForm->createPublic();
+                                $this->content = $placeEditForm->createPublic();
                             } else {
                                 $this->content = $placeEditForm->createPublicPromote();
                             }
@@ -338,14 +346,10 @@ class Navigation_Controller extends Controller{
                                 $this->values['image'] = $place->getImageUrl('image', 'huge');
                             }
                             $placeEdit = new PlaceEdit();
-                            if ($place->get('promoted')=='1') {
-                                $placeEdit->insertMailPromoted($this->values);
-                            } else {
-                                $placeEdit->insertMail($this->values);
-                            }
+                            $placeEdit->insertMail($this->values);
                             $placeEdit = PlaceEdit::read($placeEdit->id());
                             $placeEdit->sendEmail($placeEdit->get('emailEditor'), 'modifyPlaceEdit');
-                            if ((isset($this->values['choicePromotion']) && $this->values['choicePromotion']=='promoted') || $this->action=='promocionar') {
+                            if ((isset($this->values['choicePromotion']) && $this->values['choicePromotion']=='promoted')) {
                                 $order = new Order();
                                 $order->insert(array('idPlaceEdit'=>$placeEdit->id(),
                                                     'name'=>$placeEdit->get('nameEditor'),
@@ -358,10 +362,6 @@ class Navigation_Controller extends Controller{
                                     default:
                                         header('Location: '.url('transferencia'));
                                     break;
-                                    case 'khipu':
-                                    	$order->modifySimple('paymentType', '1');
-                                        $order->khipuRequest();
-                                    break;
                                     case 'paypal':
                                     	$order->modifySimple('paymentType', '2');
                                         $order->paypalRequest();
@@ -373,9 +373,15 @@ class Navigation_Controller extends Controller{
                             exit();
                         }
                     }
+                } elseif ($place->id()!='' && $place->get('promoted')=='1') {
+                    $this->layoutPage = 'message';
+                    $this->messageImage = 'sadthanks';
+                    $this->titlePage = 'Su empresa ya está promocionada';
+                    $this->message = '<p>Cualquier modificación se realizará por email.</p>';
                 } else {
+                    $this->layoutPage = 'message';
+                    $this->messageImage = 'sadthanks';
                     $this->titlePage = 'La empresa no existe';
-                    $this->messageError = 'Lo sentimos, pero la empresa no existe.';
                 }
                 return $this->ui->render();
             break;
@@ -433,43 +439,6 @@ class Navigation_Controller extends Controller{
                 header('Location: '.$url);
                 exit();
             break;
-            case 'khipu':
-                $this->header = '<meta name="robots" content="noindex,nofollow"/>';
-                $url = url('');
-                $order = Order::readFirst(array('where'=>'MD5(CONCAT("plasticwebs_'.$this->id.'",idOrder))="'.$this->extraId.'"'));
-                $place = Place::read($order->get('idPlace'));
-                $placeEdit = PlaceEdit::read($order->get('idPlaceEdit'));
-                if ($order->id()!='') {
-                    switch ($this->id) {
-                        case 'pagado':
-                            $url = url('pago-confirmacion/'.$order->encodeId());
-                        break;
-                        case 'anulado':
-                            if ($place->id()!='') {
-                                $url = url('pago-anulado/'.$order->encodeId());
-                            } else {
-                                $url = url('pago-espera-anulado/'.$order->encodeId());
-                            }
-                        break;
-                        case 'notificado':
-                            if (Khipu::notificated()) {
-                                $order->modifySimple('payed', '1');
-                                HtmlMail::sendFromFile($order->get('email'), 'payedThanks', array('NAME'=>$order->get('name')));
-                                if ($place->id()!='') {
-                                    $place->sendEmail(Params::param('email'), 'payedPlace');
-                                    $url = url('pago-gracias/'.$order->encodeId());
-                                } else {
-                                    $placeEdit->sendEmail(Params::param('email'), 'payedPlaceEdit');
-                                    $url = url('pago-espera-gracias/'.$order->encodeId());
-                                }
-                            }
-                            return '';
-                        break;
-                    }
-                }
-                header('Location: '.$url);
-                exit();
-            break;
             case 'transferencia':
             case 'inscribir-gracias':
             case 'pago-gracias':
@@ -485,96 +454,65 @@ class Navigation_Controller extends Controller{
                 switch($this->action) {
                     case 'transferencia':
                         $this->titlePage = 'Gracias por la inscripción';
-                        $this->message = 'Muchas gracias por inscribir a su empresa.<br/>
-                                        Estamos a la espera de la transferencia bancaria para activar la misma.';
+                        $this->messageImage = 'happythanks';
+                        $this->message = '<p>Le hemos enviado a su email los datos para realizar la transferencia o giro bancario.</p>
+                                            <p>Estaremos a la espera para activar la promoción de su empresa.</p>';
                         $this->content = '<div class="messageSimple">'.HtmlSection::showFile('transfer').'</div>';
                     break;
                     case 'inscribir-gracias':
                         $this->titlePage = 'Gracias por la inscripción';
-                        $this->message = 'Muchas gracias por inscribir a su empresa.<br/>
-                                        Vamos a revisar la información y la publicaremos lo antes posible.<br/>
-                                        Le informaremos sobre el proceso via email.';
+                        $this->messageImage = 'happythanks';
+                        $this->message = '<p>Vamos a revisar la información y la publicaremos lo antes posible.</p>
+                                        <p>Le informaremos sobre el proceso via email.</p>';
                     break;
                     case 'modificar-gracias':
                         $this->titlePage = 'Gracias por la actualización';
-                        $this->message = 'Muchas gracias por actualizar los datos de la empresa.<br/>
-                                        Vamos a revisar la información y la publicaremos lo antes posible.<br/>
-                                        Le informaremos sobre el proceso via email.';
+                        $this->messageImage = 'happythanks';
+                        $this->message = '<p>Vamos a revisar la información y la publicaremos lo antes posible.</p>
+                                        <p>Le informaremos sobre el proceso via email.</p>';
                     break;
                     case 'pago-gracias':
                         $place = Place::read($order->get('idPlace'));
+                        $this->messageImage = 'happythanks';
                         $this->titlePage = 'Gracias por su pago';
-                        $this->message = 'Muchas gracias por realizar su pago.<br/>
-                                        Puede ver su empresa haciendo click <a href="'.$place->url().'">aquí</a>.';
+                        $this->message = '<p>Puede ver su empresa haciendo click <a href="'.$place->url().'">aquí</a>.</p>';
                     break;
                     case 'pago-espera-gracias':
                         $placeEdit = PlaceEdit::read($order->get('idPlaceEdit'));
+                        $this->messageImage = 'happythanks';
                         $this->titlePage = 'Gracias por su pago';
-                        $this->messageInfo = 'Muchas gracias por realizar su pago.<br/>
-                                        Vamos a revisar la información y la publicaremos lo antes posible.<br/>
-                                        Le informaremos sobre el proceso via email.';
+                        $this->message = '<p>Vamos a revisar la información y la publicaremos lo antes posible.</p>
+                                        <p>Le informaremos sobre el proceso via email.</p>';
                     break;
-                    case 'pago-confirmacion':
-                        $placeEdit = PlaceEdit::read($order->get('idPlaceEdit'));
-                        $this->titlePage = 'Gracias por su pago';
-                        $this->messageInfo = 'Muchas gracias por realizar su pago.<br/>
-                                        Estamos a la espera de la confirmación por parte de Khipu.<br/>
-                                        Le informaremos sobre el proceso via email.';
-                    break;
-                    /*
-                        $place = Place::read($order->get('idPlace'));
-                        $this->titlePage = 'Su pago no se realizó';
-                        $this->messageError = 'Lo sentimos, no pudimos recibir su pago.<br/>
-                                        Si se trata de un error escríbanos a <a href="mailto:info@plasticwebs.com" target="_blank">info@plasticwebs.com</a><br/>
-                                        Puede ver la empresa a promocionar haciendo click <a href="'.$place->url().'">aquí</a>.';
-                    break;
-                    */
                     case 'pago-anulado':
                     case 'pago-espera-anulado':
                         $placeEdit = PlaceEdit::read($order->get('idPlaceEdit'));
-                        $paymentsAccepted = explode(':', PAYMENTS_ACCEPTED);
                         $this->titlePage = 'Su pago no se realizó';
-                        $btnPaypal = (in_array('paypal', $paymentsAccepted)) ? '<div class="retryPayment retryPaymentPaypal">
-							                                                		<a href="'.url('paypal-order/'.$this->id).'" target="_blank">PayPal</a>
-							                                                	</div>' : '';
-                        $btnKhipu = (in_array('khipu', $paymentsAccepted)) ? '<div class="retryPayment retryPaymentKhipu">
-						                                                		<a href="'.url('khipu-order/'.$this->id).'" target="_blank">Khipu</a>
-						                                                	</div>' : '';
-                        $this->content = '<div class="pageComplete pageCompleteMessage">
-                                                <p>Lo sentimos, no pudimos recibir su pago. Si cree que se trata de un error escríbanos a <a href="mailto:info@plasticwebs.com" target="_blank">info@plasticwebs.com</a> con todos los datos posibles para que podamos solucionar el problema.</p>
-                                                <p>Si tuvo un problema con el sistema de pagos, puede volver a intentarlo haciendo click en:</p>
-                                                <div class="retryPayments">
-                                                	'.$btnPaypal.'
-                                                	'.$btnKhipu.'
+                        $this->messageImage = 'sadthanks';
+                        $this->message = '<p>Lo sentimos, no pudimos recibir su pago.</p>
+                                            <p>Si tuvo un problema con el sistema de pagos, puede volver a intentarlo haciendo click en:</p>
+                                            <div class="retryPayments">
+                                            	<div class="retryPayment retryPaymentPaypal">
+                                                    <a href="'.url('paypal-order/'.$this->id).'" target="_blank">PayPal</a>
                                                 </div>
-                                                <p>Mil disculpas por los problemas ocasionados.</p>
                                             </div>';
                     break;
                     case 'pedido-ya-pagado':
                         $this->titlePage = 'El pedido ya ha sido pagado';
-                        $this->messageInfo = 'Muchas gracias por realizar su pago, pero este pedido ya ha sido pagado.<br/>
-                                        Si se trata de un error escríbanos a <a href="mailto:info@plasticwebs.com" target="_blank">info@plasticwebs.com</a>.';
+                        $this->messageImage = 'happythanks';
+                        $this->messageInfo = '<p>Muchas gracias por realizar su pago, pero este pedido ya ha sido pagado.</p>';
                     break;
                 }
                 return $this->ui->render();
             break;
             case 'paypal-order':
-            case 'khipu-order':
             	$order = Order::readCoded($this->id);
             	if ($order->get('payed')=='1') {
             		header('Location: '.url('pedido-ya-pagado'));
             	} else {
-            		switch ($this->action) {
-            			case 'paypal-order':
-            				$order->paypalRequest();
-            			break;
-            			case 'khipu-order':
-            				$order->khipuRequest();
-            			break;
-            		}
+            		$order->paypalRequest();
             	}
             break;
-
 
 
 
@@ -616,7 +554,7 @@ class Navigation_Controller extends Controller{
                 $placeEdit = PlaceEdit::readCoded($this->id);
                 $this->activateJS();
                 $this->header .= '<meta name="robots" content="noindex,nofollow"/>';
-                $this->layoutPage = 'simple';
+                $this->layoutPage = 'empty';
                 if ($placeEdit->id()!='') {
                     switch($this->action) {
                         case 'lugar-editar-borrar':
@@ -707,21 +645,42 @@ class Navigation_Controller extends Controller{
             case 'check-github-all':
                 shell_exec('wget --header="Authorization: plastic" -qO- https://www.plasticmails.net/directorio/check-github-now &> /dev/null');
 
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.argentina-directorio.com/check-github-now &> /dev/null');
                 shell_exec('wget --header="Authorization: plastic" -qO- https://www.directorio.com.bo/check-github-now &> /dev/null');
                 shell_exec('wget --header="Authorization: plastic" -qO- https://www.directorio-chile.com/check-github-now &> /dev/null');
-                shell_exec('wget --header="Authorization: plastic" -qO- https://www.telefono.do/check-github-now &> /dev/null');
-                shell_exec('wget --header="Authorization: plastic" -qO- https://www.argentina-directorio.com/check-github-now &> /dev/null');
-                shell_exec('wget --header="Authorization: plastic" -qO- https://www.directorio-panama.com/check-github-now &> /dev/null');
-                shell_exec('wget --header="Authorization: plastic" -qO- https://www.mexico-directorio.com/check-github-now &> /dev/null');
-                shell_exec('wget --header="Authorization: plastic" -qO- https://www.directorio-honduras.com/check-github-now &> /dev/null');
-                shell_exec('wget --header="Authorization: plastic" -qO- https://www.peru-directorio.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.colombia-directorio.com/check-github-now &> /dev/null');
                 shell_exec('wget --header="Authorization: plastic" -qO- https://www.ecuador-directorio.com/check-github-now &> /dev/null');
                 shell_exec('wget --header="Authorization: plastic" -qO- https://www.directorio-guatemala.com/check-github-now &> /dev/null');
-                shell_exec('wget --header="Authorization: plastic" -qO- https://www.uruguay-directorio.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.directorio-honduras.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.mexico-directorio.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.directorio-panama.com/check-github-now &> /dev/null');
                 shell_exec('wget --header="Authorization: plastic" -qO- https://www.paraguay-directorio.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.peru-directorio.com/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.telefono.do/check-github-now &> /dev/null');
+                shell_exec('wget --header="Authorization: plastic" -qO- https://www.uruguay-directorio.com/check-github-now &> /dev/null');
                 shell_exec('wget --header="Authorization: plastic" -qO- https://www.venezuela-directorio.com/check-github-now &> /dev/null');
-                shell_exec('wget --header="Authorization: plastic" -qO- https://www.colombia-directorio.com/check-github-now &> /dev/null');
             break;
+
+            case 'fix':
+                $this->mode = 'ajax';
+                $this->checkAuthorization();
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="mobile", translation_es="Teléfono móvil"');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="whatsapp", translation_es="Whatsapp"');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="facebook", translation_es="Facebook"');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="instagram", translation_es="Instagram"');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="youtube", translation_es="Youtube"');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="twitter", translation_es="Twitter"');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="tagsLabel", translation_es="Escriba etiquetas descriptivas separas por comas"');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="cityDoesNotAppear", translation_es="Mi ciudad no aparece en la lista"');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="namePlace", translation_es="Nombre de la empresa o negocio"');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="nameEditorLabel", translation_es="Nombre de la persona de contacto"');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="emailEditorLabel", translation_es="Email de la persona de contacto"');
+                Db::execute('ALTER TABLE `dir_PlaceEdit` ADD `mobile` VARCHAR(255) NULL, ADD `whatsapp` VARCHAR(255) NULL, ADD `facebook` VARCHAR(255) NULL, ADD `instagram` VARCHAR(255) NULL, ADD `youtube` VARCHAR(255) NULL;');
+                Db::execute('ALTER TABLE `dir_PlaceEdit` ADD `twitter` VARCHAR(255) NULL;');
+                Db::execute('ALTER TABLE `dir_Place` ADD `mobile` VARCHAR(255) NULL, ADD `whatsapp` VARCHAR(255) NULL, ADD `facebook` VARCHAR(255) NULL, ADD `instagram` VARCHAR(255) NULL, ADD `youtube` VARCHAR(255) NULL, ADD `twitter` VARCHAR(255) NULL;');
+                
+            break;
+
         }
     }
 
@@ -730,6 +689,8 @@ class Navigation_Controller extends Controller{
                         <script type="text/javascript" src="'.BASE_URL.'libjs/jquery/jquery-1.10.2.min.js"></script>
                         <script type="text/javascript" src="'.BASE_URL.'libjs/jquery/jquery-ui-1.10.3.custom.min.js"></script>
                         <script type="text/javascript" src="'.BASE_URL.'libjs/jquery/jquery.form.js"></script>
+                        <script type="text/javascript" src="'.url('NavigationAdmin/base-info', true).'"></script>
+                        <script type="text/javascript" src="'.APP_URL.'helpers/ckeditor/ckeditor.js"></script>
                         <script type="text/javascript" src="'.BASE_URL.'libjs/public.js?v=9"></script>';
     }
 

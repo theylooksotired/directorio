@@ -1,6 +1,5 @@
 @import "_reset.scss";
 
-
 @import "_variables.scss";
 @import "_common.scss";
 @import "_mixins.scss";
@@ -13,12 +12,763 @@
 @import "_public_sidebar.scss";
 @import "_public_forms.scss";
 
+@mixin iconIns($icon) {
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	content: $icon;
+}
+
 html,
 body {
 	font-size: $fontSizeNormal;
 	line-height: 1.1;
 	font-family: $fontFamily;
 	color: $colorText;
+}
+
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 4px 0;
+	border-bottom: 1px solid darken($white, 5%);
+	background: $white;
+	z-index: 9999;
+	@include simpleShadow();
+	@include clearer();
+	.headerIns {
+		max-width: $sizeDesktop;
+		margin: auto;
+	}
+	.headerLeft {
+		width: 30%;
+		float: left;
+	}
+	.headerRight {
+		width: 70%;
+		float: right;
+		text-align: right;
+		padding: 4px 0 0 0;
+	}
+	.logo a {
+		display: block;
+		width: 200px;
+		strong {
+			display: block;
+			width: 200px;
+			height: 20px;
+			background-image: url(../../img/logo.png);
+
+			background-repeat: no-repeat;
+			background-position: left center;
+			background-size: contain;
+			text-indent: -5000px;
+			overflow: hidden;
+		}
+		span {
+			font-weight: normal;
+			display: block;
+			text-align: right;
+			margin: 3px 0 0 0;
+			padding: 3px 0 0 0;
+			border-top: 3px solid rgba($black, 0.1);
+			font-size: $fontSizeTiny;
+			line-height: 1;
+			color: darken($white, 30%);
+		}
+		&:hover {
+			opacity: 0.7;
+		}
+	}
+}
+
+.footer {
+	font-size: $fontSizeSmall;
+	background: $colorText;
+	color: $white;
+	@include clearer();
+	a {
+		color: $white;
+	}
+	.footerListWrapper {
+		@include clearer();
+	}
+	.footerIns {
+		padding: 50px 0;
+		max-width: $sizeDesktop;
+		margin: auto;
+	}
+	.footerDown {
+		width: 65%;
+		padding-top: 40px;
+		margin-top: 40px;
+		border-top: 20px solid rgba($white, 0.2);
+		a {
+			font-weight: bold;
+			color: lighten($colorMainAlt, 20%);
+			&:hover {
+				color: $colorMainAlt;
+			}
+		}
+		.btnContact {
+			width: 250px;
+			margin-bottom: 20px;
+			a {
+				display: block;
+				background: $white;
+				color: $colorText;
+				text-align: center;
+				font-weight: bold;
+				padding: 20px;
+				text-transform: uppercase;
+				@include borderRadius(3px);
+				@include animate();
+				&:hover {
+					background: rgba($white, 0.8);
+				}
+			}
+		}
+	}
+	.footerList {
+		width: 35%;
+		float: left;
+		padding-right: 15%;
+		.footerTitle {
+			font-weight: bold;
+			text-transform: uppercase;
+			padding: 0 0 10px;
+			margin: 0 0 10px;
+			border-bottom: 2px solid rgba($white, 0.5);
+			color: rgba($white, 0.5);
+		}
+		a {
+			font-weight: normal;
+			display: block;
+			width: 50%;
+			float: left;
+			padding: 5px 0;
+			color: rgba($white, 0.5);
+			@include textEllipsis();
+			&:hover {
+				color: $white;
+			}
+		}
+		.footerListItems {
+			@include clearer();
+			p {
+				padding: 0;
+				margin: 0;
+				line-height: 1;
+				@include clearer();
+			}
+		}
+	}
+}
+
+[type="search"] {
+	-moz-appearance:    textfield;
+	-webkit-appearance: textfield;
+	appearance: textfield;
+}
+.searchTop {
+	@include clearer();
+	display: inline-block;
+	vertical-align: middle;
+	width: 270px;
+	float: right;
+	.formField {
+		width: 170px;
+		float: left;
+		display: block;
+		vertical-align: middle;
+		input {
+			display: inline-block;
+			font-size: $fontSizeNormal;
+			border: 1px solid lighten(desaturate($colorText, 50%), 30%);
+			border-right: 0;
+			padding: 5px;
+			line-height: 34px;
+			height: 34px;
+			width: 100%;
+			font-family: $fontFamily;
+			box-sizing: border-box;
+			background: lighten(desaturate($colorText, 50%), 75%);
+			color: lighten(desaturate($colorText, 50%), 30%);
+			@include borderRadiusLeft(3px);
+			&::-webkit-input-placeholder {
+				font-style: italic;
+				color: lighten(desaturate($colorText, 50%), 40%);
+			}
+			&:-moz-placeholder {
+				font-style: italic;
+				color: lighten(desaturate($colorText, 50%), 40%);
+			}
+			&::-moz-placeholder {
+				font-style: italic;
+				color: lighten(desaturate($colorText, 50%), 40%);
+			}
+			&:-ms-input-placeholder {
+				font-style: italic;
+				color: lighten(desaturate($colorText, 50%), 40%);
+			}
+			&::-ms-input-placeholder {
+				font-style: italic;
+				color: lighten(desaturate($colorText, 50%), 40%);
+			}
+		}
+	}
+	.formFieldSubmit {
+		width: 100px;
+		display: block;
+		float: right;
+		vertical-align: middle;
+		button {
+			font-size: 1em;
+			background: lighten(desaturate($colorText, 50%), 30%);
+			border: 1px solid lighten(desaturate($colorText, 50%), 30%);
+			color: $white;
+			display: block;
+			border: 0px;
+			cursor: pointer;
+			width: 100%;
+			padding: 5px 10px;
+			text-transform: uppercase;
+			font-family: $fontFamily;
+			font-weight: bold;
+			font-size: $fontSizeTiny;
+			line-height: 25px;
+			height: 34px;
+			box-sizing: border-box;
+			span {
+				display: inline-block;
+				padding: 0 0 0 10px;
+			}
+			@include borderRadiusRight(3px);
+			&:hover {
+				background: lighten(desaturate($colorText, 50%), 10%);
+			}
+		}
+	}
+}
+
+.contentSide {
+	font-size: $fontSizeSmall;
+	text-align: center;
+	line-height: 2em;
+	padding-top: 30px;
+	h2 {
+		text-transform: uppercase;
+		padding-bottom: 5px;
+		margin-bottom: 15px;
+		border-bottom: 2px solid darken($white, 40%);
+		color: darken($white, 50%);
+		font-weight: bold;
+	}
+	.contentSideItems {
+		margin: 0 -5px;
+		@include clearer();
+		a {
+			width: calc(50% - 30px);
+			float: left;
+			display: block;
+			line-height: 1.1em;
+			padding: 10px;
+			margin: 0 5px 10px 5px;
+			font-weight: normal;
+			color: darken($white, 50%);
+			background: darken($white, 3%);
+			@include borderRadius(3px);
+			&:hover {
+				background: darken($white, 5%);
+				color: darken($white, 90%);
+			}
+		}
+	}
+	.contentSideButton {
+		a {
+			display: block;
+			max-width: 300px;
+			margin: 20px auto;
+			padding: 10px;
+			background: lighten($colorText, 10%);
+			color: $white;
+			text-align: center;
+			text-transform: uppercase;
+			font-size: $fontSizeNormal;
+			font-weight: normal;
+			@include borderRadius(3px);
+			@include animate();
+			&:hover {
+				background: darken($colorText, 10%);
+			}
+		}
+	}
+}
+
+.subscribeTop {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0 20px 0 0;
+	a {
+		display: inline-block;
+		background: darken($colorMain, 5%);
+		border: 1px solid darken($colorMain, 15%);
+		color: $white;
+		padding: 7px 20px;
+		margin: 0 0 0 10px;
+		font-weight: bold;
+		text-transform: uppercase;
+		letter-spacing: -1px;
+		box-sizing: content-box;
+		@include borderRadius(3px);
+		&:hover {
+			background: darken($colorMain, 15%);
+		}
+		i {
+			display: inline-block;
+			padding: 0 10px 0 0;
+		}
+	}
+}
+
+.buttonBig {
+	a {
+		display: block;
+		background: $colorMain;
+		border: 2px solid darken($colorMain, 15%);
+		color: $white;
+		padding: 10px 20px;
+		max-width: 200px;
+		margin: 10px auto;
+		font-weight: bold;
+		text-transform: uppercase;
+		font-size: $fontSizeBig;
+		text-align: center;
+		box-shadow: 1px 1px 5px rgba($black, 0.5);
+		box-sizing: content-box;
+		text-shadow: 0 0 5px rgba($black, 0.5);
+		@include borderRadius(5px);
+		em {
+			display: block;
+			font-size: $fontSizeNormal;
+			font-style: normal;
+		}
+		&:hover {
+			background: darken($colorMain, 10%);
+		}
+	}
+}
+
+.formContact {
+	width: 70%;
+	margin: 30px auto;
+	p {
+		padding: 0px;
+	}
+	label {
+		display: block;
+		font-size: $fontSizeTiny;
+		text-transform: uppercase;
+		color: darken($white, 50%);
+		padding-bottom: 3px;
+	}
+	.formField {
+		padding-bottom: 10px;
+		input,
+		textarea {
+			width: 100%;
+			padding: 5px;
+			border: 1px solid darken($white, 40%);
+			font-size: 1.2em;
+			font-family: $fontFamily;
+			@include borderRadius(3px);
+		}
+	}
+	.formSubmitWrapper {
+		padding-top: 20px;
+		input {
+			width: 200px;
+			margin: auto;
+			display: block;
+			background: $colorMainAlt;
+			color: $white;
+			font-weight: bold;
+			text-transform: uppercase;
+			padding: 10px;
+			text-align: center;
+			cursor: pointer;
+			border: 0px;
+			font-size: 1em;
+			font-family: $fontFamily;
+		}
+	}
+	.error {
+		color: $colorMainAlt;
+		font-size: 0.8em;
+	}
+	.errorField {
+		input,
+		textarea {
+			border: 1px solid $colorMainAlt;
+		}
+	}
+}
+
+.searchMainWrapper {
+	height: 500px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	position: relative;
+}
+
+.searchMain {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(darken($colorText, 10%), 0.3);
+	.searchMainIns {
+		width: 70%;
+		margin: auto;
+		padding: 200px 0 0 0;
+	}
+	.formField {
+		width: 70%;
+		float: left;
+		@include borderBox();
+		input {
+			width: 100%;
+			font-size: $fontSizeBig;
+			padding: 10px;
+			border: 0;
+			background: $white;
+			font-family: $fontFamily;
+			@include borderRadiusLeft(5px);
+		}
+	}
+	.formFieldSubmit {
+		width: 30%;
+		float: right;
+		@include borderBox();
+		button {
+			display: block;
+			width: 100%;
+			background: darken($colorText, 4%);
+			border: 0;
+			padding: 10px;
+			color: $white;
+			cursor: pointer;
+			text-transform: uppercase;
+			text-align: center;
+			font-weight: bold;
+			font-size: $fontSizeBig;
+			font-family: $fontFamily;
+			text-shadow: 1px 1px 3px rgba($black, 0.6);
+			@include borderRadiusRight(5px);
+			&:hover {
+				background: darken($colorText, 6%);
+			}
+			i {
+				display: inline-block;
+				padding: 0 10px 0 0;
+			}
+		}
+	}
+}
+
+.messageForm {
+	margin: auto;
+	max-width: $sizeTablet * 4 / 5;
+	text-align: center;
+	color: lighten($black, 40%);
+	font-size: $fontSizeSmall;
+	padding: 0 0 30px;
+	p {
+		padding: 0 0 10px;
+		margin: 0;
+		line-height: 1.3;
+		&:last-child {
+			padding: 0;
+		}
+		a {
+			font-weight: bold;
+			color: lighten($black, 50%);
+			&:hover {
+				color: $black;
+			}
+		}
+	}
+	&.messageFormBottom {
+		padding: 30px 0 0 0;
+		text-align: left;
+	}
+}
+
+.formPublic {
+	background: darken($white, 4%);
+	border: 1px solid darken($white, 10%);
+	padding: 15px;
+	margin: auto;
+	max-width: $sizeTablet * 4 / 5;
+	box-sizing: border-box;
+	.formFields {
+		padding: 25px 0 0 0;
+		margin: 20px 0 0 0;
+		border-top: 3px solid rgba($colorAccentAlt, 0.3);
+		&:first-child {
+			padding: 0;
+			margin: 0;
+			border-top: 0;
+		}
+		h2 {
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: $fontSizeSmall;
+			color: darken($colorAccentAlt, 10%);
+			padding: 0 0 10px;
+		}
+	}
+	.formField {
+		padding: 0 0 10px;
+		label {
+			display: block;
+			color: darken($white, 70%);
+			font-size: $fontSizeSmall;
+			padding: 0 0 5px;
+			font-weight: bold;
+			line-height: 1;
+			@include borderBox();
+		}
+		&.required {
+			label {
+				&:after {
+					content: '*';
+					display: inline-block;
+					padding: 0 0 0 5px;
+					color: $colorError;
+				}
+			}
+		}
+		input,
+		textarea,
+		select,
+		.formFieldsImage {
+			display: block;
+			padding: 5px;
+			width: 100%;
+			font-family: $fontFamily;
+			color: $colorText;
+			border: 1px solid darken($white, 25%);
+			background: $white;
+			@include borderBox();
+			@include borderRadius(3px);
+		}
+		.formFieldsImage {
+			border-bottom: 0;
+			width: auto;
+			@include clearer();
+			img {
+				display: block;
+				max-height: 40px;
+				max-width: 100%;
+				margin: 0 auto 5px auto;
+				border: 0;
+			}
+			+ input {
+				border-top: 0;
+			}
+		}
+		.error {
+			display: block;
+			color: $colorError;
+			font-weight: bold;
+			font-size: $fontSizeSmall;
+			padding: 0 0 5px;
+		}
+		&.error {
+			input,
+			textarea,
+			select {
+				border: 1px solid $colorError;
+			}
+		}
+		&.point {
+			label {
+				display: block;
+				width: 100%;
+				text-align: left;
+				padding: 0 0 10px;
+				margin: 0;
+			}
+			.checkbox {
+				input,
+				label {
+					float: none;
+			        font-weight: normal;
+			        display: inline-block;
+			        width: auto;
+			        margin: 0;
+			        padding: 0 5px 0 0;
+			    }
+			}
+		}
+		&.radio {
+			.radioValue {
+				padding: 0 0 10px;
+				@include clearer();
+				&:last-child {
+					padding: 0;
+				}
+				input {
+					width: auto;
+					float: left;
+					display: inline-block;
+					margin: 0 10px 5px 0;
+					&:checked {
+						+ label {
+							span {
+								display: block;
+							}
+						}
+					}
+				}
+				label {
+					float: right;
+					width: calc(100% - 40px);
+					display: block;
+					font-size: $fontSizeSmall;
+					cursor: pointer;
+					font-weight: normal;
+					strong {
+						font-weight: bold;
+						color: darken($white, 60%);
+					}
+					span {
+						display: none;
+						margin: 10px 0 0 0;
+						padding: 10px;
+						background: rgba($white, 0.8);
+						border: 1px solid rgba($white, 0.2);
+						color: darken($white, 70%);
+						line-height: 1.2;
+						a {
+							color: $colorText;
+							&:hover {
+								color: lighten($colorText, 20%);
+							}
+						}
+						strong {
+							color: darken($white, 50%);
+						}
+						ul {
+							display: block;
+							padding: 10px 0;
+							margin: 0 0 0 40px;
+							li {
+								display: block;
+								padding: 0 0 10px;
+								margin: 0;
+								list-style: none;
+								&:last-child {
+									padding: 0;
+								}
+							}
+						}
+					}
+					&:hover {
+						color: lighten($colorText, 10%);
+						strong,
+						span {
+							color: lighten($colorText, 10%);
+						}
+					}
+				}
+			}
+		}
+		&.choicePromotion {
+			.radioValue {
+				label {
+					font-size: $fontSizeSmall;
+					line-height: 1.2;
+				}
+			}
+		}
+		&.color {
+			input {
+				padding: 0;
+				height: 30px;
+			}
+		}
+		.captcha {
+			text-align: center;
+			.g-recaptcha {
+				display: inline-block;
+			}
+		}
+		&.formFieldOld {
+			color: lighten($black, 50%);
+			font-size: $fontSizeTiny;
+			font-style: italic;
+		}
+	}
+	.formFields2,
+	.formFields3 {
+		@include clearer();
+		.formField {
+			width: 50%;
+			padding: 0 20px 10px 0;
+			float: left;
+			@include borderBox();
+			&:last-child {
+				padding: 0;
+			}
+		}
+	}
+	.formFields3 {
+		.formField {
+			width: calc(100%/3);
+		}
+	}
+	.captcha {
+		.error {
+			float: none;
+			width: auto;
+		}
+	} 
+	.formSubmitWrapper {
+		input,
+		button {
+			display: block;
+			text-align: center;
+			font-family: $fontFamily;
+			background: $colorAccept;
+			color: $white;
+			border: 0;
+			padding: 10px 20px;
+			margin: 20px auto auto auto;
+			max-width: $sizeMobile;
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: $fontSizeNormal;
+			cursor: pointer;
+			@include borderRadius(3px);
+			&:hover {
+				background: darken($colorAccept, 10%);
+			}
+		}
+	}
+}
+
+.captcha {
+	padding: 20px 0 0 0;
 }
 
 .contentWrapper {
@@ -55,31 +805,57 @@ body {
 		font-size: $fontSizeHuge;
 		font-weight: bold;
 		padding: 0 0 20px;
-		margin: 0;
-		color: $colorAccent;
+		margin: 0 0 20px;
+		color: $colorText;
+		position: relative;
+		&:before {
+			content: '';
+			width: 100px;
+			height: 10px;
+			background: rgba(lighten($colorText, 20%), 0.5);
+			display: block;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
 		span,
 		em {
 			display: block;
 			font-size: $fontSizeTiny;
-			color: desaturate($colorAccent, 20%);
+			color: lighten($colorText, 20%);
 			text-transform: uppercase;
 			padding: 0 0 5px;
 		}
 		em {
 			font-style: normal;
-			color: desaturate($colorAccent, 40%);
+			color: lighten($colorText, 10%);
 			font-weight: bold;
 		}
 	}
 	.cityLinks {
-		font-size: $fontSizeSmall;
-		color: darken($white, 30%);
+		color: darken($white, 40%);
 		padding: 0 0 10px;
-		a {
-			color: darken($white, 60%);
+		p {
+			padding: 0 0 5px;
+		}
+		strong {
 			font-weight: normal;
-			&:hover {
-				color: $colorAccent;
+			color: rgba($colorText, 0.7);
+		}
+		.cityLinksItems {
+			a {
+				color: darken($white, 60%);
+				font-weight: normal;
+				display: inline-block;
+				padding: 5px 10px;
+				margin: 0 3px 3px 0;
+				background: rgba($black, 0.05);
+				@include animate();
+				@include borderRadius(3px);
+				&:hover {
+					background: $colorMainAlt;
+					color: $white;
+				}
 			}
 		}
 	}
@@ -95,18 +871,22 @@ body {
 }
 .cityList {
 	@include clearer();
+	column-count: 4;
+	column-gap: 10px;
+	padding: 0 0 30px;
 	a {
-		float: left;
-		width: 50%;
-		font-size: $fontSizeBig * 2 / 3;
 		display: block;
-		padding: 10px;
+		margin: 0 0 10px;
+		font-size: $fontSizeNormal;
 		font-weight: normal;
 		color: lighten($colorText, 10%);
-		@include textEllipsis();
-		@include borderBox();
+		@include animate();
 		&:hover {
-			color: $colorText;
+			color: $colorMainAlt;
+		}
+		span {
+			font-size: $fontSizeNormal * 0.9;
+			color: lighten($colorText, 20%);
 		}
 	}
 }
@@ -157,13 +937,12 @@ body {
 	color: darken($colorAccept, 5%);
 	background: rgba($colorAccept, 0.05);
 	border: 1px solid rgba($colorAccept, 0.1);
-	font-weight: bold;
-	padding: 15px;
+	padding: 10px;
 	text-align: center;
 	font-size: $fontSizeSmall;
 	max-width: $sizeTablet * 2 / 3;
 	line-height: 1.5;
-	margin: 40px auto;
+	margin: 20px auto;
 	box-sizing: border-box;
 	@include borderRadius(5px);
 	p {
@@ -235,12 +1014,14 @@ body {
 }
 
 .contentWrapperMessage {
+	padding: 30px 0 0 0;
+	min-height: calc(100vh - 70px);
 	.message {
 		font-size: $fontSizeBig * 7 / 10;
 		padding: 30px 30px 30px 100px;
 		text-align: left;
 		position: relative;
-		margin: 100px auto 200px auto;
+		margin: 20px auto;
 		&:before {
 			position: absolute;
 			top: 0;
@@ -251,7 +1032,7 @@ body {
 			padding: 30px 20px;
 			line-height: 40px;
 			content: "\e919";
-			font-family: 'icons';
+			font-family: 'icomoon';
 			font-weight: normal;
 			background: rgba(lighten($colorAccept, 10%), 0.3);
 			color: rgba($white, 0.9);
@@ -267,13 +1048,26 @@ body {
 				display: none;
 			}
 		}
+		p {
+			padding: 0 0 1em;
+			&:last-child {
+				padding: 0;
+			}
+		}
+	}
+	.messageImage {
+		text-align: center;
+		margin: 0 0 20px;
+		img {
+			width: 120px;
+		}
 	}
 }
 
 
 .buttonHome {
 	text-align: center;
-	margin: 200px auto 20px auto;
+	margin: 20px auto;
 	a {
 		display: inline-block;
 		background: rgba($colorText, 0.03);
@@ -343,10 +1137,32 @@ body {
 	&:last-child {
 		margin: 0;
 	}
+	.itemPublicWrapper {
+		@include clearer();
+		.itemPublicWrapperLeft {
+			width: 100px;
+			float: left;
+			img {
+				width: 100%;
+			}
+		}
+		.itemPublicWrapperRight {
+			width: calc(100% - 120px);
+			float: right;
+		}
+		.itemPublicInfo {
+			a {
+				padding: 15px;
+			}
+		}
+	}
 	&.itemPublicPromoted {
 		background: lighten(saturate($colorMainAlt, 50%), 43%);
 		border: 1px solid lighten($colorMainAlt, 30%);
 		position: relative;
+		.itemPublicWrapperSimple {
+			padding: 20px;
+		}
 		.itemPublicPromotedStar {
 			position: absolute;
 			top: 0;
@@ -374,31 +1190,17 @@ body {
 		.itemPublicInfo {
 			a {
 				padding: 0;
+				.city {
+					margin: 0;
+				}
 			}
 		}
 		.itemPublicWrapper {
-			display: table;
-			width: 100%;
-			.itemPublicWrapperLeft {
-				width: 20%;
-				display: table-cell;
-				vertical-align: top;
-				padding: 15px;
-				background: $white;
-				img {
-					width: 100%;
+			padding: 15px;
+			.itemPublicInfo {
+				a {
+					padding: 0;
 				}
-			}
-			.itemPublicWrapperRight {
-				width: 80%;
-				display: table-cell;
-				vertical-align: top;
-				padding: 15px;
-			}
-			p,
-			.city {
-				margin: 0;
-				padding: 0 0 10px 30px;
 			}
 		}
 	}
@@ -411,14 +1213,11 @@ body {
 				font-size: $fontSizeNormal;
 				color: darken($colorMainAlt, 10%);
 				font-weight: bold;
-				padding: 0 0 5px;
+				padding: 0 0 15px;
 			}
 			p {
 				padding: 0 0 10px 30px;
 				position: relative;
-				&:last-child {
-					padding: 0;
-				}
 				&.telephone {
 					color: lighten($colorText, 5%);
 				}
@@ -459,36 +1258,134 @@ body {
 	}
 }
 .itemComplete {
+	p {
+		line-height: 1.4em;
+		padding: 0 0 1em;
+	}
+	.descriptionTop {
+		padding: 0 0 30px;
+		margin: 0 0 30px;
+		border-bottom: 5px solid rgba($colorText, 0.1);
+		@include clearer();
+		.descriptionTopImage {
+			width: 100px;
+			float: left;
+			margin: 0 20px 0 0;
+			img {
+				width: 100%;
+			}
+		}
+	}
+	.infoBlocksIcons {
+		padding: 30px 0 0 0;
+		text-align: center;
+		@include clearer();
+		.infoBlockIcon {
+			width: 60px;
+			display: inline-block;
+			margin: 0 10px 20px 10px;
+			text-align: center;
+			.infoBlockIconIns {
+				font-weight: normal;
+				&:hover {
+					i {
+						opacity: 0.7
+					}	
+					span {
+						color: rgba($black, 0.6);
+					}
+				}
+			}
+			i {
+				font-size: 30px;
+				display: block;
+				margin: 0 0 5px;
+				color: $colorMain;
+				@include animate();
+				&.icon-facebook {
+					color: $colorFacebook;
+				}
+				&.icon-instagram {
+					color: $colorInstagram;
+				}
+				&.icon-twitter {
+					color: $colorTwitter;
+				}
+				&.icon-youtube {
+					color: $colorYoutube;
+				}
+			}
+			span {
+				font-size: $fontSizeTiny * 0.9;
+				color: rgba($black, 0.4);
+				display: block;
+				@include animate();
+			}
+		}
+	}
+	.infoBlocks {
+		margin: 0 -10px;
+		@include clearer();
+		&.infoBlocksAddress {
+			.infoBlock {
+				&:first-child {
+					width: calc(100%*2/3 - 30px);
+				}
+			}
+		}
+		.infoBlock {
+			width: calc(100%/3 - 30px);
+			float: left;
+			margin: 0 15px 30px 15px;
+			@include clearer();
+			a {
+				font-weight: normal;
+				color: lighten($colorText, 10%);
+				text-decoration: underline;
+				padding: 0 3px 3px 0;
+				display: inline-block;
+				text-decoration-color: lighten($colorText, 30%);
+			}
+			i {
+				width: 20px;
+				float: left;
+				font-size: 20px;
+				line-height: 1em;
+				color: rgba(lighten($colorMain, 15%), 0.6);
+			}
+			.infoBlockNoWrap {
+				white-space: nowrap;
+			}
+			.infoBlockIns {
+				width: calc(100% - 30px);
+				float: right;
+				strong {
+					color: darken($white, 60%);
+					padding: 0 0 3px;
+					font-size: 0.8em;
+					font-style: normal;
+					font-weight: normal;
+					display: block;
+				}
+			}
+		}
+
+	}
+	.shortDescription {
+		color: lighten($colorText, 10%);
+	}
+	.description {
+		color: lighten($colorText, 10%);
+		padding: 30px 0 0 0;
+		margin: 0;
+		border-top: 5px solid rgba($colorText, 0.1);
+	}
 	.itemCompleteInfo {
-		padding: 15px;
+		padding: 20px;
 		background: darken($white, 4%);
 		border: 1px solid darken($white, 10%);
 		p {
-			padding: 0 0 20px 40px;
-			position: relative;
-			&:last-child {
-				padding: 0 0 0 40px;
-			}
-			i {
-				position: absolute;
-				top: 3px;
-				left: 0;
-				font-size: $fontSizeBig;
-				color: rgba(lighten($colorText, 15%), 0.3);
-			}
-			&.shortDescription,
-			&.description {
-				padding: 0 0 40px;
-				white-space: pre-line;
-				color: lighten($colorText, 10%);
-			}
-		}
-		em {
-			color: darken($white, 60%);
-			padding: 0 0 5px;
-			font-size: 0.8em;
-			font-style: normal;
-			display: block;
+			padding: 0 0 1em;
 		}
 	}
 	.contact {
@@ -595,35 +1492,43 @@ body {
 }
 
 .actionsPlace {
-	background: rgba($colorText, 0.05);
-	border: 1px solid darken($white, 10%);
-	border-top: 0;
-	padding: 15px;
-	margin: 0 0 20px;
+	margin: 20px 0;
 	font-size: $fontSizeSmall;
 	color: lighten($colorText, 5%);
 	.actionPlace {
-		padding: 0 0 10px;
-		margin: 0 0 5px;
-		border-bottom: 1px solid darken($white, 10%);
+		padding: 20px;
+		margin: 0 0 20px;
+		background: rgba($colorText, 0.05);
+		border: 1px solid darken($white, 10%);
 		@include clearer();
 		&:last-child {
-			padding: 0;
 			margin: 0;
-			border: 0;
+		}
+		a {
+			font-weight: normal;
+			display: block;
 		}
 		h3 {
 			font-weight: bold;
+			padding: 0 0 5px;
+			font-size: $fontSizeNormal * 1.1;
 			color: lighten($colorText, 15%);
 		}
-		.actionPlaceIns {
+		img {
+			width: 100px;
 			float: left;
-			width: calc(100% - 220px);
 		}
-		a {
-			display: block;
+		.actionPlaceIns {
 			float: right;
-			margin: 10px 0 0 0;
+			width: calc(100% - 120px);
+		}
+		.actionsPlaceButtonWrapper {
+			text-align: right;
+			display: block;
+			padding: 10px 0 0 0;
+		}
+		.actionsPlaceButton {
+			display: inline-block;
 			padding: 5px 10px 5px 30px;
 			width: 130px;
 			text-align: center;
@@ -646,7 +1551,7 @@ body {
 			}
 		}
 		&.actionPlace-report {
-			a {
+			.actionsPlaceButton {
 				background: desaturate(lighten($colorText, 30%), 40%);
 				border: 1px solid darken(desaturate(lighten($colorText, 30%), 40%), 5%);
 				&:hover {
@@ -668,7 +1573,10 @@ body {
 		padding: 0 0 15px;
 		position: relative;
 		color: $colorAccent;
-		&:after {
+		&:before {
+			display: none;
+		}
+		&:after {			
 			content: '';
 			position: absolute;
 			left: 0;
@@ -723,24 +1631,19 @@ body {
 }
 
 .pagePromoted {
-	.pagePromotedBackground {
-		background-size: cover;
-		background-position: center center;
-		background-repeat: no-repeat;
-		background-color: $colorText;
-	}
-	.pagePromotedBackgroundMask {
-		padding: 60px 0 0 0;
-	}
+	padding: 30px 0 0 0;
+	background: rgb(16,91,99);
+	background: linear-gradient(0deg, rgba(16,91,99,0.05) 0%, rgba(252,255,239,0.4) 100%);
 	.header {
-		background: rgba($black, 0.6);
-		border-bottom: 1px solid rgba($black, 0.6);
+		background: rgba($colorText, 0.4);
+		border-bottom: 0;
+		box-shadow: 0 0 0 rgba($white, 0);
 		.logo a {
 			strong {
 				background-image: url(../../img/logoWhite.png);
 			}
 			span {
-				border-top: 3px double rgba($white, 0.3);
+				border-top: 3px solid rgba($white, 0.2);
 				color: rgba($white, 0.9);
 			}
 		}
@@ -777,7 +1680,7 @@ body {
 		}
 	}
 	.itemComplete {
-		padding: 50px 0 100px 0;
+		padding: 80px 0 100px 0;
 		.itemCompleteInfo {
 			background: transparent;
 			margin: 0;
@@ -785,20 +1688,34 @@ body {
 			border: 0;
 		}
 		.itemCompleteIns {
-			background: rgba(darken($white, 3%), 0.96);
-			border: 0;
 			max-width: $sizeTablet;
 			margin: auto;
-			@include simpleShadow();
 		}
 		h1 {
-			font-size: $fontSizeHuge * 4 / 5;
+			font-size: $fontSizeHuge;
 			font-weight: bold;
-			padding: 10px 15px;
-			background: $white;
-			margin: 0;
-			letter-spacing: -1px;
+			padding: 0 0 20px;
+			margin: 0 0 20px;
+			color: $colorText;
+			position: relative;
+			&:before {
+				content: '';
+				width: 100px;
+				height: 10px;
+				background: rgba(lighten($colorText, 20%), 0.5);
+				display: block;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+			}
 		}
+	}
+	.tagsPlace {
+		background: transparent;
+		margin: 20px 0 0 0;
+		padding: 20px 0 0 0;
+		text-align: center;
+		border-top: 1px solid rgba($black, 0.05);
 	}
 	.itemCompleteWrapper {
 		padding: 15px;
@@ -932,41 +1849,57 @@ body {
 			vertical-align: middle;
 			padding: 10px 15px;
 			margin: 0 0 0 10px;
-			background: darken($white, 10%);
+			background: darken($white, 20%);
 			color: $white;
+			@include animate();
 			@include borderRadius(3px);
-			&.optionFacebook {
-				background: $colorFacebook;
-			}
-			&.optionTwitter {
-				background: $colorTwitter;
-			}
-			&.optionLinkedin {
-				background: $colorLinkedin;
-			}
 			i {
 				display: inline-block;
 				padding: 0 5px 0 0;
 			}
 			&:hover {
-				background: darken($white, 15%);
+				&.optionFacebook {
+					background: $colorFacebook;
+				}
+				&.optionTwitter {
+					background: $colorTwitter;
+				}
+				&.optionLinkedin {
+					background: $colorLinkedin;
+				}
+			}
+		}
+	}
+}
+.report {
+	max-width: $sizeTablet;
+	margin: auto;
+	padding: 40px 0;
+	.reportTopWrapper {
+		@include clearer();
+		.reportTopImage {
+			width: 120px;
+			float: left;
+			img {
+				max-width: 100%;
+			}
+		}
+		.reportTopInfo {
+			width: calc(100% - 150px);
+			float: right;
+			p {
+				padding: 0 0 1em;
+				line-height: 1.2em;
+				&:last-child {
+					padding: 0;
+				}
 			}
 		}
 	}
 }
 .reportPlace {
-	max-width: $sizeTablet * 4 / 5;
-	margin: auto;
-	padding: 0;
-	background: darken($white, 3%);
-	border: 1px solid darken($white, 10%);
-	border-bottom: 0;
-	box-sizing: border-box;
-	.itemPublic {
-		border: 0;
-		background: transparent;
-		padding: 0;
-	}
+	max-width: $sizeTablet;
+	padding: 40px 0;
 }
 .map {
     width: 100%;
@@ -1051,18 +1984,18 @@ body {
 	margin: 10px 0 30px 0;
 	.retryPayment {
 		display: inline-block;
-		padding: 0 10px;
+		margin: 0 5px;
 		a {
 			display: inline-block;
-			padding: 10px 30px;
-			background: lighten(desaturate($colorText, 50%), 30%);
-			border: 1px solid lighten(desaturate($colorText, 50%), 20%);
+			padding: 10px;
+			background: lighten($colorText, 30%);
+			border: 1px solid lighten($colorText, 20%);
 			color: $white;
 			font-weight: bold;
 			@include borderRadius(5px);
 			&:hover {
-				background: lighten(desaturate($colorText, 50%), 20%);
-				border: 1px solid lighten(desaturate($colorText, 50%), 20%);
+				background: lighten($colorText, 20%);
+				border: 1px solid lighten($colorText, 20%);
 			}
 		}
 	}
@@ -1092,13 +2025,6 @@ body {
 	}
 }
 
-.contentWrapper-clean {
-	max-width: 100%;
-}
-.contentWrapper-promotion {
-	max-width: 100%;
-	background: darken($white, 5%);
-}
 .promotion {
 	margin: auto;
 	padding: 140px 0 0 0;
@@ -1171,7 +2097,7 @@ body {
 				font-size: $fontSizeBig * 8 / 10;
 				&:before {
 					content: "\e903";
-					font-family: 'icons';
+					font-family: 'icomoon';
 					color: $colorAccept;
 					font-size: 20px;
 					position: absolute;
@@ -1192,6 +2118,505 @@ body {
 		text-align: center;
 		padding: 20px 0 50px 0;
 	}
+}
+
+.contentAllWrapper-clean,
+.contentAllWrapper-empty {
+	background: rgb(16,91,99);
+	background: linear-gradient(0deg, rgba(16,91,99,0.05) 0%, rgba(252,255,239,0.4) 100%);
+	.contentWrapper {
+		padding: 0;
+	}
+	.header {
+		position: relative;
+		height: 50px;
+		padding: 10px 0;
+		border-bottom: none;
+		background: transparent;
+		box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+		.logo a {
+			margin: auto;
+		}
+		.headerLeft {
+			width: auto;
+			float: none;
+		}
+		.headerRight {
+			display: none;
+		}
+	}
+	.footer {
+		display: none;
+	}
+}
+
+.contentAllWrapper-empty {
+	background: $white;
+}
+
+.tagsSimpleWrapper {
+	.tagsSimpleBlock {
+		margin: 0 0 20px;
+		padding: 0 0 20px;
+		border-bottom: 1px solid rgba($black, 0.05);
+		.tagsSimpleTitle {
+			font-weight: bold;
+			font-size: $fontSizeHuge;
+			padding: 0 0 10px;
+			color: rgba(lighten($colorText, 30%), 0.5);
+		}
+	}
+	.tagsSimple {
+		column-count: 4;
+		column-gap: 10px;
+		a {
+			display: block;
+			margin: 0 0 10px;
+			font-size: $fontSizeNormal;
+			font-weight: normal;
+			color: lighten($colorText, 10%);
+			@include animate();
+			&:hover {
+				color: $colorMainAlt;
+			}
+			span {
+				font-size: $fontSizeNormal * 0.9;
+				color: lighten($colorText, 20%);
+			}
+		}
+	}
+}
+
+.formPagesWrapper {
+	max-width: $sizeTablet;
+	margin: auto;
+	&.formPagesWrapperSimple {
+		.formSubmitWrapper {
+			text-align: center;
+			padding: 30px 0 50px 0;
+		}
+	}
+	.formPages {
+		.formPage {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			min-height: calc(100vh - 140px);
+			&.formPage-name {
+				.formField {
+					&.required {
+						label {
+							&:after {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+		}
+		.formPageImage {
+			margin: 0 0 20px;
+			text-align: center;
+			img {
+				height: 50px;
+			}
+		}
+		.formPageInfoTitleTop {
+			padding: 0 0 10px;
+			margin: 0 0 100px;
+			font-size: $fontSizeBig * 0.8;
+			color: lighten($colorText, 20%);
+			font-weight: bold;
+			text-transform: uppercase;
+			text-align: center;
+			position: relative;
+			&:after {
+				content: '';
+				display: block;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				width: 100px;
+				height: 5px;
+				background: rgba(lighten($colorText, 30%), 0.5);
+				margin: auto;
+			}
+		}
+		.formPageInfoTitle {
+			padding: 0 0 40px;
+			font-size: $fontSizeBig * 0.9;
+			color: lighten($colorText, 10%);
+			strong {
+				font-size: $fontSizeSmall;
+				color: rgba($colorText, 0.4);
+				display: block;
+				padding: 0 0 5px;
+				text-transform: uppercase;
+			}
+		}
+		.formMandatory {
+			margin: 20px 0;
+			font-size: $fontSizeTiny;
+			color: rgba($colorError, 0.4);
+		}
+		.formField {
+			display: block;
+			margin: 0 0 20px;
+			&.formField-captcha {
+				text-align: center;
+				.error {
+					font-weight: bold;
+					color: $colorError;
+					padding: 0 0 20px;
+				}
+				.g-recaptcha {
+					display: inline-block;
+				}
+				&.errorField {
+					.g-recaptcha {
+						border: 2px solid $colorError;
+					}
+				}
+			}
+			&.required {
+				label {
+					&:after {
+						color: $colorError;
+						content: ' *';
+					}
+				}
+			}
+			&.errorField {
+				label {
+					color: $colorError;
+				}
+				input,
+				select,
+				textarea {
+					border: 2px solid rgba($colorError, 0.6);
+				}
+			}
+			label {
+				font-size: $fontSizeNormal;
+				padding: 0 0 5px;
+				display: block;
+				color: rgba($colorText, 0.9);
+			}
+			input,
+			select,
+			textarea {
+				width: 100%;
+				padding: 10px;
+				font-size: $fontSizeBig * 0.8;
+				line-height: 1em;
+				background: $white;
+				border: 2px solid rgba($colorText, 0.4);
+				color: $colorText;
+				font-family: $fontFamily;
+				@include borderRadius(5px);
+				@include animate();
+			}
+			select {
+				height: 50px;
+			}
+			textarea {
+				line-height: 1.2em;
+			}
+			&.formIcon {
+				position: relative;
+				&:before {
+					position: absolute;
+					bottom: 13px;
+					left: 15px;
+					color: rgba($colorAccentAlt, 0.5);
+					z-index: 2;
+					font-size: $fontSizeBig;
+				}
+				input,
+				select,
+				textarea {
+					padding: 10px 10px 10px 50px;
+				}
+
+				&.formIcon-person::before {
+					@include iconIns("\e920");
+				}
+				&.formIcon-business::before {
+					@include iconIns("\e91c");
+				}
+				&.formIcon-email::before {
+					@include iconIns("\e920");
+				}
+				&.formIcon-email::before {
+					@include iconIns("\e909");
+				}
+				&.formIcon-telephone::before {
+					@include iconIns("\e913");
+				}
+				&.formIcon-mobile::before {
+					@include iconIns("\e91f");
+				}
+				&.formIcon-whatsapp::before {
+					@include iconIns("\e921");
+				}
+				&.formIcon-address::before {
+					@include iconIns("\e900");
+				}
+				&.formIcon-city::before {
+					@include iconIns("\e904");
+				}
+				&.formIcon-globe::before {
+					@include iconIns("\e90b");
+				}
+				&.formIcon-facebook::before {
+					@include iconIns("\e90a");
+				}
+				&.formIcon-instagram::before {
+					@include iconIns("\e91e");
+				}
+				&.formIcon-twitter::before {
+					@include iconIns("\e914");
+				}
+				&.formIcon-youtube::before {
+					@include iconIns("\e922");
+				}
+			}
+		}
+		.formFields2 {
+			@include clearer();
+			margin: 0 -20px;
+			.formField {
+				width: calc(50% - 40px);
+				margin: 0 20px 20px 20px;
+				float: left;
+			}
+		}
+	}
+
+	.formPageDisclaimer {
+		background: darken($white, 3%);
+		border: 1px solid darken($white, 5%);
+		color: darken($white, 50%);
+		font-size: $fontSizeSmall;
+		padding: 20px;
+		margin: 20px 0;
+		p {
+			padding: 0 0 1em;
+			&:last-child {
+				padding: 0;
+			}
+		}
+		a {
+			font-weight: bold;
+			color: darken($white, 60%);
+		}
+	}
+
+
+	.formButtons {
+		height: 70px;
+		max-width: $sizeDesktop;
+		margin: auto;
+		&.formButtonsBottom {
+			position: absolute;
+			bottom: 0;
+			height: auto;
+			height: 70px;
+		}
+		.formButtonsIns {
+			@include clearer();
+		}
+		.formButtonIns {
+			display: inline-block;
+			padding: 10px;
+			text-transform: uppercase;
+			font-size: $fontSizeBig * 0.8;
+			background: lighten($black, 95%);
+			color: lighten($black, 60%);
+			cursor: pointer;
+			@include borderRadius(5px);
+			@include animate();
+			&:hover {
+				background: lighten($black, 80%);
+				color: lighten($black, 40%);
+			}
+		}
+		.formButtonPrev {
+			float: left;
+		}
+		.formButtonNext {
+			float: right;
+			.formButtonIns {
+				background: $colorAccept;
+				color: $white;
+				&:hover {
+					background: lighten($colorAccept, 5%);
+				}
+			}
+		}
+	}
+
+	.formSubmitWrapper {
+		height: 40px;
+		text-align: right;
+		padding: 0 0 40px;
+		input {
+			width: 200px;
+			margin: auto;
+			display: inline-block;
+			background: $colorMainAlt;
+			color: $white;
+			font-weight: bold;
+			text-transform: uppercase;
+			padding: 10px;
+			text-align: center;
+			cursor: pointer;
+			border: 0px;
+			font-size: 1em;
+			font-family: $fontFamily;
+			@include borderRadius(3px);
+			@include animate();
+			&:hover {
+				background: lighten($colorMainAlt, 10%);
+			}
+		}
+	}
+
+	.triggerCity {
+		color: $colorActive;
+		font-size: $fontSizeSmall;
+		text-decoration: underline;
+		cursor: pointer;
+		margin: 10px 0;
+	}
+	.triggerCityWrapper {
+		.formField {
+			label {
+				&:after {
+					color: red;
+					content: ' *';
+				}
+			}
+		}
+		.triggerCitySelect {
+			display: block;
+		}
+		.triggerCityInfo {
+			display: none;
+		}
+	}
+
+	.formChoices {
+		.formChoicesItem {
+			padding: 20px;
+			margin: 0 0 20px;
+			background: rgba($colorText, 0.05);
+			border: 2px solid rgba($colorText, 0.2);
+			color: darken($colorText, 10%);
+			cursor: pointer;
+			&:hover {
+				background: rgba($colorText, 0.1);
+				border: 2px solid rgba($colorText, 0.4);
+			}
+			strong {
+				display: block;
+				font-size: $fontSizeNormal * 1.1;
+			}
+			span {
+				display: block;
+				padding: 5px 0 0 0;
+			}
+			&.formPaymentItem {
+				background: rgba(lighten($colorText, 20%), 0.05);
+				border: 2px solid rgba(lighten($colorText, 20%), 0.2);
+				strong,
+				span {
+					color: darken(lighten($colorText, 20%), 10%);
+				}
+			}
+			&.formPromotionItem-promoted {
+				background: rgba($colorActive, 0.05);
+				border: 2px solid rgba($colorActive, 0.2);
+				strong,
+				span {
+					color: darken($colorActive, 10%);
+				}
+				&:hover {
+					background: rgba($colorActive, 0.1);
+					border: 2px solid rgba($colorActive, 0.4);
+				}
+			}
+			.formChoicesItemIns {
+				@include clearer();
+				i {
+					width: 30px;
+					height: 30px;
+					line-height: 30px;
+					text-align: center;
+					border: 1px solid rgba($black, 0.2);
+					background: $white;
+					font-size: 20px;
+					display: block;
+					float: left;
+					color: $colorActive;
+				}
+				.formChoicesInfo {
+					width: calc(100% - 60px);
+					float: right;
+				}
+			}
+		}
+	}
+
+	.uploadLogo {
+		@include clearer();
+		.uploadLogoIns {
+			width: calc(50% - 20px);
+			float: left;
+		}
+		.uploadLogoImage {
+			width: calc(50% - 20px);
+			float: right;
+		}
+		.uploadLogoMessage {
+			margin: 0 0 10px;
+		}
+	}
+
+	.uploadLogoImage {
+		text-align: center;
+		margin: 0 0 20px;
+		img {
+			height: 100px;
+			background: $white;
+			padding: 10px;
+			border: 1px solid rgba($black, 0.1);
+		}
+	}
+
+	.formPageIntroWrapper {
+		@include clearer();
+		.formPageIntroImage {
+			width: 120px;
+			float: left;
+			img {
+				max-width: 100%;
+			}
+		}
+		.formPageIntroInfo {
+			width: calc(100% - 150px);
+			float: right;
+			p {
+				padding: 0 0 1em;
+				line-height: 1.2em;
+				&:last-child {
+					padding: 0;
+				}
+			}
+		}
+	}
+
 }
 
 @import "_public_responsive.scss";

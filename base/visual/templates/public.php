@@ -13,10 +13,6 @@
     <meta property="og:url" content="<?php echo $metaUrl;?>" />
     <?php echo $metaImage;?>
 
-	<meta name="theme-color" content="#FFA12C">
-	<meta name="msapplication-navbutton-color" content="#FFA12C">
-	<meta name="apple-mobile-web-app-status-bar-style" content="#FFA12C">
-
     <link rel="shortcut icon" href="<?php echo BASE_URL;?>visual/img/favicon.ico"/>
     <link rel="canonical" href="<?php echo $metaUrl;?>" />
 

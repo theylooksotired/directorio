@@ -78,8 +78,38 @@
             <type>text</type>
         </attribute>
         <attribute>
+            <name>mobile</name>
+            <label>mobile</label>
+            <type>text-telephone</type>
+        </attribute>
+        <attribute>
+            <name>whatsapp</name>
+            <label>whatsapp</label>
+            <type>text-telephone</type>
+        </attribute>
+        <attribute>
             <name>web</name>
             <label>web</label>
+            <type>text</type>
+        </attribute>
+        <attribute>
+            <name>facebook</name>
+            <label>facebook</label>
+            <type>text</type>
+        </attribute>
+        <attribute>
+            <name>instagram</name>
+            <label>instagram</label>
+            <type>text</type>
+        </attribute>
+        <attribute>
+            <name>youtube</name>
+            <label>youtube</label>
+            <type>text</type>
+        </attribute>
+        <attribute>
+            <name>twitter</name>
+            <label>twitter</label>
             <type>text</type>
         </attribute>
         <attribute>
@@ -106,7 +136,7 @@
         <attribute>
             <name>description</name>
             <label>descriptionComplete</label>
-            <type>textarea</type>
+            <type>textarea-ck-simple</type>
         </attribute>
 		<attribute>
 			<name>related</name>

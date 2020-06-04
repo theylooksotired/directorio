@@ -31,11 +31,6 @@ class Order extends Db_Object {
 		exit();
 	}
 
-	public function khipuRequest($options=array()) {
-		header('Location: '.Khipu::checkoutRequestUrl($this->formatOptionsKhipu($options)));
-		exit();
-	}
-
 	public function formatOptionsPaypal($options=array()) {
 		$returnUrl = (isset($options['returnUrl']) && $options['returnUrl']!='') ? $options['returnUrl'] : url('paypal/pagado/'.md5('plasticwebs_pagado'.$this->id()));
 		$cancelUrl = (isset($options['cancelUrl']) && $options['cancelUrl']!='') ? $options['cancelUrl'] : url('paypal/anulado/'.md5('plasticwebs_anulado'.$this->id()));
@@ -47,17 +42,5 @@ class Order extends Db_Object {
 					'return' => $returnUrl);
 	}
 
-	public function formatOptionsKhipu($options=array()) {
-		$returnUrl = (isset($options['returnUrl']) && $options['returnUrl']!='') ? $options['returnUrl'] : url('khipu/pagado/'.md5('plasticwebs_pagado'.$this->id()));
-		$cancelUrl = (isset($options['cancelUrl']) && $options['cancelUrl']!='') ? $options['cancelUrl'] : url('khipu/anulado/'.md5('plasticwebs_anulado'.$this->id()));
-		$notifyUrl = (isset($options['notifyUrl']) && $options['notifyUrl']!='') ? $options['notifyUrl'] : url('khipu/notificado/'.md5('plasticwebs_notificado'.$this->id()));
-		return array('item_name' => $this->get('name'),
-					'item_number' => $this->id(),
-					'item_amount' => ((KHIPU_CURRENCY=='USD') ? doubleval($this->get('price')) : doubleval($this->get('price') * 7)),
-					'currency_code' => KHIPU_CURRENCY,
-					'cancel_url' => $cancelUrl,
-					'notify_url' => $notifyUrl,
-					'return_url' => $returnUrl);
-	}
 }
 ?>

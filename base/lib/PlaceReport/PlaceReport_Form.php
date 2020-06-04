@@ -15,14 +15,18 @@ class PlaceReport_Form extends Form {
 	*/
 	public function createPublic() {
 		$captchaError = (isset($this->errors['captcha'])) ? '<div class="error">'.$this->errors['captcha'].'</div>' : '';
-		$fields = $this->createFormFields().'
-				<div class="formField">
-					<div class="captcha">
-						'.$captchaError.'
-						<div class="g-recaptcha" data-sitekey="'.CAPTCHA_SITE_KEY.'" id="google-captcha"></div>
-					</div>
+		$fields = '<div class="formPages">
+						'.$this->createFormFields().'
+						<div class="formField formField-captcha">
+							<div class="captcha">
+								'.$captchaError.'
+								<div class="g-recaptcha" data-sitekey="'.CAPTCHA_SITE_KEY.'" id="google-captcha"></div>
+							</div>
+						</div>
+					</div>';
+		return '<div class="formPagesWrapper formPagesWrapperSimple">
+					'.Form::createForm($fields, array('class'=>'formSimple formPlaceReport')).'
 				</div>';
-		return Form::createForm($fields, array('class'=>'formPublic formPlaceReport'));
 	}
 
 }

@@ -33,13 +33,13 @@
         </attribute>
         <attribute>
             <name>nameEditor</name>
-            <label>name</label>
+            <label>nameEditorLabel</label>
             <required>notEmpty</required>
             <type>text-long</type>
         </attribute>
         <attribute>
             <name>emailEditor</name>
-            <label>email</label>
+            <label>emailEditorLabel</label>
             <required>notEmpty</required>
             <type>text-email</type>
         </attribute>
@@ -62,7 +62,7 @@
         </attribute>
         <attribute>
             <name>title</name>
-            <label>title</label>
+            <label>namePlace</label>
             <required>notEmpty</required>
             <type>text-long</type>
         </attribute>
@@ -74,16 +74,46 @@
         <attribute>
             <name>address</name>
             <label>address</label>
-            <type>text-long</type>
+            <type>textarea-small</type>
         </attribute>
         <attribute>
             <name>telephone</name>
             <label>telephone</label>
-            <type>text</type>
+            <type>text-telephone</type>
+        </attribute>
+        <attribute>
+            <name>mobile</name>
+            <label>mobile</label>
+            <type>text-telephone</type>
+        </attribute>
+        <attribute>
+            <name>whatsapp</name>
+            <label>whatsapp</label>
+            <type>text-telephone</type>
         </attribute>
         <attribute>
             <name>web</name>
             <label>web</label>
+            <type>text</type>
+        </attribute>
+        <attribute>
+            <name>facebook</name>
+            <label>facebook</label>
+            <type>text</type>
+        </attribute>
+        <attribute>
+            <name>instagram</name>
+            <label>instagram</label>
+            <type>text</type>
+        </attribute>
+        <attribute>
+            <name>youtube</name>
+            <label>youtube</label>
+            <type>text</type>
+        </attribute>
+        <attribute>
+            <name>twitter</name>
+            <label>twitter</label>
             <type>text</type>
         </attribute>
         <attribute>
@@ -94,7 +124,7 @@
         <attribute>
             <name>city</name>
             <label>city</label>
-            <type>text</type>
+            <type>select-city</type>
         </attribute>
         <attribute>
             <name>cityUrl</name>
@@ -104,17 +134,17 @@
         <attribute>
             <name>shortDescription</name>
             <label>shortDescription</label>
-            <type>textarea-small</type>
+            <type>textarea-long</type>
             <maxlength>250</maxlength>
         </attribute>
         <attribute>
             <name>description</name>
             <label>descriptionComplete</label>
-            <type>textarea</type>
+            <type>textarea-ck-simple</type>
         </attribute>
         <attribute>
             <name>idTag</name>
-            <label>tags</label>
+            <label>tagsLabel</label>
             <type>multiple-autocomplete</type>
             <refObject>Tag</refObject>
             <lnkObject>PlaceEditTag</lnkObject>

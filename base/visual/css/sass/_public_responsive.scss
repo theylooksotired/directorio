@@ -59,6 +59,13 @@
 	    	padding: 0 0 20px;
 	    }
 	}
+
+	.tagsSimpleWrapper {
+		.tagsSimple {
+			column-count: 3;
+			column-gap: 10px;
+		}
+	}
 }
 
 @media screen and (max-width: $sizeTablet) {
@@ -170,7 +177,7 @@
 			padding: 60px 10px 10px 10px;
 		}
 		h1 {
-			font-size: $fontSizeHuge * 2 / 3;
+			font-size: $fontSizeHuge * 0.6;
 		}
 		.contentLeft,
 		.contentRight {
@@ -195,9 +202,21 @@
 			}
 		}
 	}
+	.itemPublic {
+		&.itemPublicPromoted {
+			.itemPublicPromotedStar {
+				i {
+					padding: 0;
+				}
+				span {
+					display: none;
+				}
+			}
+		}
+	}
 	.pagePromoted {
 		.itemComplete {
-			padding: 80px 10px;
+			padding: 50px 20px;
 			h1 {
 				font-size: $fontSizeHuge * 2 / 3;
 			}
@@ -229,6 +248,40 @@
 		}
 	}
 	.itemComplete {
+		.descriptionTop {
+			.descriptionTopImage {
+				float: none;
+				margin: 0 0 10px;
+			}
+		}
+		.infoBlocksIcons {
+			.infoBlockIcon {
+				width: 50px;
+				margin: 0 10px 20px 10px;
+				i {
+					font-size: 25px;
+				}
+				span {
+					font-size: $fontSizeTiny * 0.8;
+				}
+			}
+		}
+		.infoBlocks {
+			margin: 0;
+			&.infoBlocksAddress {
+				.infoBlock {
+					&:first-child {
+						width: auto;
+					}
+				}
+			}
+			.infoBlock {
+				width: auto;
+				float: none;
+				margin: 0 0 20px;
+			}
+
+		}
 		.actions {
 			.action {
 				@include noFloat();
@@ -236,6 +289,19 @@
 				max-width: 320px;
 				width: auto;
 				margin: auto;
+			}
+		}
+	}
+	.actionsPlace {
+		.actionPlace {
+			a {
+				width: auto;
+				float: none;
+			}
+			img {
+				width: 60px;
+				float: none;
+				margin: 0 0 5px;
 			}
 		}
 	}
@@ -252,9 +318,7 @@
 		}
 	}
 	.cityList {
-		a {
-			@include noFloat();
-		}
+		column-count: 2;
 	}
 	.contentWrapperMessage {
 		.message {
@@ -262,7 +326,7 @@
 			padding: 20px 20px 20px 60px;
 			text-align: left;
 			position: relative;
-			margin: 30px auto;
+			margin: 20px;
 			&:before {
 				width: 20px;
 				font-size: 20px;
@@ -319,4 +383,92 @@
 			margin: 0;
 		}
 	}
+
+	.contentAllWrapper-clean {
+		.header {
+			.logo a {
+				margin: auto;
+				width: 200px;
+				height: auto;
+				background: transparent;
+				strong,
+				span {
+					display: block;
+				}
+			}
+		}
+	}
+
+	.message {
+		width: auto;
+		margin: 20px;
+	}
+
+	.formPagesWrapper {
+		padding: 0 20px;
+		.formPages {
+			.formPageInfoTitle {
+				padding: 0 0 15px;
+				font-size: $fontSizeBig * 0.8;
+			}
+			.formField {
+				margin: 0 0 10px;
+				label {
+					padding: 0 0 3px;
+					font-size: $fontSizeNormal * 0.9;
+				}
+			}
+			.formFields2 {
+				margin: 0;
+				.formField {
+					width: 100%;
+					margin: 0 0 10px;
+					float: none;
+				}
+			}
+		}
+		.uploadLogo {
+			.uploadLogoIns,
+			.uploadLogoImage {
+				width: auto;
+				float: none;
+			}
+		}
+		.formChoices {
+			.formChoicesItem {
+				padding: 15px;
+				margin: 0 0 15px;
+				font-size: $fontSizeNormal * 0.9;
+				strong {
+					font-size: $fontSizeNormal;
+				}
+			}
+		}
+		.formPageIntroWrapper {
+			.formPageIntroImage {
+				width: 120px;
+				float: none;
+				margin: auto;
+			}
+			.formPageIntroInfo {
+				width: auto;
+				float: none;
+				margin: 15px 0 0 0;
+			}
+		}
+	}
+
+	.tagsSimpleWrapper {
+		.tagsSimpleBlock {
+			.tagsSimpleTitle {
+				font-size: $fontSizeBig;
+			}
+		}
+		.tagsSimple {
+			column-count: 2;
+			column-gap: 10px;
+		}
+	}
+
+
 }

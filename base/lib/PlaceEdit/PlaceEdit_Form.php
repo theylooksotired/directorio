@@ -1,204 +1,315 @@
 <?php
 class PlaceEdit_Form extends Form{
 
-	public function createPublic($place='') {
-		$form = (is_object($place)) ? Place_Form::newObject($place) : $this;
-		$paymentsAccepted = explode(':', PAYMENTS_ACCEPTED);
+	public function createPublic($options=[]) {
 		$this->values['choicePromotion'] = (isset($this->values['choicePromotion'])) ? $this->values['choicePromotion'] : 'promoted';
-		$this->values['choicePayment'] = (isset($this->values['choicePayment'])) ? $this->values['choicePayment'] : $paymentsAccepted[0];
+		$this->values['choicePayment'] = (isset($this->values['choicePayment'])) ? $this->values['choicePayment'] : 'paypal';
 		$captchaError = (isset($this->errors['captcha'])) ? '<div class="error">'.$this->errors['captcha'].'</div>' : '';
-		$fields = '<div class="formFieldsWrapper">
-						<div class="formFields">
-							<h2>Datos sobre usted</h2>
-							<div class="formFieldsIns">
-								<div class="formFields2">
-									'.$this->field('nameEditor').'
-									'.$this->field('emailEditor').'
+		$fields = '<div class="formPages">
+
+						<div class="formPage formPage-intro">
+							<div class="formPageIns">
+								<div class="formPageIntroWrapper">
+									<div class="formPageIntroImage">
+										'.((isset($options['update']) && $options['update']==true) ? '
+										<img src="'.BASE_URL.'visual/img/owner.svg"/>
+										' : '
+										<img src="'.BASE_URL.'visual/img/happy.svg"/>
+										').'
+									</div>
+									<div class="formPageIntroInfo">
+										'.((isset($options['update']) && $options['update']==true) ? '
+										<div class="formPageInfoTitle">Actualice la información de su empresa o negocio</div>
+										<p>Revise todos los campos o complete la información de contacto.</p>
+										' : '
+										<div class="formPageInfoTitle">Inscriba a su empresa o negocio</div>
+										').'
+										<p>Nuestro directorio le dará visibilidad para atraer clientes y mejorar sus ventas.</p>
+										<p>Una vez que ingrese todos los datos los revisaremos manualmente y los publicaremos en un <strong>plazo máximo de 48 horas</strong>.</p>
+										<p>Le informaremos sobre todo el proceso via email.</p>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="formFields">
-							<h2>Datos sobre su empresa</h2>
-							<div class="formFieldsIns">
-								'.$form->field('title').'
-								<div class="formFields2">
-									'.$form->field('address').'
-									'.$form->field('city').'
+
+						<div class="formPage formPage-name">
+							<div class="formPageIns">
+								<div class="formPageInfo">
+									<div class="formPageInfoTitle">Comencemos por el nombre de su empresa o negocio</div>
 								</div>
-								<div class="formFields3">
-									'.$form->field('telephone').'
-									'.$form->field('web').'
-									'.$form->field('email').'
-								</div>
-								'.$form->field('shortDescription').'
-								'.$form->field('description').'
-								'.$form->field('idTag').'
 								'.$this->field('idPlaceEdit').'
+								'.$this->field('title', ['label'=>'', 'class'=>'formIcon formIcon-business']).'
 							</div>
 						</div>
-						<a name="continuar"></a>
-						<div class="formFieldsPromotion">
-							'.FormField_Radio::create(array('name'=>'choicePromotion', 
-											'class'=>'choicePromotion',
-											'selected'=>$this->values['choicePromotion'],
-											'value'=>array(
-												'not-promoted'=>'Deseo inscribir a mi empresa de forma gratuita.', 
 
-												'promoted'=>'<strong>Deseo promocionar a mi empresa por 10$USD (dólares americanos) anuales.</strong>
-												Aparecerá en los primeros lugares de las búsquedas y podré adjuntar el logo de la misma.'
-												))).'
-							<div class="formFieldsPromotionLink">
-								<a href="'.url('promocion').'" target="_blank">
-									<span>Ver todas las ventajas</span>
-									<i class="icon icon-arrow-right"></i>
-								</a>
-							</div>
-						</div>
-						<div class="formFields formFieldsPromoted">
-							<h2>Estilo de la empresa</h2>
-							<div class="formFieldsIns">
+						<div class="formPage formPage-contact">
+							<div class="formPageIns">
+								<div class="formPageInfo">
+									<div class="formPageInfoTitle">Ahora, necesitamos su información de contacto</div>
+								</div>
 								<div class="formFields2">
-									'.$form->field('image').'
-									'.$form->field('colorBackground').'
+									'.$this->field('email', ['class'=>'formIcon formIcon-email']).'
+									'.$this->field('telephone', ['class'=>'formIcon formIcon-telephone']).'
+								</div>
+								<div class="formFields2">
+									'.$this->field('mobile', ['class'=>'formIcon formIcon-mobile']).'
+									'.$this->field('whatsapp', ['class'=>'formIcon formIcon-whatsapp']).'
 								</div>
 							</div>
 						</div>
-						<div class="formFields formFieldsPromoted">
-							<h2>Forma de pago</h2>
-							<div class="formFieldsIns">
-								'.FormField_Radio::create(array('name'=>'choicePayment', 
-								'class'=>'choicePayment',
-								'selected'=>$this->values['choicePayment'],
-								'value'=>array(
-									'khipu'=>'<strong>Tarjeta de crédito o débito</strong>
-									<span>El pago se realizará mediante el servicio de pagos en línea <a href="https://www.khipu.com" target="_blank">Khipu</a></span>', 
 
-									'paypal'=>'<strong>PayPal</strong>
-									<span>El pago se realizará mediante el servicio de pagos en línea <a href="https://www.paypal.com" target="_blank">PayPal</a></span>', 
-
-									'transference'=>'<strong>Transferencia bancaria o giro postal</strong>
-									<span>'.HtmlSection::showFileSimple('transfer').'</span>'
-									))).'
+						<div class="formPage formPage-social">
+							<div class="formPageIns">
+								<div class="formPageInfo">
+									<div class="formPageInfoTitle">Indíquenos sus enlaces en la web</div>
+								</div>
+								<div class="formFields2">
+									'.$this->field('web', ['class'=>'formIcon formIcon-globe']).'
+								</div>
+								<div class="formFields2">
+									'.$this->field('facebook', ['class'=>'formIcon formIcon-facebook']).'
+									'.$this->field('twitter', ['class'=>'formIcon formIcon-twitter']).'
+								</div>
+								<div class="formFields2">
+									'.$this->field('instagram', ['class'=>'formIcon formIcon-instagram']).'
+									'.$this->field('youtube', ['class'=>'formIcon formIcon-youtube']).'
+								</div>
 							</div>
 						</div>
-						<div class="formField">
+
+						<div class="formPage formPage-address">
+							<div class="formPageIns">
+								<div class="formPageInfo">
+									<div class="formPageInfoTitle">Ahora, necesitamos su dirección</div>
+								</div>
+								'.$this->field('address', ['required'=>true]).'
+								<div class="triggerCityWrapper">
+									<div class="triggerCitySelect">
+										'.$this->field('city').'
+										<div class="triggerCity">
+											'.__('cityDoesNotAppear').'
+										</div>
+									</div>
+									<div class="triggerCityInfo">
+										'.FormField_Text::create(['name'=>'cityOther', 'label'=>'city']).'
+									</div>
+								</div>
+								<div class="formMandatory">* Datos obligatorios</div>
+							</div>
+						</div>
+
+						<div class="formPage formPage-short-description">
+							<div class="formPageIns">
+								<div class="formPageInfo">
+									<div class="formPageInfoTitle">Díganos en unas líneas a qué se dedica</div>
+								</div>
+								'.$this->field('shortDescription', ['required'=>true]).'
+								'.$this->field('idTag').'
+								<div class="formMandatory">* Dato obligatorio</div>
+							</div>
+						</div>
+
+						<div class="formPage formPage-description">
+							<div class="formPageIns">
+								<div class="formPageInfo">
+									<div class="formPageInfoTitle">Ahora escriba una descripción completa de su actividad</div>
+								</div>
+								'.$this->field('description', ['label'=>'']).'
+							</div>
+						</div>
+
+						<div class="formPage formPage-logo">
+							<div class="formPageIns">
+								<div class="formPageInfo">
+									<div class="formPageInfoTitle">Si desea, puede ingresar el logo de su empresa</div>
+								</div>
+								<div class="uploadLogo">
+									<div class="uploadLogoMessage"></div>
+									<div class="uploadLogoIns">'.$this->field('image').'</div>
+									<div class="uploadLogoImage"></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="formPage formPage-logo">
+							<div class="formPageIns">
+								<div class="formPageInfo">
+									<div class="formPageInfoTitle">Ahora, escriba el nombre y correo electrónico de una persona de contacto</div>
+								</div>
+								<div class="formFields2">
+									'.$this->field('nameEditor', ['class'=>'formIcon formIcon-person']).'
+									'.$this->field('emailEditor', ['class'=>'formIcon formIcon-email']).'
+								</div>
+								<div class="formMandatory">* Datos obligatorios</div>
+							</div>
+						</div>
+
+						<div class="formPage formPage-promotion">
+							<div class="formPageIns">
+								<div class="formPageInfo">
+									<div class="formPageInfoTitle">Promocione a su empresa por un costo mínimo</div>
+								</div>
+								<div class="formChoices">
+									<div class="formChoicesItem formPromotionItem formPromotionItem-promoted" data-value="promoted">
+										<div class="formChoicesItemIns">
+											<i class="icon '.(($this->values['choicePromotion']=='promoted') ? 'icon-checked' : '').'"></i>
+											<div class="formChoicesInfo">
+												<strong>Deseo promocionar a mi empresa por un pago único de 10$USD (dólares americanos)</strong>
+												<span>Aparecerá en los primeros lugares de las búsquedas y tendrá una página libre de publicidad. El pago es único y no tiene limite de duración.</span>
+											</div>
+										</div>
+									</div>
+									<div class="formChoicesItem formPromotionItem formPromotionItem-not-promoted" data-value="not-promoted">
+										<div class="formChoicesItemIns">
+											<i class="icon '.(($this->values['choicePromotion']=='not-promoted') ? 'icon-checked' : '').'"></i>
+											<div class="formChoicesInfo">
+												<strong>Deseo inscribir a mi empresa en el directorio de forma gratuita</strong>
+											</div>
+										</div>
+									</div>
+									'.FormField_Hidden::create(array('name'=>'choicePromotion', 'value'=>$this->values['choicePromotion'])).'
+								</div>
+							</div>
+						</div>
+
+						<div class="formPage formPage-payment">
+							<div class="formPageIns">
+								<div class="formPageInfo">
+									<div class="formPageInfoTitle">Indíquenos la forma para realizar el pago</div>
+								</div>
+								<div class="formChoices">
+									<div class="formChoicesItem formPaymentItem formPaymentItem-card" data-value="paypal">
+										<div class="formChoicesItemIns">
+											<i class="icon '.(($this->values['choicePayment']=='paypal') ? 'icon-checked' : '').'"></i>
+											<div class="formChoicesInfo">
+												<strong>PayPal</strong>
+												<span>El pago se realizará mediante el servicio de pagos en línea PayPal</span>
+											</div>
+										</div>
+									</div>
+									<div class="formChoicesItem formPaymentItem" data-value="transfer">
+										<div class="formChoicesItemIns">
+											<i class="icon '.(($this->values['choicePayment']=='transfer') ? 'icon-checked' : '').'"></i>
+											<div class="formChoicesInfo">
+												<strong>Transferencia bancaria o giro postal</strong>
+												<span>Deberá realizar una transferencia bancaria o giro postal. Le enviaremos los datos de nuestro banco a su correo electrónico</span>
+											</div>
+										</div>
+									</div>
+									'.FormField_Hidden::create(array('name'=>'choicePayment', 'value'=>$this->values['choicePayment'])).'
+								</div>
+							</div>
+						</div>
+
+						<div class="formPage formPage-payment">
+							<div class="formPageIns">
+								<div class="formPageInfo">
+									<div class="formPageInfoTitle">Finalmente debemos confirmar que usted no es un robot.</div>
+								</div>
+								<div class="formField formField-captcha">
+									<div class="captcha">
+										'.$captchaError.'
+										<div class="g-recaptcha" data-sitekey="'.CAPTCHA_SITE_KEY.'" id="google-captcha"></div>
+									</div>
+								</div>
+								<div class="formPageDisclaimer">
+									<p>Antes de proceder le recomendamos leer nuestros <a href="'.url('terminos-condiciones').'" target="_blank">Términos y Condiciones de Uso</a>.</p>
+									<p>Para cualquier información adicional puede contactarse con <a href="http://www.plasticwebs.com/contacto" target="_blank">Plasticwebs</a>.</p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="formButtons">
+						<div class="formButtonsIns">
+							<div class="formButton formButtonPrev">
+								<div class="formButtonIns">
+									<i class="icon icon-arrow-left"></i>
+									<span>Atrás</span>
+								</div>
+							</div>
+							<div class="formButton formButtonNext">
+								<div class="formButtonIns">
+									<span>Siguiente</span>
+									<i class="icon icon-arrow-right"></i>
+								</div>
+							</div>
+						</div>
+					</div>';
+		return '<div class="formPagesWrapper">
+					'.Form::createForm($fields, array('submit'=>__('send'), 'class'=>'formSimple formPlaceEdit" autocomplete="off', 'id'=>'formPlaceEdit')).'
+				</div>';
+	}
+
+	public function createPublicUpdate() {
+		$this->values['choicePromotion'] = (isset($this->values['choicePromotion'])) ? $this->values['choicePromotion'] : 'promoted';
+		$this->values['choicePayment'] = (isset($this->values['choicePayment'])) ? $this->values['choicePayment'] : 'paypal';
+		$captchaError = (isset($this->errors['captcha'])) ? '<div class="error">'.$this->errors['captcha'].'</div>' : '';
+		$fields = '<div class="formPages">
+						'.$this->field('idPlaceEdit').'
+						'.$this->field('title').'
+						<div class="formFields2">
+							'.$this->field('email', ['class'=>'formIcon formIcon-email']).'
+							'.$this->field('telephone', ['class'=>'formIcon formIcon-telephone']).'
+						</div>
+						<div class="formFields2">
+							'.$this->field('mobile', ['class'=>'formIcon formIcon-mobile']).'
+							'.$this->field('whatsapp', ['class'=>'formIcon formIcon-whatsapp']).'
+						</div>
+						<div class="formFields2">
+							'.$this->field('web', ['class'=>'formIcon formIcon-globe']).'
+						</div>
+						<div class="formFields2">
+							'.$this->field('facebook', ['class'=>'formIcon formIcon-facebook']).'
+							'.$this->field('twitter', ['class'=>'formIcon formIcon-twitter']).'
+						</div>
+						<div class="formFields2">
+							'.$this->field('instagram', ['class'=>'formIcon formIcon-instagram']).'
+							'.$this->field('youtube', ['class'=>'formIcon formIcon-youtube']).'
+						</div>
+						'.$this->field('address', ['required'=>true]).'
+						<div class="triggerCityWrapper">
+							<div class="triggerCitySelect">
+								'.$this->field('city').'
+								<div class="triggerCity">
+									'.__('cityDoesNotAppear').'
+								</div>
+							</div>
+							<div class="triggerCityInfo">
+								'.FormField_Text::create(['name'=>'cityOther', 'label'=>'city']).'
+							</div>
+						</div>
+						'.$this->field('shortDescription', ['required'=>true]).'
+						'.$this->field('idTag').'
+						'.$this->field('description').'
+						<div class="uploadLogo">
+							<div class="uploadLogoMessage"></div>
+							<div class="uploadLogoIns">'.$this->field('image').'</div>
+							<div class="uploadLogoImage"></div>
+						</div>
+						<div class="formFields2">
+							'.$this->field('nameEditor', ['class'=>'formIcon formIcon-email']).'
+							'.$this->field('emailEditor', ['class'=>'formIcon formIcon-email']).'
+						</div>
+						'.FormField_Hidden::create(array('name'=>'choicePromotion', 'value'=>$this->values['choicePromotion'])).'
+						'.FormField_Hidden::create(array('name'=>'choicePayment', 'value'=>$this->values['choicePayment'])).'
+						<div class="formField formField-captcha">
 							<div class="captcha">
 								'.$captchaError.'
 								<div class="g-recaptcha" data-sitekey="'.CAPTCHA_SITE_KEY.'" id="google-captcha"></div>
 							</div>
 						</div>
-					</div>';
-		return Form::createForm($fields, array('submit'=>'Guardar', 'class'=>'formPublic formPlaceEdit')).'
-				'.HtmlSection::showFile('inscribirBottom');
-	}
-
-	public function createPublicPromote($place='') {
-		$form = (is_object($place)) ? Place_Form::newObject($place) : $this;
-		$captchaError = (isset($this->errors['captcha'])) ? '<div class="error">'.$this->errors['captcha'].'</div>' : '';
-		$fields = '<div class="formFieldsWrapper">
-						<div class="formFields">
-							<h2>Datos sobre usted</h2>
-							<div class="formFieldsIns">
-								<div class="formFields2">
-									'.$this->field('nameEditor').'
-									'.$this->field('emailEditor').'
-								</div>
-							</div>
-						</div>
-						<div class="formFields">
-							<h2>Estilo de la empresa</h2>
-							<div class="formFieldsIns">
-								<div class="formFields2">
-									'.$form->field('image').'
-									'.$form->field('colorBackground').'
-								</div>
-							</div>
-						</div>
-						<div class="formFields">
-							<h2>Actualice los datos de su empresa</h2>
-							<div class="formFieldsIns">
-								'.$form->field('title').'
-								<div class="formFields2">
-									'.$form->field('address').'
-									'.$form->field('city').'
-								</div>
-								<div class="formFields3">
-									'.$form->field('telephone').'
-									'.$form->field('web').'
-									'.$form->field('email').'
-								</div>
-								'.$form->field('shortDescription').'
-								'.$form->field('description').'
-								'.$form->field('idTag').'
-								'.$this->field('idPlaceEdit').'
-							</div>
-						</div>
-						<div class="formFieldsPromotedMessage message messageInfo">
-							<p><i class="icon icon-paypal"></i></p>
-							<p>El pago de los 10$USD (dólares americanos) se realiza mediante <a href="http://www.paypal.com" target="_blank">PayPal</a>. Antes de proceder le recomendamos leer nuestros <a href="'.url('terminos-condiciones').'" target="_blank">Términos y Condiciones de Uso</a>.</p>
+						<div class="formPageDisclaimer">
+							<p>Antes de proceder le recomendamos leer nuestros <a href="'.url('terminos-condiciones').'" target="_blank">Términos y Condiciones de Uso</a>.</p>
 							<p>Para cualquier información adicional puede contactarse con <a href="http://www.plasticwebs.com/contacto" target="_blank">Plasticwebs</a>.</p>
 						</div>
-						<div class="formField">
-							<div class="captcha">
-								'.$captchaError.'
-								<div class="g-recaptcha" data-sitekey="'.CAPTCHA_SITE_KEY.'" id="google-captcha"></div>
-							</div>
-						</div>
-					</div>';
-		return Form::createForm($fields, array('submit'=>'Guardar', 'class'=>'formPublic formPlaceEdit'));
-	}
 
-	public function createPublicPromoted($place='') {
-		$form = (is_object($place)) ? Place_Form::newObject($place) : $this;
-		$captchaError = (isset($this->errors['captcha'])) ? '<div class="error">'.$this->errors['captcha'].'</div>' : '';
-		$fields = '<div class="formFieldsWrapper">
-						<div class="formFields">
-							<h2>Datos sobre usted</h2>
-							<div class="formFieldsIns">
-								<div class="formFields2">
-									'.$form->field('nameEditor').'
-									'.$form->field('emailEditor').'
-								</div>
-							</div>
-						</div>
-						<div class="formFields">
-							<h2>Datos sobre su empresa</h2>
-							<div class="formFieldsIns">
-								'.$form->field('title').'
-								<div class="formFields2">
-									'.$form->field('address').'
-									'.$form->field('city').'
-								</div>
-								<div class="formFields3">
-									'.$form->field('telephone').'
-									'.$form->field('web').'
-									'.$form->field('email').'
-								</div>
-								'.$form->field('shortDescription').'
-								'.$form->field('description').'
-								'.$form->field('idTag').'
-								'.$this->field('idPlaceEdit').'
-							</div>
-						</div>
-						<div class="formFields">
-							<h2>Estilo de la empresa</h2>
-							<div class="formFieldsIns">
-								<div class="formFields2">
-									'.$form->field('image').'
-									'.$form->field('colorBackground').'
-								</div>
-							</div>
-						</div>
-						<div class="formField">
-							<div class="captcha">
-								'.$captchaError.'
-								<div class="g-recaptcha" data-sitekey="'.CAPTCHA_SITE_KEY.'" id="google-captcha"></div>
-							</div>
-						</div>
 					</div>';
-		return Form::createForm($fields, array('submit'=>'Guardar', 'class'=>'formPublic formPlaceEdit'));
+		return '<div class="formPagesWrapper formPagesWrapperSimple">
+					'.Form::createForm($fields, array('submit'=>__('send'), 'class'=>'formSimple formPlaceEdit" autocomplete="off')).'
+				</div>';
 	}
-
+	
 	public function createFormFieldsPublicAdmin() {
 		return '<div class="formFieldsWrapper">
 					<div class="formFields">

@@ -27,21 +27,19 @@ class HtmlMail extends Db_Object {
 
     static public function sendFromFile($email, $code, $values=array()) {
         $subjects = array('notification'=>'Usted tiene una nueva notificación',
-                            'welcomePlaceEditKhipu'=>'Gracias por registrar su empresa',
                             'welcomePlaceEditPayPal'=>'Gracias por registrar su empresa',
                             'welcomePlaceEditTransference'=>'Gracias por registrar su empresa',
                             'welcomePlaceEditFree'=>'Gracias por registrar su empresa',
-
                             'passwordForgot'=>'Contraseña olvidada',
                             'report'=>'Una empresa ha sido reportada',
-                            'placeEditNew'=>'Admin - Lugar a editar - Nuevo',
-                            'placeEditModified'=>'Admin - Lugar a editar - Modificado',
                             'publishedPlace'=>'Su empresa ha sido publicada',
-                            'payedPlace'=>'Admin - Se pagó para publicar una empresa',
-                            'payedPlaceEdit'=>'Admin - Se pagó para publicar una empresa',
                             'payedThanks'=>'Gracias por su pago',
                             'modifyPlaceEdit'=>'Gracias por actualizar la información de la empresa',
-                            'placeEditNewPromoted'=>'Admin - Lugar a editar - Promocionado');
+                            'placeEditNew'=>'ADMIN - Lugar a editar - Nuevo',
+                            'placeEditModified'=>'ADMIN - Lugar a editar - Modificado',
+                            'payedPlace'=>'ADMIN - Se pagó para publicar una empresa',
+                            'payedPlaceEdit'=>'ADMIN - Se pagó para publicar una empresa',
+                            'placeEditNewPromoted'=>'ADMIN - Lugar a editar - Promocionado');
         $subject = $subjects[$code];
         Email::send($email, $subject, HtmlMail::showFile($code, $values));
     }

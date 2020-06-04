@@ -1,15 +1,39 @@
 [class^="icon-"], [class*=" icon-"] {
-  font-family: 'icons';
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
   line-height: 1;
+
+  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-business:before {
+  content: "\e91c";
+}
+.icon-emaila:before {
+  content: "\e91d";
+}
+.icon-instagram:before {
+  content: "\e91e";
+}
+.icon-mobile:before {
+  content: "\e91f";
+}
+.icon-person:before {
+  content: "\e920";
+}
+.icon-whatsapp:before {
+  content: "\e921";
+}
+.icon-youtube:before {
+  content: "\e922";
+}
 .icon-down-arrow:before {
   content: "\e91a";
 }
@@ -61,7 +85,7 @@
 .icon-facebook:before {
   content: "\e90a";
 }
-.icon-globe:before {
+.icon-web:before {
   content: "\e90b";
 }
 .icon-google-plus:before {
@@ -91,6 +115,6 @@
 .icon-twitter:before {
   content: "\e914";
 }
-.icon-whatsapp:before {
+.icon-whatsapp1:before {
   content: "\e915";
 }
