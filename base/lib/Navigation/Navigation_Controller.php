@@ -176,7 +176,7 @@ class Navigation_Controller extends Controller{
                     $this->header = $items->metaNavigation();
                     $this->metaDescription = $this->titlePage;
                     $this->metaUrl = url($this->action.'/'.$this->id);
-                    $this->content = $item->showUi('Cities').'
+                    $this->content = (($this->extraId!='') ? '' : $item->showUi('Cities')).'
                                     '.$items->showList(array('function'=>'Public', 'middle'=>Adsense::ampInline())).'
                                     '.$items->pager();
                     return $this->ui->render();
