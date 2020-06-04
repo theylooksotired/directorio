@@ -357,7 +357,7 @@ class Place_Ui extends Ui {
 		$items = Db::returnAll($query);
 		$html = '';
 		foreach ($items as $item) {
-			$html .= ($item['city']!='') ? '<a href="'.url('ciudad/'.$item['cityUrl']).'">'.$item['city'].'</a> ' : '';
+			$html .= ($item['city']!='') ? '<a href="'.url('ciudad-tag/'.$item['cityUrl']).'">'.$item['city'].'</a> ' : '';
 		}
 		return $html;
 	}
