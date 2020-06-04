@@ -318,7 +318,18 @@ class Place_Ui extends Ui {
 	/**
 	* @cache
 	*/
-	static public function renderCities($options=[]) {
+	static public function renderCities() {
+		return Place_Ui::renderCitiesOptions();
+	}
+
+	/**
+	* @cache
+	*/
+	static public function renderCitiesTag() {
+		return Place_Ui::renderCitiesOptions(['urlBase'=>'ciudad-tag']);
+	}
+
+	static public function renderCitiesOptions($options=[]) {
 		$query = 'SELECT dir_Place.city, dir_Place.cityUrl, COUNT(dir_Place.idPlace) as numElements
 					FROM dir_Place
 					GROUP BY dir_Place.cityUrl

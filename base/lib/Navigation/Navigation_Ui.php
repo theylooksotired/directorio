@@ -207,7 +207,7 @@ class Navigation_Ui extends Ui {
 					<div class="contentSide">
 						<h2>Ciudades</h2>
 						<div class="contentSideItems">	
-							'.$place->showUi('Cities', ['urlBase'=>'ciudad-tag']).'
+							'.$place->showUi('CitiesTag').'
 						</div>
 						<div class="contentSideButton">
 							<a href="'.url('ciudad').'">Ver todas las ciudades</a>
