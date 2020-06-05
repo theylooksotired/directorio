@@ -474,5 +474,19 @@
 		}
 	}
 
+	.report {
+		padding: 20px;
+		.reportTopWrapper {
+			.reportTopImage {
+				float: none;
+				margin: 0 auto 20px auto;
+			}
+			.reportTopInfo {
+				width: auto;
+				float: none;
+			}
+		}
+	}
+
 
 }
