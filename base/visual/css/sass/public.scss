@@ -13,7 +13,7 @@
 @import "_public_forms.scss";
 
 @mixin iconIns($icon) {
-	font-family: 'icomoon' !important;
+	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
 	font-weight: normal;
@@ -848,7 +848,7 @@ body {
 				font-weight: normal;
 				display: inline-block;
 				padding: 5px 10px;
-				margin: 0 3px 3px 0;
+				margin: 0 3px 6px 0;
 				background: rgba($black, 0.05);
 				@include animate();
 				@include borderRadius(3px);
