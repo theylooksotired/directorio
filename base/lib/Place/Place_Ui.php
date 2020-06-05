@@ -201,7 +201,7 @@ class Place_Ui extends Ui {
 			$value = '<a href="mailto:'.$value.'">'.$value.'</a>';
 		}
 		if ($attribute=='web') {
-			$value = '<a href="mailto:'.Url::format($value).'">'.Url::format($value).'</a>';
+			$value = '<a href="'.Url::format($value).'">'.Url::format($value).'</a>';
 		}
 		if ($attribute=='whatsapp') {
 			$value = '<a href="https://api.whatsapp.com/send?phone='.urlencode($value).'">'.$value.'</a>';
