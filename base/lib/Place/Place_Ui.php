@@ -194,17 +194,17 @@ class Place_Ui extends Ui {
 			$value = '';
 			foreach ($items as $item) {
 				$item = str_replace(' ', '', $item);
-				$value .= '<a href="tel:'.$item.'" class="infoBlockNoWrap">'.$item.'</a> ';
+				$value .= '<a href="tel:'.$item.'" class="infoBlockNoWrap" target="_blank">'.$item.'</a> ';
 			}
 		}
 		if ($attribute=='email') {
-			$value = '<a href="mailto:'.$value.'">'.$value.'</a>';
+			$value = '<a href="mailto:'.$value.'" target="_blank">'.$value.'</a>';
 		}
 		if ($attribute=='web') {
-			$value = '<a href="'.Url::format($value).'">'.Url::format($value).'</a>';
+			$value = '<a href="'.Url::format($value).'" target="_blank">'.Url::format($value).'</a>';
 		}
 		if ($attribute=='whatsapp') {
-			$value = '<a href="https://api.whatsapp.com/send?phone='.urlencode($value).'">'.$value.'</a>';
+			$value = '<a href="https://api.whatsapp.com/send?phone='.urlencode($value).'" target="_blank">'.$value.'</a>';
 		}
 		return ($this->object->get($attribute)!='') ? '
 				<div class="infoBlock">
