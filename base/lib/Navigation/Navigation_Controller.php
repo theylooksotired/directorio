@@ -526,7 +526,7 @@ class Navigation_Controller extends Controller{
             case 'lugar-depromocionar':
                 $this->header = '<meta name="robots" content="noindex,nofollow"/>';
                 $place = Place::readCoded($this->id);
-                $this->layoutPage = 'simple';
+                $this->layoutPage = 'empty';
                 if ($place->id()!='') {
                     switch($this->action) {
                         case 'lugar-borrar':
