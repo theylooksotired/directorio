@@ -1514,9 +1514,12 @@ body {
 			font-size: $fontSizeNormal * 1.1;
 			color: lighten($colorText, 15%);
 		}
-		img {
+		.actionPlaceImage {
 			width: 100px;
 			float: left;
+			amp-img {
+				width: 100%;
+			}
 		}
 		.actionPlaceIns {
 			float: right;

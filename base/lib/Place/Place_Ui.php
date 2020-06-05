@@ -116,7 +116,9 @@ class Place_Ui extends Ui {
 					<div class="actionsPlace">
 						<div class="actionPlace actionPlace-update">
 							<a rel="nofollow" href="'.url('modificar/'.$this->object->id()).'">
-								<img src="'.BASE_URL.'visual/img/owner.svg"/>
+								<div class="actionPlaceImage">
+									<amp-img layout="responsive" width="300" height="300" src="'.BASE_URL.'visual/img/owner.svg"></amp-img>
+								</div>
 								<div class="actionPlaceIns">
 									<h3>¿Esta empresa es de su propiedad?</h3>
 									<p>Actualice la información de la misma de forma gratuita o promocione a su empresa para que salga en los primeros resultados de búsqueda de nuestro sitio.</p>
@@ -128,7 +130,9 @@ class Place_Ui extends Ui {
 						</div>
 						<div class="actionPlace actionPlace-report">
 							<a rel="nofollow" href="'.url('reportar/'.$this->object->id()).'">
-								<img src="'.BASE_URL.'visual/img/warning.svg"/>
+								<div class="actionPlaceImage">
+									<amp-img layout="responsive" width="300" height="300" src="'.BASE_URL.'visual/img/warning.svg"></amp-img>
+								</div>
 								<div class="actionPlaceIns">
 									<h3>¿Esta información es incorrecta o la empresa no existe?</h3>
 									<p>Por favor, escríbanos si los datos de esta empresa no corresponden o si esta información le molesta de alguna manera.</p>
