@@ -104,7 +104,7 @@ class Navigation_Controller extends Controller{
                     $item = $list[0];
                     $page = (isset($_GET['pagina']) && $_GET['pagina']!='') ? ' - Página '.(intval($_GET['pagina'])) : '';
                     $this->titlePage = 'Teléfonos y direcciones de empresas en '.$item->get('city').', '.Params::param('country');
-                    $this->titlePageHtml = '<span>Teléfonos y direcciones de empresas en</span> '.$item->get('city').', <em>'.Params::param('country').'</em>';
+                    $this->titlePageHtml = '<span>Teléfonos y direcciones de empresas en</span> '.$item->get('city').' <em>'.Params::param('country').'</em>';
                     $this->header = $items->metaNavigation();
                     $this->metaDescription = $this->titlePage;
                     $this->metaUrl = url($this->action.'/'.$this->id);
@@ -230,22 +230,6 @@ class Navigation_Controller extends Controller{
                 $this->content = HtmlSection::showFile('terms');
                 return $this->ui->render();
             break;
-    //         case 'promocion':
-    //             $this->layoutPage = 'promotion';
-    //         	$this->titlePage = 'Ventajas de inscribir a su empresa en nuestro directorio';
-    //         	$this->metaDescription = 'Mejore el SEO de su sitio web inscribiendo a su empresa en nuestro directorio.';
-    //             $this->metaKeywords = 'seo, inscribir, empresa, negocio, inscripcion, optimizacion';
-    //             $this->metaUrl = url($this->action);
-    //             $this->content = '<div class="promotion">
-				// 					<div class="promotionIns">
-				// 						'.HtmlSection::showFile('promotion').'
-				// 						<div class="buttonBig">
-				// 							<a href="'.url('inscribir').'">Inscribir <em>a mi empresa</em></a>
-				// 						</div>
-				// 					</div>
-				// 				</div>';
-				// return $this->ui->render();
-    //         break;
 
 
 
