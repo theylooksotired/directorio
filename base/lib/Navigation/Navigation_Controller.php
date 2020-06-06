@@ -8,7 +8,7 @@ class Navigation_Controller extends Controller{
     }
 
     public function controlActions(){
-        $this->metaImage = BASE_URL.'visual/img/directorio_bg.png';
+        $this->metaImage = BASE_URL.'visual/img/cover-'.Params::param('countryCode').'.jpg';
         switch ($this->action) {
             default:
             	$this->adsenseFullPageActive = true;
@@ -26,7 +26,7 @@ class Navigation_Controller extends Controller{
                         $this->header = $item->showUi('JsonHeader');
                         $this->titlePage = $item->getBasicInfo();
                         $this->metaUrl = $item->url('');
-                        $this->metaImage = $item->get('image', 'web');
+                        $this->metaImage = $item->getImageUrl('image', 'web');
                         $this->metaDescription = 'Dirección, teléfonos, email e información de '.$item->getBasicInfo().' en '.$item->get('city').' '.Params::param('country');
                         $this->metaKeywords = 'directorio, directorio de empresas, guía, guía empresarial, dirección, teléfonos, email, empresa, '.$item->getBasicInfo().', '.$item->get('city').', '.Params::param('country');
                         $this->place = $item;
