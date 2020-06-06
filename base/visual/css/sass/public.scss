@@ -1332,6 +1332,15 @@ body {
 				}
 			}
 		}
+		&.infoBlocksWeb {
+			.infoBlock {
+				&,
+				&:first-child {
+					width: 100%;
+					float: none;
+				}
+			}
+		}
 		.infoBlock {
 			width: calc(100%/3 - 30px);
 			float: left;

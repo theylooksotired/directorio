@@ -102,7 +102,7 @@ class Place_Ui extends Ui {
 							'.$this->renderInfoBlock('mobile', 'Móvil').'
 							'.$this->renderInfoBlock('whatsapp', 'Whatsapp').'
 						</div>
-						<div class="infoBlocks">
+						<div class="infoBlocks infoBlocksWeb">
 							'.$this->renderInfoBlock('email', 'Email').'
 							'.$this->renderInfoBlock('web', 'Sitio web').'
 						</div>
