@@ -52,7 +52,6 @@ class Tag_Ui extends Ui {
 				JOIN dir_PlaceTag pt ON t.idTag=pt.idTag
 				JOIN dir_Place p ON p.idPlace=pt.idPlace
 				GROUP BY t.idTag
-				HAVING numPlaces>1
 				ORDER BY t.nameUrl';
 		$isCity = (isset($options['place'])) ? true : false;
 		if ($isCity) {
@@ -62,7 +61,6 @@ class Tag_Ui extends Ui {
 					JOIN dir_Place p ON p.idPlace=pt.idPlace
 					WHERE p.cityUrl="'.$options['place']->get('cityUrl').'"
 					GROUP BY t.idTag
-					HAVING numPlaces>1
 					ORDER BY t.nameUrl';			
 		}
 		$items = Db::returnAll($query);

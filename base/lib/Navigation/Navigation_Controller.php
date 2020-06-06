@@ -104,7 +104,7 @@ class Navigation_Controller extends Controller{
                     $item = $list[0];
                     $page = (isset($_GET['pagina']) && $_GET['pagina']!='') ? ' - Página '.(intval($_GET['pagina'])) : '';
                     $this->titlePage = 'Teléfonos y direcciones de empresas en '.$item->get('city').', '.Params::param('country');
-                    $this->titlePageHtml = '<span>Teléfonos y direcciones de empresas en</span> '.$item->get('city').' <em>'.Params::param('country').'</em>';
+                    $this->titlePageHtml = '<span>Teléfonos y direcciones de empresas en</span> '.$item->get('city').', <em>'.Params::param('country').'</em>';
                     $this->header = $items->metaNavigation();
                     $this->metaDescription = $this->titlePage;
                     $this->metaUrl = url($this->action.'/'.$this->id);

@@ -15,6 +15,10 @@
 		padding: 70px 10px 50px 10px;
 		h1 {
 			font-size: $fontSizeHuge * 2 / 3;
+			span {
+				font-size: $fontSizeNormal;
+				font-weight: normal;
+			}
 		}
 		.contentLeft {
 			width: 70%;
