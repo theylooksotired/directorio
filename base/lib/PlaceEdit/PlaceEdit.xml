@@ -144,7 +144,7 @@
         </attribute>
         <attribute>
             <name>idTag</name>
-            <label>tagsLabel3</label>
+            <label>tagsLabelMax3</label>
             <required>not-empty</required>
             <type>multiple-autocomplete</type>
             <refObject>Tag</refObject>

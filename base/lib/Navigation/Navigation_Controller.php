@@ -662,7 +662,8 @@ class Navigation_Controller extends Controller{
                 // Db::execute('ALTER TABLE `dir_PlaceEdit` ADD `mobile` VARCHAR(255) NULL, ADD `whatsapp` VARCHAR(255) NULL, ADD `facebook` VARCHAR(255) NULL, ADD `instagram` VARCHAR(255) NULL, ADD `youtube` VARCHAR(255) NULL;');
                 // Db::execute('ALTER TABLE `dir_PlaceEdit` ADD `twitter` VARCHAR(255) NULL;');
                 // Db::execute('ALTER TABLE `dir_Place` ADD `mobile` VARCHAR(255) NULL, ADD `whatsapp` VARCHAR(255) NULL, ADD `facebook` VARCHAR(255) NULL, ADD `instagram` VARCHAR(255) NULL, ADD `youtube` VARCHAR(255) NULL, ADD `twitter` VARCHAR(255) NULL;');
-                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="tagsLabel3", translation_es="Escriba las categorías de su empresa. Puede tener un máximo 3."');
+                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="tagsLabel3", translation_es="Escriba las categorías de su empresa. Puede tener un máximo 3."');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="tagsLabelMax3", translation_es="Escriba las categorías de su empresa. Puede tener máximo 3."');
             break;
 
         }
@@ -677,7 +678,7 @@ class Navigation_Controller extends Controller{
                         <link href="'.BASE_URL.'libjs/tagit/jquery.tagit.css" rel="stylesheet" type="text/css" />
                         <script type="text/javascript" src="'.url('NavigationAdmin/base-info', true).'"></script>
                         <script type="text/javascript" src="'.APP_URL.'helpers/ckeditor/ckeditor.js"></script>
-                        <script type="text/javascript" src="'.BASE_URL.'libjs/public.js?v=9"></script>';
+                        <script type="text/javascript" src="'.BASE_URL.'libjs/public.js?v=10"></script>';
     }
 
     public function checkCaptcha(&$errors) {
