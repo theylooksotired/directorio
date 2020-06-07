@@ -32,7 +32,7 @@ class Email {
         $mail->Subject = $subject;
         $mail->Body = $htmlMail;
         $mail->AltBody = strip_tags($htmlMail);
-        $mail->send();
+        @$mail->send();
     }
     
 }

@@ -203,6 +203,7 @@ class Form {
                     case 'multiple-autocomplete':
                         $this->object->loadMultipleValuesAll();
                         $refObject = (string)$item->refObject;
+                        $required = (string)$item->required;
                         $refObjectIns = new $refObject();
                         $refAttribute = (string)$item->refAttribute;
                         $autocompleteItems = '';
@@ -217,7 +218,8 @@ class Form {
                         $options = array('name'=>$name,
                                             'label'=>$label,
                                             'size'=>'60',
-                                            'value'=>$autocompleteItems);
+                                            'value'=>$autocompleteItems,
+                                            'required'=>$required);
                         $autocomplete = FormField_Text::create($options);
                         return '<div class="autocompleteItem autocompleteItem-'.$name.'" rel="'.url($refObject.'/autocomplete/'.$refAttribute, true).'">
                                     <div class="autocompleteItemIns">

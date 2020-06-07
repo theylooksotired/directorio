@@ -379,7 +379,7 @@ class Navigation_Controller extends Controller{
                             WHERE '.Db::prefixTable('Tag').'.name LIKE "%'.$autocomplete.'%"
                             GROUP BY '.Db::prefixTable('Tag').'.idTag
                             ORDER BY numItems DESC, '.Db::prefixTable('Tag').'.nameUrl
-                            LIMIT 20';
+                            LIMIT 5';
                     $results = array();
                     $resultsAll = Db::returnAll($query);
                     foreach ($resultsAll as $result) {
@@ -648,21 +648,21 @@ class Navigation_Controller extends Controller{
             case 'fix':
                 $this->mode = 'ajax';
                 $this->checkAuthorization();
-                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="mobile", translation_es="Teléfono móvil"');
-                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="whatsapp", translation_es="Whatsapp"');
-                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="facebook", translation_es="Facebook"');
-                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="instagram", translation_es="Instagram"');
-                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="youtube", translation_es="Youtube"');
-                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="twitter", translation_es="Twitter"');
-                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="tagsLabel", translation_es="Escriba etiquetas descriptivas separas por comas"');
-                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="cityDoesNotAppear", translation_es="Mi ciudad no aparece en la lista"');
-                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="namePlace", translation_es="Nombre de la empresa o negocio"');
-                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="nameEditorLabel", translation_es="Nombre de la persona de contacto"');
-                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="emailEditorLabel", translation_es="Email de la persona de contacto"');
-                Db::execute('ALTER TABLE `dir_PlaceEdit` ADD `mobile` VARCHAR(255) NULL, ADD `whatsapp` VARCHAR(255) NULL, ADD `facebook` VARCHAR(255) NULL, ADD `instagram` VARCHAR(255) NULL, ADD `youtube` VARCHAR(255) NULL;');
-                Db::execute('ALTER TABLE `dir_PlaceEdit` ADD `twitter` VARCHAR(255) NULL;');
-                Db::execute('ALTER TABLE `dir_Place` ADD `mobile` VARCHAR(255) NULL, ADD `whatsapp` VARCHAR(255) NULL, ADD `facebook` VARCHAR(255) NULL, ADD `instagram` VARCHAR(255) NULL, ADD `youtube` VARCHAR(255) NULL, ADD `twitter` VARCHAR(255) NULL;');
-                
+                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="mobile", translation_es="Teléfono móvil"');
+                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="whatsapp", translation_es="Whatsapp"');
+                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="facebook", translation_es="Facebook"');
+                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="instagram", translation_es="Instagram"');
+                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="youtube", translation_es="Youtube"');
+                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="twitter", translation_es="Twitter"');
+                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="tagsLabel", translation_es="Escriba etiquetas descriptivas separas por comas"');
+                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="cityDoesNotAppear", translation_es="Mi ciudad no aparece en la lista"');
+                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="namePlace", translation_es="Nombre de la empresa o negocio"');
+                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="nameEditorLabel", translation_es="Nombre de la persona de contacto"');
+                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="emailEditorLabel", translation_es="Email de la persona de contacto"');
+                // Db::execute('ALTER TABLE `dir_PlaceEdit` ADD `mobile` VARCHAR(255) NULL, ADD `whatsapp` VARCHAR(255) NULL, ADD `facebook` VARCHAR(255) NULL, ADD `instagram` VARCHAR(255) NULL, ADD `youtube` VARCHAR(255) NULL;');
+                // Db::execute('ALTER TABLE `dir_PlaceEdit` ADD `twitter` VARCHAR(255) NULL;');
+                // Db::execute('ALTER TABLE `dir_Place` ADD `mobile` VARCHAR(255) NULL, ADD `whatsapp` VARCHAR(255) NULL, ADD `facebook` VARCHAR(255) NULL, ADD `instagram` VARCHAR(255) NULL, ADD `youtube` VARCHAR(255) NULL, ADD `twitter` VARCHAR(255) NULL;');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="tagsLabel3", translation_es="Escriba las categorías de su empresa. Puede tener un máximo 3."');
             break;
 
         }
@@ -673,6 +673,8 @@ class Navigation_Controller extends Controller{
                         <script type="text/javascript" src="'.BASE_URL.'libjs/jquery/jquery-1.10.2.min.js"></script>
                         <script type="text/javascript" src="'.BASE_URL.'libjs/jquery/jquery-ui-1.10.3.custom.min.js"></script>
                         <script type="text/javascript" src="'.BASE_URL.'libjs/jquery/jquery.form.js"></script>
+                        <script type="text/javascript" src="'.BASE_URL.'libjs/tagit/tag-it.min.js"></script>
+                        <link href="'.BASE_URL.'libjs/tagit/jquery.tagit.css" rel="stylesheet" type="text/css" />
                         <script type="text/javascript" src="'.url('NavigationAdmin/base-info', true).'"></script>
                         <script type="text/javascript" src="'.APP_URL.'helpers/ckeditor/ckeditor.js"></script>
                         <script type="text/javascript" src="'.BASE_URL.'libjs/public.js?v=9"></script>';

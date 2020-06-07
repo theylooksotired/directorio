@@ -5,8 +5,8 @@ class PlaceEdit_Form extends Form{
 		$this->values['choicePromotion'] = (isset($this->values['choicePromotion'])) ? $this->values['choicePromotion'] : 'promoted';
 		$this->values['choicePayment'] = (isset($this->values['choicePayment'])) ? $this->values['choicePayment'] : 'paypal';
 		$captchaError = (isset($this->errors['captcha'])) ? '<div class="error">'.$this->errors['captcha'].'</div>' : '';
-		$fields = '<div class="formPages">
-
+		$fields = '<div class="formPages" data-url="'.url('tag-autocomplete').'">
+						
 						<div class="formPage formPage-intro">
 							<div class="formPageIns">
 								<div class="formPageIntroWrapper">
@@ -245,7 +245,7 @@ class PlaceEdit_Form extends Form{
 		$this->values['choicePromotion'] = (isset($this->values['choicePromotion'])) ? $this->values['choicePromotion'] : 'promoted';
 		$this->values['choicePayment'] = (isset($this->values['choicePayment'])) ? $this->values['choicePayment'] : 'paypal';
 		$captchaError = (isset($this->errors['captcha'])) ? '<div class="error">'.$this->errors['captcha'].'</div>' : '';
-		$fields = '<div class="formPages">
+		$fields = '<div class="formPages" data-url="'.url('tag-autocomplete').'">
 						'.$this->field('idPlaceEdit').'
 						'.$this->field('title').'
 						<div class="formFields2">
@@ -309,128 +309,67 @@ class PlaceEdit_Form extends Form{
 					'.Form::createForm($fields, array('submit'=>__('send'), 'class'=>'formSimple formPlaceEdit" autocomplete="off')).'
 				</div>';
 	}
-	
-	public function createFormFieldsPublicAdmin() {
-		return '<div class="formFieldsWrapper">
-					<div class="formFields">
-						<h2>Datos sobre la persona</h2>
-						<div class="formFieldsIns">
-							<div class="formFields2">
-								'.$this->field('nameEditor').'
-								'.$this->field('emailEditor').'
-							</div>
-						</div>
-					</div>
-					<div class="formFields">
-						<h2>Datos sobre la empresa</h2>
-						<div class="formFieldsIns">
-							'.$this->field('title').'
-							<div class="formFields2">
-								'.$this->field('address').'
-								'.$this->field('city').'
-							</div>
-							<div class="formFields3">
-								'.$this->field('telephone').'
-								'.$this->field('web').'
-								'.$this->field('email').'
-							</div>
-							'.$this->field('shortDescription').'
-							'.$this->field('description').'
-							'.$this->field('idTag').'
-							'.$this->field('idPlace').'
-							'.$this->field('idPlaceEdit').'
-						</div>
-					</div>
-					<div class="formFields">
-						<h2>Promoción</h2>
-						<div class="formFieldsIns">
-							<div class="formFields2">
-								'.$this->field('image').'
-								'.$this->field('colorBackground').'
-							</div>
-						</div>
-					</div>
-				</div>';
-	}
-
-	public function createFormFieldsPublicAdminPlace($place) {
-		$place->loadTags();
-		return '<div class="formFieldsWrapper">
-					<div class="formFields">
-						<h2>Datos sobre la persona</h2>
-						<div class="formFieldsIns">
-							<div class="formFields2">
-								'.$this->field('nameEditor').'
-								'.$this->field('emailEditor').'
-							</div>
-							<div class="formFields2">
-								<div class="formField formFieldOld">'.$place->get('nameEditor').'</div>
-								<div class="formField formFieldOld">'.$place->get('emailEditor').'</div>
-							</div>
-						</div>
-					</div>
-					<div class="formFields">
-						<h2>Datos sobre la empresa</h2>
-						<div class="formFieldsIns">
-							'.$this->field('title').'
-							<div class="formField formFieldOld">'.$place->get('title').'</div>
-							<div class="formFields2">
-								'.$this->field('address').'
-								'.$this->field('city').'
-							</div>
-							<div class="formFields2">
-								<div class="formField formFieldOld">'.$place->get('address').'</div>
-								<div class="formField formFieldOld">'.$place->get('city').'</div>
-							</div>
-							<div class="formFields3">
-								'.$this->field('telephone').'
-								'.$this->field('web').'
-								'.$this->field('email').'
-							</div>
-							<div class="formFields3">
-								<div class="formField formFieldOld">'.$place->get('telephone').'</div>
-								<div class="formField formFieldOld">'.$place->get('web').'</div>
-								<div class="formField formFieldOld">'.$place->get('email').'</div>
-							</div>
-							'.$this->field('shortDescription').'
-							<div class="formField formFieldOld">'.$place->get('shortDescription').'</div>
-							'.$this->field('description').'
-							<div class="formField formFieldOld">'.$place->get('description').'</div>
-							'.$this->field('idTag').'
-							<div class="formField formFieldOld">'.$place->tags->showList(array('function'=>'Simple')).'</div>
-							'.$this->field('idPlace').'
-							'.$this->field('idPlaceEdit').'
-						</div>
-					</div>
-					<div class="formFields">
-						<h2>Promoción</h2>
-						<div class="formFieldsIns">
-							<div class="formFields2">
-								'.$this->field('image').'
-								'.$this->field('colorBackground').'
-							</div>
-							<div class="formFields2">
-								<div class="formField formFieldOld">'.$place->getImage('image', 'small').'</div>
-								<div class="formField formFieldOld">
-									'.$place->get('colorBackground').'
-									<div style="width: 50px; height: 30px; background: '.$place->get('colorBackground').';"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>';
-	}
 
 	public function createPublicAdmin() {
-		$place = Place::read($this->values['idPlace']);
-		$form = Form::createForm($this->createFormFieldsPublicAdmin(), array('submit'=>'Actualizar', 'class'=>'formPublic formPlaceEdit'));
-		if ($place->id()!='') {
-			$form = Form::createForm($this->createFormFieldsPublicAdminPlace($place), array('submit'=>'Actualizar', 'class'=>'formPublic formPlaceEdit'));
-		}
-		return $form.'
-				<div class="btnPublish">
-					<a href="'.url('lugar-editar-publicar/'.PlaceEdit::encodeIdSimple($this->object->id())).'">Publicar la empresa</a>
-					* Esta accion es irreversible.
+		$this->values['choicePromotion'] = (isset($this->values['choicePromotion'])) ? $this->values['choicePromotion'] : 'promoted';
+		$this->values['choicePayment'] = (isset($this->values['choicePayment'])) ? $this->values['choicePayment'] : 'paypal';
+		$fields = '<div class="formPages" data-url="'.url('tag-autocomplete').'">
+						'.$this->field('idPlaceEdit').'
+						'.$this->field('idPlace').'
+						'.$this->field('title').'
+						<div class="formFields2">
+							'.$this->field('email', ['class'=>'formIcon formIcon-email']).'
+							'.$this->field('telephone', ['class'=>'formIcon formIcon-telephone']).'
+						</div>
+						<div class="formFields2">
+							'.$this->field('mobile', ['class'=>'formIcon formIcon-mobile']).'
+							'.$this->field('whatsapp', ['class'=>'formIcon formIcon-whatsapp']).'
+						</div>
+						<div class="formFields2">
+							'.$this->field('web', ['class'=>'formIcon formIcon-globe']).'
+						</div>
+						<div class="formFields2">
+							'.$this->field('facebook', ['class'=>'formIcon formIcon-facebook']).'
+							'.$this->field('twitter', ['class'=>'formIcon formIcon-twitter']).'
+						</div>
+						<div class="formFields2">
+							'.$this->field('instagram', ['class'=>'formIcon formIcon-instagram']).'
+							'.$this->field('youtube', ['class'=>'formIcon formIcon-youtube']).'
+						</div>
+						'.$this->field('address', ['required'=>true]).'
+						<div class="triggerCityWrapper">
+							<div class="triggerCitySelect">
+								'.$this->field('city').'
+								<div class="triggerCity">
+									'.__('cityDoesNotAppear').'
+								</div>
+							</div>
+							<div class="triggerCityInfo">
+								'.FormField_Text::create(['name'=>'cityOther', 'label'=>'city']).'
+							</div>
+						</div>
+						'.$this->field('shortDescription', ['required'=>true]).'
+						'.$this->field('idTag').'
+						'.$this->field('description').'
+						<div class="uploadLogo">
+							<div class="uploadLogoMessage"></div>
+							<div class="uploadLogoIns">'.$this->field('image').'</div>
+							<div class="uploadLogoImage"></div>
+						</div>
+						<div class="formFields2">
+							'.$this->field('nameEditor', ['class'=>'formIcon formIcon-email']).'
+							'.$this->field('emailEditor', ['class'=>'formIcon formIcon-email']).'
+						</div>
+						'.FormField_Hidden::create(array('name'=>'choicePromotion', 'value'=>$this->values['choicePromotion'])).'
+						'.FormField_Hidden::create(array('name'=>'choicePayment', 'value'=>$this->values['choicePayment'])).'
+					</div>';
+		$form = Form::createForm($fields, array('submit'=>'Actualizar', 'class'=>'formPublic formPlaceEdit'));
+		return '<div class="formPagesWrapper formPagesWrapperSimple">
+					'.Form::createForm($fields, array('submit'=>__('send'), 'class'=>'formSimple formPlaceEdit" autocomplete="off')).'
+					<div class="btnPublish">
+						<a href="'.url('lugar-editar-publicar/'.PlaceEdit::encodeIdSimple($this->object->id())).'">Publicar la empresa</a>
+						* Esta accion es irreversible.
+					</div>
 				</div>';
 	}
 

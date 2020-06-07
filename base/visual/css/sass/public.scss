@@ -2303,7 +2303,8 @@ body {
 				}
 				input,
 				select,
-				textarea {
+				textarea,
+				.tagit {
 					border: 2px solid rgba($colorError, 0.6);
 				}
 			}
@@ -2390,6 +2391,49 @@ body {
 				}
 				&.formIcon-youtube::before {
 					@include iconIns("\e922");
+				}
+			}
+			.tagit {
+				width: 100%;
+				padding: 5px 10px;
+				font-size: $fontSizeBig * 0.8;
+				line-height: 1em;
+				background: $white;
+				border: 2px solid rgba($colorText, 0.4);
+				color: $colorText;
+				font-family: $fontFamily;
+				box-sizing: border-box;
+				@include borderRadius(5px);
+				@include animate();
+				input {
+					padding: 0;
+					margin: 0;
+					border: 0;
+				}
+				.tagit-choice {
+					padding: 10px 40px 10px 10px;
+					background: rgba($black, 0.05);
+					color: darken($colorText, 10%);
+					@include borderRadius(3px);
+					.tagit-close {
+						.ui-icon-close {
+							font-family: 'icomoon';
+							speak: none;
+							font-style: normal;
+							font-weight: normal;
+							font-variant: normal;
+							text-transform: none;
+							line-height: 1;
+							padding: 0 10px 0 0;
+							color: rgba($black, 0.3);
+							&:before {
+								content: "\e905";
+							}							
+							&:hover {
+								color: rgba($black, 0.6);
+							}
+						}
+					}
 				}
 			}
 		}
@@ -2627,6 +2671,39 @@ body {
 		}
 	}
 
+}
+
+//Autocomplete
+.ui-autocomplete {
+	padding: 0;
+	margin: 0;
+	border: 1px solid $colorText;
+	background: darken($white, 2%);
+	color: $colorText;
+	width: 250px;
+	font-size: $fontSizeTiny;
+	a {
+		display: block;
+		color:$colorText;
+		padding: 5px 10px;
+		font-weight: normal;
+		cursor: pointer;
+		font-size: $fontSizeNormal;
+		color: $colorText;
+		&.ui-state-hover,
+		&.ui-state-focus{
+			background: rgba($colorMainAlt, 0.1);
+			text-decoration: none;
+		}
+	}
+	li {
+		padding: 0px;
+		margin: 0px;
+		list-style: none;
+	}
+}
+.ui-helper-hidden-accessible {
+	display: none;
 }
 
 @import "_public_responsive.scss";

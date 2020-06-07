@@ -1,27 +1,18 @@
 $(document).ready(function(){
 
-	//AUTOCOMPLETE
-    $('.autocompleteItem input').each(function(index, ele){
-        $(ele).autocomplete({
+    //AUTOCOMPLETE
+    $('.autocompleteItem input').tagit({
+        tagLimit: 3,
+        autocomplete: {
             minLength: 2,
             source: function(request, response) {
-                $.getJSON($('.datajs-tag').data('url'), {
+                $.getJSON($('.formPages').data('url'), {
                     term: extractLast(request.term)
-                }, response );
-            },
-            focus: function() {
-                return false;
-            },
-            select: function(event, ui) {
-                var terms = split(this.value);
-                terms.pop();
-                terms.push(ui.item.value);
-                terms.push("");
-                this.value = terms.join(", ");
-                return false;
+                }, response);
             }
-        });
+        }
     });
+
 
     //SUBSCRIBE
     var triggerPromotion = function() {
@@ -74,6 +65,7 @@ $(document).ready(function(){
             $('.formField-shortdescription').removeClass('errorField');
             $('.formField-nameeditor').removeClass('errorField');
             $('.formField-emaileditor').removeClass('errorField');
+            $('.formField-idtag').removeClass('errorField');
             if (pageActive == 1) {
                 if ($('.formField-title input').val().trim()==='') {
                     errors.push('title');
@@ -104,6 +96,10 @@ $(document).ready(function(){
                 if ($('.formField-shortdescription textarea').val().trim()==='') {
                     errors.push('shortdescription');
                     $('.formField-shortdescription').addClass('errorField');
+                }
+                if ($('.formField-idtag input').val().trim()==='') {
+                    errors.push('idtag');
+                    $('.formField-idtag').addClass('errorField');
                 }
             }
             if (pageActive == 8) {

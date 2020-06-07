@@ -144,7 +144,8 @@
         </attribute>
         <attribute>
             <name>idTag</name>
-            <label>tagsLabel</label>
+            <label>tagsLabel3</label>
+            <required>not-empty</required>
             <type>multiple-autocomplete</type>
             <refObject>Tag</refObject>
             <lnkObject>PlaceEditTag</lnkObject>

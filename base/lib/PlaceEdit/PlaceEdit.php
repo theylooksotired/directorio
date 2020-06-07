@@ -36,7 +36,8 @@ class PlaceEdit extends Db_Object {
 	public function sendEmail($emailTo, $typeEmail='placeEditNew', $values=array()) {
 		$mailPlaceEdit = $this->showUi('Email');
 		$encodedId = $this->encodeId();
-		$type = (isset($values['choicePayment'])) ? $values['choicePayment'] : '';
+		$type = (isset($values['choicePayment'])) ? __($values['choicePayment']) : '';
+		$type = (isset($values['choicePromotion']) && $values['choicePromotion']=='promoted') ? $type : 'Gratis';
 		$linkDelete = url('lugar-editar-borrar/'.$encodedId);
 		$linkUpdate = url('lugar-editar-modificar/'.$encodedId);
 		$linkPublish = url('lugar-editar-publicar/'.$encodedId);
