@@ -665,9 +665,8 @@ class Navigation_Controller extends Controller{
                 // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="tagsLabel3", translation_es="Escriba las categorías de su empresa. Puede tener un máximo 3."');
                 // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="tagsLabelMax3", translation_es="Escriba las categorías de su empresa. Puede tener máximo 3."');
                 // Db::execute('ALTER TABLE `dir_PlaceComment` ADD `active` INT NULL;');
-                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="comment", translation_es="Comentario"');
-                // Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="rating", translation_es="Puntuación"');
-                // Db::execute('ALTER TABLE `dir_PlaceComment` ADD `created` DATETIME NULL;');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="comment", translation_es="Comentario"');
+                Db::execute('INSERT INTO '.Db::prefixTable('LangTrans').' SET code="rating", translation_es="Puntuación"');
                 Db::execute('CREATE TABLE `dir_PlaceComment` ( `idPlaceComment` int(11) NOT NULL, `idPlace` int(11) DEFAULT NULL, `rating` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL, `comment` text COLLATE utf8_unicode_ci DEFAULT NULL, `active` int(11)DEFAULT NULL, `created` datetime DEFAULT NULL) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;');
                 Db::execute('ALTER TABLE `dir_PlaceComment` ADD PRIMARY KEY (`idPlaceComment`);');
                 Db::execute('ALTER TABLE `dir_PlaceComment` MODIFY `idPlaceComment` int(11) NOT NULL AUTO_INCREMENT;');
