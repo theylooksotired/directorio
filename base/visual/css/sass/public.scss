@@ -1541,17 +1541,16 @@ body {
 		}
 		.actionsPlaceButton {
 			display: inline-block;
-			padding: 5px 10px 5px 30px;
+			padding: 10px 20px 10px 40px;
 			width: 130px;
 			text-align: center;
 			color: $white;
-			text-transform: uppercase;
-			font-size: $fontSizeSmall;
 			vertical-align: middle;
 			background: $colorActive;
 			border: 1px solid darken($colorActive, 5%);
 			box-sizing: border-box;
 			position: relative;
+			font-weight: bold;
 			@include borderRadius(3px);
 			&:hover {
 				background: darken($colorActive, 10%);
@@ -1560,6 +1559,17 @@ body {
 				position: absolute;
 				top: 5px;
 				left: 5px;
+				font-size: 20px;
+				line-height: 20px;
+			}
+		}
+		&.actionPlace-comment {
+			.actionsPlaceButton {
+				background: desaturate(lighten($colorText, 30%), 20%);
+				border: 1px solid darken(desaturate(lighten($colorText, 30%), 40%), 15%);
+				&:hover {
+					background: darken(desaturate(lighten($colorText, 30%), 40%), 30%);
+				}
 			}
 		}
 		&.actionPlace-report {
@@ -2704,6 +2714,89 @@ body {
 }
 .ui-helper-hidden-accessible {
 	display: none;
+}
+
+.formField-rating {
+	input {
+		display: none;
+	}
+}
+.formPagesWrapper .formPages .ratingAllWrapper {
+	padding: 0 0 20px 0;
+	@include clearer();
+	.formField {
+		margin: 0;
+	}
+	.ratingWrapper {
+		@include clearer();
+		.rating {
+			cursor: pointer;
+			&:hover {
+				color: saturate(lighten($colorMainAlt, 20%), 20%);
+			}
+		}
+	}
+}
+
+.ratingWrapper {
+	@include clearer();
+	.rating {
+		width: 40px;
+		float: left;
+		margin: 0 10px 0 0;
+		color: rgba($black, 0.2);
+		@include animate();
+		&:last-child {
+			margin: 0;
+		}
+		i {
+			font-size: 30px;
+			text-align: center;
+			line-height: 30px;
+			&.icon-star {
+				color: saturate(lighten($colorMainAlt, 20%), 20%);
+			}
+		}
+	}
+}
+
+.comments {
+	margin: 20px 0 0 0;
+	.commentsTitle {
+		font-weight: bold;
+		color: lighten($colorText, 10%);
+		font-size: $fontSizeNormal * 1.1;
+		padding: 0 0 20px;
+	}
+	.comment {
+		margin: 0 0 20px;
+		padding: 0 0 20px;
+		border-bottom: 1px solid rgba($black, 0.1);
+		&:last-child {
+			margin: 0;
+			padding: 0;
+			border: 0;
+		}
+		.commentIns {
+			padding: 10px 0;
+		}
+		.commentRating {
+			.ratingWrapper {
+				.rating {
+					width: 18px;
+					margin: 0 2px 0 0;
+					i {
+						font-size: 15px;
+						line-height: 15px;
+					}
+				}
+			}
+		}
+		.commentDate {
+			font-size: $fontSizeTiny;
+			color: rgba($black, 0.4);
+		}
+	}
 }
 
 @import "_public_responsive.scss";

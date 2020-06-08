@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+* @structure PlaceComment
+*
+* @author Leano Martinet <info@asterion-cms.com>
+* @package Asterion
+* @version 3.0.1
+-->
+<object>
+	<name>PlaceComment</name>
+	<info>
+		<sql>
+			<primary>idPlaceComment</primary>
+            <created>true</created>
+		</sql>
+		<form>
+			<title>reports</title>
+            <hiddenAdminMenu>true</hiddenAdminMenu>
+		</form>
+	</info>
+	<attributes>
+		<attribute>
+            <name>idPlaceComment</name>
+            <type>id-autoincrement</type>
+        </attribute>
+        <attribute>
+            <name>idPlace</name>
+            <type>linkid-autoincrement</type>
+        </attribute>
+        <attribute>
+            <name>rating</name>
+            <label>rating</label>
+            <type>text-integer</type>
+        </attribute>
+        <attribute>
+            <name>comment</name>
+            <required>not-empty</required>
+            <label>comment</label>
+            <type>textarea</type>
+        </attribute>
+        <attribute>
+            <name>active</name>
+            <label>active</label>
+            <type>checkbox</type>
+        </attribute>
+	</attributes>
+</object>

@@ -18,7 +18,7 @@
 
     <title><?php echo $title;?></title>
 
-    <link href="<?php echo BASE_URL;?>visual/css/stylesheets/public.css?v=16" rel="stylesheet" type="text/css" />
+    <link href="<?php echo BASE_URL;?>visual/css/stylesheets/public.css?v=17" rel="stylesheet" type="text/css" />
 
     <?php echo Navigation_Ui::analytics();?>
     <?php echo $header;?>

@@ -188,6 +188,24 @@ $(document).ready(function(){
 
     }
 
+    //RATING
+    var activateStars = function() {
+        $('.ratingAllWrapper').each(function(index, ele){
+            var valueRating = $(ele).find('input').val() * 1;
+            $(ele).find('.rating i').removeClass('icon-star');
+            $(ele).find('.rating i').addClass('icon-star-empty');
+            for (var i=0; i<valueRating; i++) {
+                $(ele).find('.rating i').eq(i).addClass('icon-star');
+            }
+        });
+    }
+    activateStars();
+    $(document).on('click touch', '.rating', function(evt){
+        var inputText = $(this).parents('.ratingAllWrapper').first().find('input');
+        inputText.val($(this).data('rating'));
+        activateStars();
+    });
+
     //MAPS
     //activateMaps();
 

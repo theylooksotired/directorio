@@ -113,7 +113,22 @@ class Place_Ui extends Ui {
 					<div class="tagsPlace">
 						'.$this->object->tags->showList(array('function'=>'Public')).'
 					</div>
+					'.$this->renderComments().'
 					<div class="actionsPlace">
+						<div class="actionPlace actionPlace-comment">
+							<a rel="nofollow" href="'.url('comentar/'.$this->object->id()).'">
+								<div class="actionPlaceImage">
+									<amp-img layout="responsive" width="300" height="300" src="'.BASE_URL.'visual/img/comment.svg"></amp-img>
+								</div>
+								<div class="actionPlaceIns">
+									<h3>¿Desea escribir un comentario?</h3>
+									<p>Ayude a otros usuarios dejando un comentario sobre esta empresa o negocio. Su mensaje será público previa moderación.</p>
+									<span class="actionsPlaceButtonWrapper">
+										<span class="actionsPlaceButton"><i class="icon icon-edit"></i> Comentar</span>
+									</span>
+								</div>
+							</a>
+						</div>
 						<div class="actionPlace actionPlace-update">
 							<a rel="nofollow" href="'.url('modificar/'.$this->object->id()).'">
 								<div class="actionPlaceImage">
@@ -184,6 +199,16 @@ class Place_Ui extends Ui {
 						</div>
 					</div>
 				</div>';
+	}
+
+	public function renderComments() {
+		$items = new ListObjects('PlaceComment', ['where'=>'idPlace="'.$this->object->id().'" AND active="1"', 'order'=>'created DESC']);
+		if (!$items->isEmpty()) {
+			return '<div class="comments">
+						<div class="commentsTitle">Comentarios sobre '.$this->object->getBasicInfo().'</div>
+						<div class="commentsIns">'.$items->showList().'</div>
+					</div>';
+		}
 	}
 
 	public function renderInfoBlock($attribute, $label) {

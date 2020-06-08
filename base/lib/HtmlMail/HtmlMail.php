@@ -32,6 +32,7 @@ class HtmlMail extends Db_Object {
                             'welcomePlaceEditFree'=>'Gracias por registrar su empresa',
                             'passwordForgot'=>'Contraseña olvidada',
                             'report'=>'Una empresa ha sido reportada',
+                            'comment'=>'Comentario en una empresa',
                             'publishedPlace'=>'Su empresa ha sido publicada',
                             'payedThanks'=>'Gracias por su pago',
                             'modifyPlaceEdit'=>'Gracias por actualizar la información de la empresa',
