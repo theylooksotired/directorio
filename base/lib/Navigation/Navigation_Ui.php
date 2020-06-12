@@ -64,8 +64,9 @@ class Navigation_Ui extends Ui {
 			break;
 			case 'simple':
 			case 'form':
+				$amp = (isset($this->object->mode) && $this->object->mode=='amp') ? true : false;
 				return '<div class="contentAllWrapper contentAllWrapper-clean">
-							'.$this->header().'
+							'.$this->header($amp).'
 							<div class="contentWrapper contentWrapperSimple contentWrapper-clean">
 								<div class="contentWrapperIns">
 									'.$message.'
@@ -78,7 +79,8 @@ class Navigation_Ui extends Ui {
 						</div>';
 			break;
 			case 'clean':
-				return $this->header().'
+				$amp = (isset($this->object->mode) && $this->object->mode=='amp') ? true : false;
+				return $this->header($amp).'
 						<div class="contentWrapper contentWrapperSimple contentWrapper-clean">
 							'.(($amp) ? Adsense::amp() : Adsense::top()).'
 							'.$message.'
@@ -89,8 +91,9 @@ class Navigation_Ui extends Ui {
 						'.$this->footer();
 			break;
 			case 'empty':
+				$amp = (isset($this->object->mode) && $this->object->mode=='amp') ? true : false;
 				return '<div class="contentAllWrapper contentAllWrapper-empty">
-							'.$this->header().'
+							'.$this->header($amp).'
 							<div class="contentWrapper contentWrapperSimple contentWrapper-clean">
 								'.$message.'
 								'.$messageError.'
@@ -100,8 +103,9 @@ class Navigation_Ui extends Ui {
 						</div>';
 			break;
 			case 'message':
+				$amp = (isset($this->object->mode) && $this->object->mode=='amp') ? true : false;
 				return '<div class="contentAllWrapper contentAllWrapper-clean">
-							'.$this->header().'
+							'.$this->header($amp).'
 							<div class="contentWrapper contentWrapperMessage contentWrapper-clean">
 								'.(isset($this->object->messageImage) ? '<div class="messageImage"><img src="'.BASE_URL.'visual/img/'.$this->object->messageImage.'.svg"/></div>' : '').'
 								<div class="message">
